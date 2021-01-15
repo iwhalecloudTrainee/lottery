@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!--加载配置文件，为下面读取数据库信息准备-->
+    <!--<properties resource="application.yml"/>-->
+
+    <context id="Mysql" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <plugin type="tk.mybatis.mapper.generator.MapperPlugin">
+            <property name="mappers" value="tk.mybatis.mapper.common.Mapper"/>
+            <!-- caseSensitive默认false，当数据库表名区分大小写时，可以将该属性设置为true -->
+            <property name="caseSensitive" value="true"/>
+        </plugin>
+
+        <!-- 阻止生成自动注释 -->
+        <commentGenerator>
+            <property name="javaFileEncoding" value="UTF-8"/>
+            <property name="suppressDate" value="true"/>
+            <property name="suppressAllComments" value="true"/>
+        </commentGenerator>
+
+        <!--数据库链接地址账号密码-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://117.78.8.245:3306/lottery?serverTimezone=UTC"
+                        userId="lottery"
+                        password="1q2w3e4!QQQQQQQQQQ">
+        </jdbcConnection>
+
+        <javaTypeResolver>
+            <property name="forceBigDecimals" value="true"/>
+        </javaTypeResolver>
+
+        <!--生成PO类存放位置-->
+
+        <javaModelGenerator targetPackage="com.iwhalecloud.lottery.entity" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="false"/>
+        </javaModelGenerator>
+
+        <!--生成映射文件存放位置-->
+
+        <sqlMapGenerator targetPackage="mapper" targetProject="src/main/resources/">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+
+        <!--生成Dao类存放位置-->
+        <!-- 客户端代码，生成易于使用的针对Model对象和XML配置文件 的代码
+                type="ANNOTATEDMAPPER",生成Java Model 和基于注解的Mapper对象
+                type="XMLMAPPER",生成SQLMap XML文件和独立的Mapper接口
+        -->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="com.iwhalecloud.lottery.mapper" targetProject="src/main/java">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+
+        <!-- <table tableName="hbs_repair_other_data" domainObjectName="RepairOtherData" mapperName="RepairOtherDataMapper"></table>-->
+<!--        <table tableName="award" domainObjectName="Award" mapperName="AwardMapper"></table>-->
+        <table tableName="lottery" domainObjectName="Lottery" mapperName="LotteryMapper"></table>
+        <table tableName="prize" domainObjectName="Prize" mapperName="PrizeMapper"></table>
+        <table tableName="staff" domainObjectName="Staff" mapperName="StaffMapper"></table>
+        <table tableName="user_info" domainObjectName="UserInfo" mapperName="UserInfoMapper"></table>
+
+        <!--</table>-->
+        <!--<table tableName="pro_operation_log" domainObjectName="ProOperationLog" mapperName="ProOperationLogMapper"></table>-->
+
+        <!--<table tableName="pro_monitor_rule_config" domainObjectName="MonitorRule" mapperName="MonitorRuleMapper"></table>-->
+
+        <!--<table tableName="pro_login_log" domainObjectName="ProLoginLog" mapperName="ProLoginLogMapper"></table>-->
+        <!--<table tableName="pro_operation_log" domainObjectName="ProOperationLog" mapperName="ProOperationLogMapper"></table>-->
+        <!--生成对应表及类名
+        去掉Mybatis Generator生成的一堆 example
+        -->
+    </context>
+</generatorConfiguration>

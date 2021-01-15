@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.iwhalecloud.lottery.mapper.PrizeMapper">
+  <resultMap id="BaseResultMap" type="com.iwhalecloud.lottery.entity.Prize">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="prize_id" jdbcType="INTEGER" property="prizeId" />
+    <result column="prize_name" jdbcType="VARCHAR" property="prizeName" />
+    <result column="num" jdbcType="INTEGER" property="num" />
+    <result column="lottery_id" jdbcType="INTEGER" property="lotteryId" />
+    <result column="prize_level" jdbcType="INTEGER" property="prizeLevel" />
+  </resultMap>
+</mapper>
