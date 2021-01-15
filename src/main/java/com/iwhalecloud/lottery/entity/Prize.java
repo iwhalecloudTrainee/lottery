@@ -32,7 +32,7 @@ public class Prize {
 	private Integer lotteryId;
 
 	/**
-	 * 排序，越大越靠前
+	 * 排序，越小越靠前
 	 */
 	@Column(name = "prize_level")
 	private Integer prizeLevel;
