@@ -12,4 +12,5 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("lottery")
 public class LotteryController {
+
 }
