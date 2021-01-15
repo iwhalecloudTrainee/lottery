@@ -1,6 +1,7 @@
 package com.iwhalecloud.lottery.entity;
 
 import lombok.Data;
+import org.springframework.data.relational.core.sql.In;
 
 import javax.persistence.*;
 
@@ -25,5 +26,11 @@ public class Staff {
 	 */
 	@Column(name = "lottery_id")
 	private Integer lotteryId;
+
+	/**
+	 * 0：未中奖，任可继续抽奖，1：已中奖，移除奖池
+	 */
+	@Column(name = "state")
+	private Integer state;
 
 }

@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class Router {
 	@RequestMapping("index")
 	public String index() {
-		return "index";
+		return "index/index.html";
+	}
+	@RequestMapping("login")
+	public String login(){
+		return "login/login.html";
 	}
 }

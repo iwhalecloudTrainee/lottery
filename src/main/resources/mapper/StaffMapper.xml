@@ -8,5 +8,7 @@
     <id column="staff_code" jdbcType="VARCHAR" property="staffCode" />
     <result column="staff_name" jdbcType="VARCHAR" property="staffName" />
     <result column="lottery_id" jdbcType="INTEGER" property="lotteryId" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+
   </resultMap>
 </mapper>

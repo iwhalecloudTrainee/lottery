@@ -1,6 +1,4 @@
-package com.iwhalecloud.lottery.parmas.vo;
-
-import java.util.List;
+package com.iwhalecloud.lottery.params.vo;
 
 /**
  * @author by W4i

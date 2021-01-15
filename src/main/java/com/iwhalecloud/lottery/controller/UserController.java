@@ -1,7 +1,7 @@
 package com.iwhalecloud.lottery.controller;
 
 import com.iwhalecloud.lottery.entity.UserInfo;
-import com.iwhalecloud.lottery.parmas.vo.Result;
+import com.iwhalecloud.lottery.params.vo.Result;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
