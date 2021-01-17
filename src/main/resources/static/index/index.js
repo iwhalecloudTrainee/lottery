@@ -14,7 +14,7 @@ var app =new Vue({
             var params={};
             // 封装ajx方法 调用后端
             // 此处并没有进行测试到时候报错进去打log查看
-            lotteryServ.execute("user", "login", params, function (data) {
+            lotteryServ.execute("UserController", "user/login", params, function (data) {
 
             })
         },

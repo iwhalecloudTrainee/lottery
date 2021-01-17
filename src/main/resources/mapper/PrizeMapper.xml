@@ -11,4 +11,9 @@
     <result column="lottery_id" jdbcType="INTEGER" property="lotteryId" />
     <result column="prize_level" jdbcType="INTEGER" property="prizeLevel" />
   </resultMap>
+  <!--  插入sql-->
+  <insert id="insertPrize" parameterType="com.iwhalecloud.lottery.entity.Prize" >
+    insert  into prize (prize_name,num,lottery_id,prize_level)
+        values (#{prizeName},#{num},#{lotteryId},#{prizeLevel})
+  </insert>
 </mapper>

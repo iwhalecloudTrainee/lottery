@@ -29,8 +29,8 @@ function getContextPath() {
                 }
             });
         },
-        posturl:function(serv, method,param){
-            var uri = SERVER_ADDRESS +serv+method +"?";
+        posturl:function( method,param){
+            var uri = SERVER_ADDRESS +method +"?";
             for(key in param){
                 uri = uri + key + "=" + param[key] + "&";
             }

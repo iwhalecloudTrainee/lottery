@@ -9,4 +9,12 @@
     <result column="lottery_name" jdbcType="VARCHAR" property="lotteryName" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
   </resultMap>
+  <!--  插入sql-->
+  <insert id="insertLottery" parameterType="com.iwhalecloud.lottery.entity.Lottery" >
+    insert  into lottery (lottery_name,user_id)
+        values (#{lotteryName},#{userId})
+  </insert>
+  <delete id="deleteLottery" parameterType="com.iwhalecloud.lottery.entity.Lottery">
+    delete lottery where lotteryName=#{lotteryName} and userId=#{userId}
+  </delete>
 </mapper>

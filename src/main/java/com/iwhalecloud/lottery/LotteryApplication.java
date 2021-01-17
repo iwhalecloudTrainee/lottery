@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import tk.mybatis.spring.annotation.MapperScan;
 
 @SpringBootApplication
+@MapperScan("com.iwhalecloud.lottery.mapper")
 public class LotteryApplication {
 
 	public static void main(String[] args) {

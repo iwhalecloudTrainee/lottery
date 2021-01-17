@@ -65,6 +65,23 @@
             <artifactId>mapper</artifactId>
             <version>4.1.5</version>
         </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.13</version>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/com.liferay/org.apache.commons.fileupload -->
+        <dependency>
+            <groupId>com.liferay</groupId>
+            <artifactId>org.apache.commons.fileupload</artifactId>
+            <version>1.2.2.LIFERAY-PATCHED-1</version>
+        </dependency>
+
     </dependencies>
 
     <build>
