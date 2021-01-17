@@ -1,4 +1,4 @@
-package com.iwhalecloud.lottery.util;
+package com.iwhalecloud.lottery.utils;
 import org.apache.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
