@@ -12,21 +12,36 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller("/")
 public class Router {
-	@RequestMapping("index")
+
+	@RequestMapping("newLottery")
 	public String index() {
-		return "index/index.html";
+		return "newLottery/newLottery.html";
 	}
 
+	/**
+	 * 登录界面返回
+	 * @return
+	 */
 	@RequestMapping("login")
 	public String login() {
 		return "login/login.html";
 	}
 
+	/**
+	 * 单个抽奖查询
+	 * 预计入参 lotteryId，session
+	 * @return
+	 */
 	@RequestMapping("lottery")
 	public String lottery() {
 		return "lottery/lottery.html";
 	}
 
+	/**
+	 * 用户创建的所有抽奖列表
+	 * 预计入参：userId，session
+	 * @return
+	 */
 	@RequestMapping("lotteryList")
 	public String lotteryList() {
 		return "lotteryList/lotteryList.html";
