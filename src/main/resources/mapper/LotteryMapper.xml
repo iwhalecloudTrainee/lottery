@@ -8,6 +8,8 @@
     <id column="lottery_id" jdbcType="INTEGER" property="lotteryId" />
     <result column="lottery_name" jdbcType="VARCHAR" property="lotteryName" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+
   </resultMap>
   <!--  插入sql-->
   <insert id="insertLottery" parameterType="com.iwhalecloud.lottery.entity.Lottery" >
