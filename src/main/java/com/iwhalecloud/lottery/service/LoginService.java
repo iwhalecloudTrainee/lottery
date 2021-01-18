@@ -7,18 +7,13 @@ package com.iwhalecloud.lottery.service;
  * @date: 2021-1-18 14：12
  */
 
-import com.iwhalecloud.lottery.entity.UserInfo;
+import com.iwhalecloud.lottery.params.req.LoginReq;
+import com.iwhalecloud.lottery.params.vo.Result;
 
 public interface LoginService {
 
-    /**
-     * 根据用户ID查询用户信息
-     *
-     * @param password
-     * @return
-     */
-    UserInfo getUserInfoByPassword (String password);
 
+    Result login(LoginReq loginReq);
 
 
 }
