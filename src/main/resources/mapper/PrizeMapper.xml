@@ -29,4 +29,11 @@
             where prize_id = ${prize.PrizeId}
         </foreach>
     </update>
+    <delete id="deleteBatch" parameterType="java.util.List">
+        delete  from  prize
+        where lottery_id in
+        <foreach collection="list" item="prize" open="(" separator="," close=")">
+        #{prize.prizeId}
+    </foreach>
+    </delete>
 </mapper>

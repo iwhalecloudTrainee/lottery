@@ -86,8 +86,12 @@ public class LotteryServiceImpl implements LotteryService {
         // 更新抽奖表
         lotteryMapper.updateByPrimaryKey(lottery);
         List<Prize> prize = form.getPrize();
-        // 更新奖品表
-        prizeMapper.updateBatch(prize);
+        for (Prize prizeMap : prize) {
+            prizeMap.setLotteryId(lotteryId);
+        }
+        // 先删除后insert达到更新奖品的目的
+        prizeMapper.deleteBatch(prize);
+        prizeMapper.insertPrize(prize);
         return Result.getSuccess("更新成功！！");
     }
 }
