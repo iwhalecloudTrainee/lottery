@@ -2,8 +2,10 @@ package com.iwhalecloud.lottery.service.impl;
 
 import com.iwhalecloud.lottery.entity.Lottery;
 import com.iwhalecloud.lottery.entity.Prize;
+import com.iwhalecloud.lottery.entity.Staff;
 import com.iwhalecloud.lottery.mapper.LotteryMapper;
 import com.iwhalecloud.lottery.mapper.PrizeMapper;
+import com.iwhalecloud.lottery.mapper.StaffMapper;
 import com.iwhalecloud.lottery.params.vo.Result;
 import com.iwhalecloud.lottery.service.UploadExcelService;
 import com.iwhalecloud.lottery.util.ExcelData;
@@ -32,34 +34,26 @@ public class UploadExcelServiceImpl implements UploadExcelService {
     LotteryMapper lotteryMapper;
     @Autowired
     PrizeMapper prizeMapper;
+    @Autowired
+    StaffMapper staffMapper;
 
     /**
      * 批量上传文件
-     * @param request
+     * @param staff
      * @return
      */
     @Override
-    public Result batchUploadExcel(HttpServletRequest request) {
-        //判断是否为文件上传模式，只判断excel
-        List<Map<String, String>> upList = getUploadExcel(request, 2);
-        if (upList==null){
-            return  Result.getFalse("未检测到数据文件");
+    public Result batchUploadExcel(List<Staff> staff) {
+        Result result=null;
+        // 默认未中奖
+        for (Staff staffMap : staff) {
+            staffMap.setState(0);
         }
-        for (int i = 0; i < upList.size(); i++) {
-            Map dataList=upList.get(i);
-            // copy upList里面的数据
-            Lottery lottery=new Lottery();
-            BeanUtils.copyProperties(dataList,lottery);
-            // 保证每个员工在数据库中只能存在一条数据 先删除再插入
-            try {
-                lotteryMapper.deleteLottery(lottery);
-                lotteryMapper.insertLottery(lottery);
-            }catch (Exception e){
-                return  Result.getFalse(e);
-            }
-        }
-        return Result.getSuccess("成功导入"+upList.size());
-
+        //先删除再导入
+        staffMapper.deleteBatchData(staff);
+        staffMapper.insertBatchExcel(staff);
+        result =Result.getSuccess("成功导入"+staff.size()+"条");
+        return  result;
     }
 
     /**
@@ -79,60 +73,7 @@ public class UploadExcelServiceImpl implements UploadExcelService {
 
 
 
-    /**
-     * 获取excel数据
-     * @param request
-     * @param rowNumOfColumnKey
-     * @return
-     */
-    private List<Map<String, String>> getUploadExcel(HttpServletRequest request, int rowNumOfColumnKey) {
-        RequestContext requestContext = new ServletRequestContext(request);
-        if (!ServletFileUpload.isMultipartContent(requestContext)) {
-            return null;
-        }
-        // 获取参数和文件
-        Map<String, String> params = new HashMap<String, String>();
-        List<String> files = new ArrayList<String>();
-        try {
-            DiskFileItemFactory factory = new DiskFileItemFactory();
-            factory.setSizeThreshold(10 * 1000 * 1000);
-            ServletFileUpload upload = new ServletFileUpload(factory);
-            upload.setSizeMax(20 * 1000 * 1000);
-            List items = upload.parseRequest(request);
-            System.out.println(items);
-            for (int i = 0; i < items.size(); i++) {
-                FileItem fi = (FileItem) items.get(i);
-                if (fi.isFormField()) {
-                    String filedValue = fi.getString();
-                    try {
-                        filedValue = URLDecoder.decode(filedValue, "utf-8");
-                    } catch (UnsupportedEncodingException e) {
-                    }
-                    params.put(fi.getFieldName(), filedValue);
-                } else {
-                    if (fi.getSize() == 0) {
-                        continue;
-                    }
-                    // 格式只能为xls
-                    File f = File.createTempFile("temp", ".xls");
-                    fi.write(f);
-                    files.add(f.getPath());
-                }
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-            e.printStackTrace();
-            return null;
-        }
-        request.setAttribute("UPFILE_PARAMS", params);
-        if (files.size() == 0) {
-            return null;
-        } else {
-            String filePath = files.get(0);
-            request.setAttribute("UPFILE_PATH", filePath);
-            return ExcelData.getSheetData(filePath, rowNumOfColumnKey);
-        }
-    }
+
 
 
 }

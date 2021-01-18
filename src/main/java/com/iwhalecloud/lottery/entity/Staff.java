@@ -1,5 +1,6 @@
 package com.iwhalecloud.lottery.entity;
 
+import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;
 import org.springframework.data.relational.core.sql.In;
 
@@ -13,12 +14,14 @@ public class Staff {
 	 */
 	@Id
 	@Column(name = "staff_code")
+	@ExcelProperty("工号")
 	private String staffCode;
 
 	/**
 	 * 名字
 	 */
 	@Column(name = "staff_name")
+	@ExcelProperty("员工姓名")
 	private String staffName;
 
 	/**
