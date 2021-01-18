@@ -32,7 +32,7 @@ public class LotteryController {
      * @param file
      * @return
      */
-    @PostMapping("upload")
+    @PostMapping("getUploadExcel")
     public Result getUploadExcel( @RequestParam MultipartFile file, Integer lotteryId){
         Result result=null;
         List<Staff> staffList = new ArrayList<Staff>();

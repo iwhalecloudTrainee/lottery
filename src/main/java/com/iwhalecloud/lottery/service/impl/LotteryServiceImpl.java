@@ -60,7 +60,7 @@ public class LotteryServiceImpl implements LotteryService {
         // 获取奖品list
         List<Prize> prize = form.getPrize();
         for (Prize prizeMap : prize) {
-            prizeMap.setLotteryId(lotteryId);
+            prizeMap.setLotteryId(lottery.getLotteryId());
         }
         prizeMapper.insertPrize(prize);
         return Result.getSuccess("创建成功");
