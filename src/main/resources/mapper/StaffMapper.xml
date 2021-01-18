@@ -27,4 +27,10 @@
             #{staff.staffCode}
         </foreach>
     </delete>
+    <!-- 查询员工所有信息-->
+    <select id="selectAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from staff
+    </select>
 </mapper>
