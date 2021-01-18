@@ -11,8 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 
 /**
- * 用于提供与用户有关的接口（登录、导入员工……）
- *
  * @author by W4i
  * @date 2021/1/15 19:53
  */

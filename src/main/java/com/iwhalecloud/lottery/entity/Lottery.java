@@ -31,8 +31,7 @@ public class Lottery {
 	/**
 	 * 用户密码
 	 */
-	@Column(name="password")
+	@Column(name = "password")
 	private String password;
-
 
 }

@@ -30,10 +30,10 @@ public class LoginServiceImpl implements LoginService {
 		if (null == loginReq.getLotteryId() || !StringUtils.hasText(loginReq.getPassword())) {
 			return Result.getFalse("输入有误");
 		}
-		Lottery lottery=new Lottery();
-		BeanUtils.copyProperties(loginReq,lottery);
+		Lottery lottery = new Lottery();
+		BeanUtils.copyProperties(loginReq, lottery);
 		lottery.setPassword(MD5Util.getMD5String(lottery.getPassword()));
-		if (lotteryMapper.selectCount(lottery)<1){
+		if (lotteryMapper.selectCount(lottery) < 1) {
 			return Result.getFalse("密码错误");
 		}
 		return Result.getSuccess();

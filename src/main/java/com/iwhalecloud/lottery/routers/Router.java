@@ -20,6 +20,7 @@ public class Router {
 
 	/**
 	 * 登录界面返回
+	 *
 	 * @return
 	 */
 	@RequestMapping("login")
@@ -30,6 +31,7 @@ public class Router {
 	/**
 	 * 单个抽奖查询
 	 * 预计入参 lotteryId，session
+	 *
 	 * @return
 	 */
 	@RequestMapping("lottery")
@@ -40,6 +42,7 @@ public class Router {
 	/**
 	 * 用户创建的所有抽奖列表
 	 * 预计入参：userId，session
+	 *
 	 * @return
 	 */
 	@RequestMapping("lotteryList")

@@ -66,15 +66,17 @@ public class Result {
 	public static Result getSuccess(Object data) {
 		return new Result(true, data, 1);
 	}
+
 	/**
 	 * 成功又返回值
 	 *
 	 * @param data
 	 * @return
 	 */
-	public static Result getSuccess(Object data,int code) {
+	public static Result getSuccess(Object data, int code) {
 		return new Result(true, data, code);
 	}
+
 	/**
 	 * 失败无返回值
 	 *

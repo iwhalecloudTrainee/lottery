@@ -2,9 +2,10 @@ package com.iwhalecloud.lottery.entity;
 
 import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;
-import org.springframework.data.relational.core.sql.In;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Data
 @Table(name = "staff")

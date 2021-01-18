@@ -12,8 +12,6 @@ import com.iwhalecloud.lottery.params.vo.Result;
 
 public interface LoginService {
 
-
-    Result login(LoginReq loginReq);
-
+	Result login(LoginReq loginReq);
 
 }

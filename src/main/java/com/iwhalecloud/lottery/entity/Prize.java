@@ -2,7 +2,9 @@ package com.iwhalecloud.lottery.entity;
 
 import lombok.Data;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
 @Data
 @Table(name = "prize")
@@ -30,7 +32,5 @@ public class Prize {
 	 */
 	@Column(name = "lottery_id")
 	private Integer lotteryId;
-
-
 
 }
