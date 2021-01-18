@@ -2,12 +2,9 @@ package com.iwhalecloud.lottery.utils;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
-import com.iwhalecloud.lottery.entity.Prize;
 import com.iwhalecloud.lottery.entity.Staff;
-import com.iwhalecloud.lottery.params.vo.Result;
-import com.iwhalecloud.lottery.service.UploadExcelService;
+import com.iwhalecloud.lottery.service.LotteryService;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +18,7 @@ public class DemoDataListener extends AnalysisEventListener<Staff> {
     /**
      * 假设这个是一个DAO，当然有业务逻辑这个也可以是一个service。当然如果不用存储这个对象没用。
      */
-    private UploadExcelService uploadExcelService;
+    private LotteryService lotteryService;
 //    public DemoDataListener() {
 //        // 这里是demo，所以随便new一个。实际使用如果到了spring,请使用下面的有参构造函数
 //        uploadExcelService = new UploadExcelService();
@@ -29,10 +26,10 @@ public class DemoDataListener extends AnalysisEventListener<Staff> {
     /**
      * 如果使用了spring,请使用这个构造方法。每次创建Listener的时候需要把spring管理的类传进来
      *
-     * @param uploadExcelService
+     * @param lotteryService
      */
-    public DemoDataListener(UploadExcelService uploadExcelService) {
-        this.uploadExcelService= uploadExcelService;
+    public DemoDataListener(LotteryService lotteryService) {
+        this.lotteryService = lotteryService;
     }
     /**
      * 这个每一条数据解析都会来调用
@@ -65,7 +62,7 @@ public class DemoDataListener extends AnalysisEventListener<Staff> {
      */
     private void saveData() {
         System.out.println("开始入库"+list.size()+"条数据");
-        uploadExcelService.batchUploadExcel(list);
+        lotteryService.batchUploadExcel(list,0);
         System.out.println("储存成功");
     }
 }

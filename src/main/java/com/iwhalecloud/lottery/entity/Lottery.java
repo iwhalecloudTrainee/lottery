@@ -23,16 +23,16 @@ public class Lottery {
 	private String lotteryName;
 
 	/**
-	 * 用户id
-	 */
-	@Column(name = "user_id")
-	private Integer userId;
-
-	/**
 	 * 1：还可以修改，0：不能再修改
 	 * 当改lottery进行了第一次抽奖后，state改为0（或者每次抽奖都更新一下lottery.state）
 	 */
 	@Column(name = "state")
 	private Integer state;
+	/**
+	 * 用户密码
+	 */
+	@Column(name="password")
+	private String password;
+
 
 }

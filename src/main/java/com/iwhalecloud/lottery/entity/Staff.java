@@ -10,6 +10,12 @@ import javax.persistence.*;
 @Table(name = "staff")
 public class Staff {
 	/**
+	 * id
+	 */
+	@Id
+	@Column(name = "staff_id")
+	private String staffId;
+	/**
 	 * 工号
 	 */
 	@Id

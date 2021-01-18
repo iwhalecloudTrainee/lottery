@@ -9,13 +9,14 @@
     <result column="staff_name" jdbcType="VARCHAR" property="staffName" />
     <result column="lottery_id" jdbcType="INTEGER" property="lotteryId" />
     <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="staff_id" jdbcType="INTEGER" property="staff_id" />
   </resultMap>
   <!-- 批量新增-->
   <insert id="insertBatchExcel" parameterType="java.util.List">
-      INSERT INTO staff(staff_code,staff_name,state)
+      INSERT INTO staff(staff_code,staff_name,lottery_id,state)
       VALUES
       <foreach collection="list" item="staff" separator=",">
-        (#{staff.staffCode,jdbcType=VARCHAR},#{staff.staffName,jdbcType=VARCHAR},#{staff.state})
+        (#{staff.staffCode,jdbcType=VARCHAR},#{staff.staffName,jdbcType=VARCHAR},#{staff.lotteryId},#{staff.state})
       </foreach>
   </insert>
     <!--  批量删除 -->

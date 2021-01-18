@@ -9,11 +9,24 @@
     <result column="prize_name" jdbcType="VARCHAR" property="prizeName" />
     <result column="num" jdbcType="INTEGER" property="num" />
     <result column="lottery_id" jdbcType="INTEGER" property="lotteryId" />
-    <result column="prize_level" jdbcType="INTEGER" property="prizeLevel" />
   </resultMap>
   <!--  插入sql-->
-  <insert id="insertPrize" parameterType="com.iwhalecloud.lottery.entity.Prize" >
-    insert  into prize (prize_name,num,lottery_id,prize_level)
-        values (#{prizeName},#{num},#{lotteryId},#{prizeLevel})
+  <insert id="insertPrize" parameterType="java.util.List" >
+    insert  into prize (prize_name,num,lottery_id)
+        values
+        <foreach collection="list" item="prize" separator=",">
+          (#{prize.prizeName},#{prize.num},#{prize.lotteryId})
+        </foreach>
   </insert>
+   <!--  批量更新    -->
+    <update id="updateBatch"  parameterType="java.util.List">
+        <foreach collection="list" item="prize" index="index" open="" close="" separator=";">
+            update prize
+            <set>
+                prize_name=#{prize.prizeName},
+                num=#{prize.num}
+            </set>
+            where prize_id = ${prize.PrizeId}
+        </foreach>
+    </update>
 </mapper>
