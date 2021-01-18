@@ -10,15 +10,51 @@
     <!-- 引入 Vue 和 Vant 的 JS 文件 -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6/dist/vue.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
-
+    <!--引入 element-ui 的样式，-->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 必须先引入vue，  后使用element-ui -->
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <!-- 引入element 的组件库-->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
 </head>
 
 <body>
-<div id="app">
-    newLottery
-</div>
+<div id="newLottery">
 
-<script src="newLottery"></script>
+    <el-form :model="dynamicValidateForm" ref="dynamicValidateForm" label-width="100px" class="demo-dynamic">
+        <el-form-item
+                prop="lotteryName"
+                label="抽奖标题"
+                :rules="[{ required: true, message: '请输入抽奖标题', trigger: 'blur' },]">
+            <el-input v-model="dynamicValidateForm.lotteryName"></el-input>
+        </el-form-item>
+        <el-form-item
+                v-for="(domain, index) in dynamicValidateForm.prizes">
+            <el-form-item
+                    :key="domain.key"
+                    :prop="'prizes.' + index + '.value'"
+                    label="奖品名"
+                    :rules="{required: true, message: '奖品不能为空', trigger: 'blur'}">
+                <el-input v-model="domain.value"></el-input>
+            </el-form-item>
+            <el-form-item
+                    label="数量"
+                    :key="domain.key"
+                    :prop="'prizes.' + index + '.num'"
+                    :min="1"
+                    :rules="[{ required: true, message: '数量不能为空'}]">
+                <el-input-number v-model="domain.num"></el-input-number>
+            </el-form-item>
+            <el-button @click.prevent="removeDomain(domain)">删除</el-button>
+        </el-form-item>
+        <el-form-item>
+            <el-button type="primary" @click="submitForm('dynamicValidateForm')">提交</el-button>
+            <el-button @click="addDomain">新增奖品</el-button>
+            <el-button @click="resetForm('dynamicValidateForm')">重置</el-button>
+        </el-form-item>
+    </el-form>
+</div>
+<script type="text/javascript" src="newLottery/newLottery.js"></script>
 </body>
 
 </html>

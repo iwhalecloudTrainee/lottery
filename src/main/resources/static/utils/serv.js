@@ -10,13 +10,15 @@ function getContextPath() {
 }
 (function(window){
    var SERVER_ADDRESS=getContextPath();
-    var lotteryServ = {
-        execute: function(serv, method, param, call_back){
-
-            $.extend(param,{"actionId":serv,"method":method,"source":"mobile"});
+    var serv = {
+        execute: function(method, param, call_back){
+            console.log(param)
+            $.extend(param);
             $.ajax({
-                type: 'GET',
-                url: this.posturl(serv, method,param),
+                type: 'POST',
+                // url: this.posturl( method),
+                url: method,
+                params:param,
 //                dataType: "jsonp",
                 timeout:30000,
                 success: function(data) {
@@ -34,12 +36,10 @@ function getContextPath() {
             for(key in param){
                 uri = uri + key + "=" + param[key] + "&";
             }
-            uri += "rmd="+new Date().getTime();
-            
             return uri;
         }
     };
 
-    window.lotteryServ = lotteryServ;
+    window.serv = serv;
 })(window);
 
