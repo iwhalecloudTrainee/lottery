@@ -1,5 +1,6 @@
 package com.iwhalecloud.lottery.entity;
 
+import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;
 import org.springframework.data.relational.core.sql.In;
 
@@ -9,16 +10,24 @@ import javax.persistence.*;
 @Table(name = "staff")
 public class Staff {
 	/**
+	 * id
+	 */
+	@Id
+	@Column(name = "staff_id")
+	private String staffId;
+	/**
 	 * 工号
 	 */
 	@Id
 	@Column(name = "staff_code")
+	@ExcelProperty("工号")
 	private String staffCode;
 
 	/**
 	 * 名字
 	 */
 	@Column(name = "staff_name")
+	@ExcelProperty("员工姓名")
 	private String staffName;
 
 	/**
