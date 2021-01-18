@@ -54,11 +54,10 @@ public class LotteryController {
      * @return
      */
     @ResponseBody
-    @PostMapping ("prize")
+    @PostMapping ("createPrize")
     public  Result createPrize(@RequestBody Form form){
         return lotteryService.createPrize(form);
     }
-
     /**
      * 更新抽奖
      * @param form

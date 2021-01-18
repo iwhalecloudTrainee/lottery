@@ -16,6 +16,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
     <!-- 引入element 的组件库-->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 
 <body>
@@ -35,7 +36,7 @@
                     :prop="'prizes.' + index + '.value'"
                     label="奖品名"
                     :rules="{required: true, message: '奖品不能为空', trigger: 'blur'}">
-                <el-input v-model="domain.value"></el-input>
+                <el-input v-model="domain.prizeName"></el-input>
             </el-form-item>
             <el-form-item
                     label="数量"
@@ -48,7 +49,7 @@
             <el-button @click.prevent="removeDomain(domain)">删除</el-button>
         </el-form-item>
         <el-form-item>
-            <el-button type="primary" @click="submitForm('dynamicValidateForm')">提交</el-button>
+            <el-button type="primary" @click="submitForm()">提交</el-button>
             <el-button @click="addDomain">新增奖品</el-button>
             <el-button @click="resetForm('dynamicValidateForm')">重置</el-button>
         </el-form-item>

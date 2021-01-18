@@ -1,40 +1,31 @@
-import axios from
 new Vue({
     // 绑定html id
     el: '#newLottery',
     // 全局变量存储
     data: {
         dynamicValidateForm: {
-            prizes: [{
-                value: '',
-                num: 0,
-            }],
+            prizes: [
+                {
+                    prizeName: null,
+                    num: 0
+                }
+            ],
+
             lotteryName: '',
         }
     },
 
     // function都写这里
     methods: {
+        submitForm: function () {
+            const param = {
+                lotteryName: this.dynamicValidateForm.lotteryName,
+                prize: this.dynamicValidateForm.prizes,
+            }
+            axios.post('lottery/createPrize',param,function (response){
+                console.log("sad")
+            })
 
-        submitForm: function (formName) {
-            this.$refs[formName].validate((valid) => {
-                    if (valid) {
-                        const param={
-                            lotteryName: this.dynamicValidateForm.lotteryName,
-                                prizes:this.dynamicValidateForm.prizes,
-                        }
-                       this.axios({
-                            method:'get',
-                            url:'http://locahost:8089/asd',
-                            params:param
-                        }).then(function (res){
-                            console.log("asd")
-                        })
-
-                    }
-                }
-            )
-            console.log(this.dynamicValidateForm)
         },
         resetForm(formName) {
             this.$refs[formName].resetFields();
@@ -47,7 +38,7 @@ new Vue({
         },
         addDomain() {
             this.dynamicValidateForm.prizes.push({
-                value: '',
+                prizeName: '',
                 num: 0,
             });
         },
