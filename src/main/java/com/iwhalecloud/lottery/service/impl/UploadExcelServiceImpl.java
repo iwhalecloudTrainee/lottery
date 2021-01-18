@@ -8,7 +8,7 @@ import com.iwhalecloud.lottery.mapper.PrizeMapper;
 import com.iwhalecloud.lottery.mapper.StaffMapper;
 import com.iwhalecloud.lottery.params.vo.Result;
 import com.iwhalecloud.lottery.service.UploadExcelService;
-import com.iwhalecloud.lottery.util.ExcelData;
+import com.iwhalecloud.lottery.utils.ExcelData;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.RequestContext;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
@@ -17,7 +17,6 @@ import org.apache.commons.fileupload.servlet.ServletRequestContext;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
