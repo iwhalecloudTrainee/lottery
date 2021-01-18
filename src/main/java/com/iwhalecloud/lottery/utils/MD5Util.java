@@ -10,41 +10,46 @@ public class MD5Util {
 	@SuppressWarnings("unused")
 	private static ReentrantLock opLock = new ReentrantLock();
 
-	/** * 16进制字符集 */
+	/**
+	 * 16进制字符集
+	 */
 	private static final char HEX_DIGITS[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D',
 			'E', 'F' };
-	/** * 指定算法为MD5的MessageDigest */
+	/**
+	 * 指定算法为MD5的MessageDigest
+	 */
 	private static final ThreadLocal<MessageDigest> threadDigest = new ThreadLocal<MessageDigest>();
 
 	public static String getMD5String(String str, String charset) {
 		if (str == null || str.isEmpty()) {
 			return str;
-		}
-		else {
+		} else {
 			try {
 				return getMD5String(str.getBytes(charset));
-			}
-			catch (UnsupportedEncodingException e) {
+			} catch (UnsupportedEncodingException e) {
 				return str;
 			}
 		}
 
 	}
 
-	/** * MD5加密字符串 * @param str 目标字符串 * @return MD5加密后的字符串 */
+	/**
+	 * MD5加密字符串 * @param str 目标字符串 * @return MD5加密后的字符串
+	 */
 	public static String getMD5String(String str) {
 		return getMD5String(str.getBytes());
 	}
 
-	/** * MD5加密以byte数组表示的字符串 * @param bytes 目标byte数组 * @return MD5加密后的字符串 */
+	/**
+	 * MD5加密以byte数组表示的字符串 * @param bytes 目标byte数组 * @return MD5加密后的字符串
+	 */
 	private static String getMD5String(byte[] bytes) {
 		MessageDigest messageDigest = threadDigest.get();
 		if (messageDigest == null) {
 			try {
 				messageDigest = MessageDigest.getInstance("MD5");
 				threadDigest.set(messageDigest);
-			}
-			catch (NoSuchAlgorithmException e) {
+			} catch (NoSuchAlgorithmException e) {
 				e.printStackTrace();
 			}
 		}
@@ -53,7 +58,9 @@ public class MD5Util {
 		return bytesToHex(messageDigest.digest());
 	}
 
-	/** * 将字节数组转换成16进制字符串 * @param bytes 目标字节数组 * @return 转换结果 */
+	/**
+	 * 将字节数组转换成16进制字符串 * @param bytes 目标字节数组 * @return 转换结果
+	 */
 	private static String bytesToHex(byte bytes[]) {
 		return bytesToHex(bytes, 0, bytes.length);
 	}
@@ -70,7 +77,9 @@ public class MD5Util {
 		return sb.toString();
 	}
 
-	/** * 将单个字节码转换成16进制字符串 * @param bt 目标字节 * @return 转换结果 */
+	/**
+	 * 将单个字节码转换成16进制字符串 * @param bt 目标字节 * @return 转换结果
+	 */
 	private static String byteToHex(byte bt) {
 		return HEX_DIGITS[(bt & 0xf0) >> 4] + "" + HEX_DIGITS[bt & 0xf];
 	}
