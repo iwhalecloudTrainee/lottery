@@ -38,4 +38,9 @@ public class LoginServiceImpl implements LoginService {
 		}
 		return Result.getSuccess();
 	}
+
+	public static void main(String[] args) {
+		System.out.println(		MD5Util.getMD5String("asd")
+		);
+	}
 }

@@ -20,13 +20,14 @@
 <body>
 <div id="lottery">
     {{lotteryName}}（抽奖标题，括号内的内容设置好样式了记着删除）
-    <div class="lottery">
+    <div class="lottery" v-show="admin">
         抽奖
-        <el-carousel :interval="speed"  height="100px" width="400px" direction="vertical"  :autoplay="autoplay" arrow="never" indicator-position="none">
+        <el-carousel :interval="speed" height="100px" width="400px" direction="vertical" :autoplay="autoplay" arrow="never" indicator-position="none">
             <el-carousel-item v-for="item in staffList" :key="item.staffId">
                 <h3 class="medium">{{ item.staffName }}</h3>
             </el-carousel-item>
         </el-carousel>
+
         <el-select v-model="prizeId" placeholder="请选择">
             <el-option
                     v-for="item in prizeList"
@@ -36,10 +37,10 @@
             </el-option>
         </el-select>
         <el-button @click="lottery">开始抽奖</el-button>
-    </div>
-    <div class="prize">
         奖品列表
         （如果取出来的num=0，则不可选择）
+    </div>
+    <div class="prize">
         <el-table
                 :data="prizeList"
                 border
@@ -61,7 +62,13 @@
             </el-table-column>
         </el-table>
     </div>
-
+    <div class="login" v-show="!admin">
+        <el-input placeholder="请输入密码" v-model="password" show-password ></el-input>
+        <el-button @click="login">登录</el-button>
+    </div>
+    <div class="update">
+        <el-button @click="update">编辑</el-button>
+    </div>
 </div>
 <script type="text/javascript" src="lottery/lottery.js"></script>
 

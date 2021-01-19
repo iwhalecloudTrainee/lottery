@@ -8,6 +8,9 @@ new Vue({
         autoplay: false,
         staffList: [],
         speed: 200,
+        admin: false,
+        password: '',
+        lotteryId: 0,
         awardData: {
             lotteryId: 0,
             prizeId: 0,
@@ -15,6 +18,7 @@ new Vue({
         }
     },
     mounted() {
+        this.getLotteryId();
         this.getPrizeList();
         this.getStaffData();
     },
@@ -22,12 +26,8 @@ new Vue({
     methods: {
         //获取奖品列表
         getPrizeList() {
-            var lotteryId = this.getUrlRequestParam("lotteryId");
-            if (!lotteryId) {
-                return;
-            }
             const parma = {
-                lotteryId: lotteryId
+                lotteryId: this.lotteryId
             }
             axios.post('lottery/getPrizeList', parma, null).then(res => {
                 if (res.data.success) {
@@ -50,7 +50,7 @@ new Vue({
                     that.autoplay = false;
                     console.log(this.staffList)
                     this.awardData.staffId = 210;
-                    this.awardData.staffName=document.getElementsByClassName('is-active')[0].outerText
+                    this.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText
                     this.setLottery();
                 } else {
                     that.autoplay = true;
@@ -73,15 +73,12 @@ new Vue({
 
         //抽奖完成写表调用
         setLottery: function () {
-            var lotteryId = this.getUrlRequestParam("lotteryId");
-            if (!lotteryId) {
-                return;
-            }
-            this.awardData.lotteryId = lotteryId;
+            this.awardData.lotteryId = this.lotteryId;
             this.awardData.prizeId = this.prizeId;
             axios.post('lottery/setLottery', this.awardData, null).then(res => {
                 if (res.data.success) {
                     this.getPrizeList();
+                    this.getStaffData();
                 }
             })
         },
@@ -89,12 +86,8 @@ new Vue({
         //获取员工列表
         getStaffData: function () {
             var that = this;
-            var lotteryId = this.getUrlRequestParam("lotteryId");
-            if (!lotteryId) {
-                return;
-            }
             const parma = {
-                lotteryId: lotteryId
+                lotteryId: this.lotteryId
             }
             axios.post('lottery/getStaffList', parma, null).then(res => {
                 if (res.data.success) {
@@ -103,6 +96,35 @@ new Vue({
             })
         },
 
+        //密码验证
+        login: function () {
+            const param = {
+                lotteryId: this.lotteryId,
+                password: this.password,
+            }
+            axios.post('user/login', param, null).then(res => {
+                if (res.data.success) {
+                    this.admin = true;
+                }
+            })
+        },
+
+        //跳转编辑页面
+        update: function () {
+            const parma = 'newLottery?lotteryId=' + this.lotteryId
+            self.location.href = parma;
+        },
+
+        //从url中获取lotteryId
+        getLotteryId: function () {
+            var lotteryId = this.getUrlRequestParam("lotteryId");
+            if (!lotteryId) {
+                alert("输入有误")
+                window.close();
+            } else {
+                this.lotteryId = lotteryId;
+            }
+        },
         //获取链接中的值
         getUrlRequestParam: function (name) {
             var paramUrl = window.location.search.substr(1);
