@@ -14,6 +14,6 @@ import java.util.List;
 
 public interface StaffService {
 
-    List<Staff> getAll();
+    List<Staff> getStaff();
 
 }

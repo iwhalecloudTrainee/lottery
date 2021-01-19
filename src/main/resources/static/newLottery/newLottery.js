@@ -7,14 +7,16 @@ new Vue({
             prizes: [
                 {
                     prizeName: '',
-                    num: 0
+                    num: 1
                 }
             ],
             password: '',
             lotteryName: '',
+            url: '',
         },
-        uploadVisible:false,
-
+        lotteryId: '',
+        uploadVisible: false,
+        createSuccess: false
     },
 
     // function都写这里
@@ -28,8 +30,11 @@ new Vue({
             this.$refs['dynamicValidateForm'].validate((valid) => {
                 if (valid) {
                     axios.post('lottery/createPrize', param, null).then(res => {
-                        if (res.data.success){
-                            this.uploadVisible=true;
+                        if (res.data.success) {
+                            this.lotteryId = res.data.data;
+                            this.url = "localhost:8089/lottery?lotteryId=" + this.lotteryId;
+                            this.createSuccess = true;
+                            // this.uploadVisible=true;
                         }
                     })
                 }
@@ -47,15 +52,14 @@ new Vue({
         addDomain() {
             this.dynamicValidateForm.prizes.push({
                 prizeName: '',
-                num: 0,
+                num: 1,
             });
         },
-        handleClose(done) {
-            this.$confirm('确认关闭？')
-                .then(_ => {
-                    done();
-                })
-                .catch(_ => {});
+        createEnd() {
+            this.createSuccess=false;
+            this.uploadVisible = false;
+            const parma = 'lottery?lotteryId=' + this.lotteryId
+            self.location.href=parma;
         }
     },
 })

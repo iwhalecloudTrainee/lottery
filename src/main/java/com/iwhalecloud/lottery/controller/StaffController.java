@@ -22,9 +22,9 @@ public class StaffController {
     @Resource
     private StaffService staffService;
 
-    @GetMapping("getAll")
-    public JSONResult getAll() {
-        List<Staff> list = staffService.getAll();
-        return new JSONResult(0, "获得所有用户信息成功！",list.size(), list);
+    @GetMapping("getStaff")
+    public Result getStaff() {
+        List<Staff> list = staffService.getStaff();
+        return Result.getSuccess(list);
     }
 }

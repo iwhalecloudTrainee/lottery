@@ -12,7 +12,7 @@
 
   </resultMap>
   <!--  插入sql-->
-  <insert id="insertLottery" parameterType="com.iwhalecloud.lottery.entity.Lottery" useGeneratedKeys="true" keyProperty="LotteryId"
+  <insert id="insertLottery" parameterType="com.iwhalecloud.lottery.entity.Lottery" useGeneratedKeys="true" keyProperty="lotteryId"
           keyColumn="lottery_id"  >
     insert  into lottery (lottery_name,state,password)
         values (#{lotteryName},#{state},#{password})
