@@ -4,24 +4,29 @@ new Vue({
     data() {
         return {
             password: "",
+            lotterId: "",
             loginInfo: {},
         };
     },
     created: function () {
         let parames = window.location.search;
         this.loginInfo = this.urlParamsToJSON(parames);
-        console.log(this.loginInfo[0].value);
     },
     methods: {
         onSubmit(values) {
-            console.log(this.loginInfo);
+            console.log("lotteryId:",this.loginInfo[0].value);
+            console.log("password:",this.password);
+            this.lotteryId = this.loginInfo[0].value;
+            const data = {
+                    lotteryId: this.lotteryId,  //url里面的参数
+                    password: this.password,    //输入框里面的密码
+                };
+            this
             $.ajax({
-                url: '',
+                contentType:"application/json",
+                url: 'http://localhost:8089/user/login',
                 type: 'post',
-                data: {
-                    lotteryId: this.loginInfo[0].value,
-                    password: this.password,
-                },
+                data: JSON.stringify(data),
                 success: function (data) {
                     console.log("data", data)
                 },
@@ -31,8 +36,6 @@ new Vue({
                     console.log("error", error);
                 }
             });
-            console.log('����', values);
-            console.log(this.password)
         },
         urlParamsToJSON(urlParams) {
             let parames = urlParams.substring(1).split("&");

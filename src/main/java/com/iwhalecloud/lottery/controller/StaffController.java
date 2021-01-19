@@ -3,7 +3,6 @@ package com.iwhalecloud.lottery.controller;
 import com.iwhalecloud.lottery.entity.Staff;
 import com.iwhalecloud.lottery.params.vo.Result;
 import com.iwhalecloud.lottery.service.StaffService;
-import com.iwhalecloud.lottery.utils.JSONResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
