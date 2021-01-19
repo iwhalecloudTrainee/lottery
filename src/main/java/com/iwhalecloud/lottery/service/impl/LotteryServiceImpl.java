@@ -104,6 +104,7 @@ public class LotteryServiceImpl implements LotteryService {
     @Override
     public Result getPrizeList(Integer lotteryId) {
         Prize prize = new Prize();
+        prize.setLotteryId(lotteryId);
         List<Prize> prizeList = prizeMapper.select(prize);
         Lottery lottery = lotteryMapper.selectByPrimaryKey(lotteryId);
         LotteryVO lotteryVO = new LotteryVO();
