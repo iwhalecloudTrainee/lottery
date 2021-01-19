@@ -47,4 +47,6 @@ public interface LotteryService {
 	Result getPrizeList(Integer lotteryId);
 
 	Result getLottery(LotteryReq lotteryReq);
+
+	Result roll(LotteryReq lotteryReq);
 }

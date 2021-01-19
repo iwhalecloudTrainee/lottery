@@ -116,7 +116,7 @@ public class LotteryServiceImpl implements LotteryService {
         prize.setLotteryId(lotteryId);
         List<Prize> prizeList = prizeMapper.select(prize);
         Lottery lottery = lotteryMapper.selectByPrimaryKey(lotteryId);
-        if (null==lottery){
+        if (null == lottery) {
             return Result.getFalse();
         }
         LotteryVO lotteryVO = new LotteryVO();
@@ -128,7 +128,7 @@ public class LotteryServiceImpl implements LotteryService {
 
     @Override
     public Result getLottery(LotteryReq lotteryReq) {
-        if (null == lotteryReq.getLotteryId() || null == lotteryReq.getPrizeId()) {
+        if (null == lotteryReq.getLotteryId()) {
             return Result.getFalse("输入有误");
         }
         //设置查询条件
@@ -140,42 +140,36 @@ public class LotteryServiceImpl implements LotteryService {
         //随机取出一个幸运观众中奖
         int count = staffList.size();
         Random random = new Random();
-        int awardIndex=random.nextInt(count);
+        int awardIndex = random.nextInt(count);
         BeanUtils.copyProperties(staffList.get(awardIndex), staff);
         //准备假数据制造节目效果
         Staff staffFake = new Staff();
         staffFake.setLotteryId(lotteryReq.getLotteryId());
         List<Staff> staffFakeList = staffMapper.select(staffFake);
         List<Staff> staffRollData = new ArrayList<>();
-        boolean setData=true;
-        while (setData) {
-            //写499个假数据
+        int i = 0;
+        //写99个假数据
+        while (i < 73) {
             for (Staff staff1 : staffFakeList) {
                 Staff staff2=new Staff();
                 BeanUtils.copyProperties(staff1,staff2);
-                String staffName=staff1.getStaffCode()+" "+staff1.getStaffName();
-                staff2.setStaffName(staffName);
+                staff2.setStaffName(staff2.getStaffCode()+" "+staff2.getStaffName());
                 staffRollData.add(staff2);
-                if (staffRollData.size()==497){
-                    staffRollData.add(staff);
+                if (staffRollData.size() == 74) {
+                    break;
                 }
-                if (staffRollData.size()==499){
-                    setData=false;
-                }
+                i++;
             }
         }
-        Award award=new Award();
-        award.setLotteryId(lotteryReq.getLotteryId());
-        award.setPrizeId(lotteryReq.getPrizeId());
-        award.setStaffId(staff.getStaffId());
-        award.setTime(new Date());
-        awardMapper.insert(award);
-        Lottery lottery=new Lottery();
-        lottery.setState(0);
-        lottery.setLotteryId(lotteryReq.getLotteryId());
-        lotteryMapper.updateByPrimaryKeySelective(lottery);
-        staff.setState(1);
-        staffMapper.updateByPrimaryKeySelective(staff);
+        System.out.println(staff);
+        staff.setStaffName(staff.getStaffCode()+" "+staff.getStaffName());
+        staffRollData.add(staff);
         return Result.getSuccess(staffRollData);
+    }
+
+    @Override
+    public Result roll(LotteryReq lotteryReq) {
+        System.out.println(lotteryReq);
+        return null;
     }
 }

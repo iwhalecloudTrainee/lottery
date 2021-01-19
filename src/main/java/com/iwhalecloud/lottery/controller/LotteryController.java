@@ -93,7 +93,11 @@ public class LotteryController {
 	@RequestMapping("getLottery")
 	public Result getLottery(@RequestBody LotteryReq lotteryReq){
 		return lotteryService.getLottery(lotteryReq);
+	}
 
+	@RequestMapping("roll")
+	public Result roll(@RequestBody LotteryReq lotteryReq){
+		return lotteryService.roll(lotteryReq);
 	}
 }
 

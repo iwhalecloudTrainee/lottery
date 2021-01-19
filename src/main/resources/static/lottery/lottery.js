@@ -11,7 +11,8 @@ new Vue({
                 staffId: 1,
                 staffName: '快来抽奖',
             }
-        ]
+        ],
+        speed: 200
     },
     mounted() {
         this.getAwardList();
@@ -59,18 +60,7 @@ new Vue({
             return params[name];
         },
         lottery: function () {
-                var that = this;
-                var audio = new Audio("resources/bgm.mp3");//这里的路径写上mp3文件在项目中的绝对路径
-                audio.play();//播放
-                console.log(that.prizeId)
-                this.autoplay = true;
-                setTimeout(function () {
-                    that.autoplay=false
-                    audio.pause();
-                }, 2250);
-        },
-        getStaffData:function (){
-            var that = this;
+            var that=this
             if (!that.prizeId) {
                 alert("请选择抽奖项目")
                 return;
@@ -79,17 +69,43 @@ new Vue({
                 if (!lotteryId) {
                     return;
                 }
-                const parma = {
+                const parma={
+                    lotteryId: lotteryId,
                     prizeId: that.prizeId,
-                    lotteryId: lotteryId
-                }
+                };
                 axios.post('lottery/getLottery', parma, null).then(res => {
                     if (res.data.success) {
                         that.staffList = res.data.data
-                        console.log(this.staffList);
                     }
                 })
+                var that = this;
+                var audio = new Audio("resources/bgm.mp3");//这里的路径写上mp3文件在项目中的绝对路径
+                audio.play();//播放
+                console.log(that.prizeId)
+                this.autoplay = true;
+                setTimeout(function () {
+                    that.autoplay = false
+                }, 15000);
+                setTimeout(function () {
+                    audio.pause();
+                }, 16000);
             }
+        },
+        getStaffData: function () {
+            var that = this;
+            var lotteryId = this.getUrlRequestParam("lotteryId");
+            if (!lotteryId) {
+                return;
+            }
+            const parma = {
+                lotteryId: lotteryId
+            }
+            axios.post('lottery/getLottery', parma, null).then(res => {
+                console.log(res)
+                if (res.data.success) {
+                    that.staffList = res.data.data
+                }
+            })
         },
         endLottery: function () {
             this.autoplay = false;
