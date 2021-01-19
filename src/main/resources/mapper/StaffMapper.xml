@@ -9,7 +9,7 @@
     <result column="staff_name" jdbcType="VARCHAR" property="staffName" />
     <result column="lottery_id" jdbcType="INTEGER" property="lotteryId" />
     <result column="state" jdbcType="INTEGER" property="state" />
-    <result column="staff_id" jdbcType="INTEGER" property="staff_id" />
+    <result column="staff_id" jdbcType="INTEGER" property="staffId" />
   </resultMap>
   <!-- 批量新增-->
   <insert id="insertBatchExcel" parameterType="java.util.List">
@@ -29,11 +29,21 @@
     </delete>
     <!-- 查询员工所有信息-->
     <select id="selectStaff" resultMap="BaseResultMap">
-       SELECT
-	staff_code,staff_name,staff.lottery_id,lottery.lottery_id,staff.state,staff_id
-FROM
-	staff,lottery
-WHERE
-staff.lottery_id = lottery.lottery_id
+       SELECT *
+        FROM staff
+        WHERE state = 0 and lottery_id = #{lotteryId}
+
+    </select>
+    <select id="selectStaffById" resultMap="BaseResultMap">
+       SELECT *
+        FROM staff where staff_id = #{staffId}
+
+    </select>
+
+    <select id="selectStaffByStatus" resultMap="BaseResultMap">
+       SELECT *
+        FROM staff
+        WHERE state = #{state}
+
     </select>
 </mapper>

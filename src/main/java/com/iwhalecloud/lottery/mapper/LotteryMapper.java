@@ -8,4 +8,6 @@ public interface LotteryMapper extends Mapper<Lottery> {
 	// 插入insert
 	int insertLottery(Lottery lottery);
 
+	Lottery selectLottery(Integer id);
+
 }

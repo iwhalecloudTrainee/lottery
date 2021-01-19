@@ -3,7 +3,6 @@ package com.iwhalecloud.lottery.controller;
 import com.alibaba.excel.EasyExcel;
 import com.iwhalecloud.lottery.entity.Form;
 import com.iwhalecloud.lottery.entity.Staff;
-import com.iwhalecloud.lottery.params.req.LoginReq;
 import com.iwhalecloud.lottery.params.vo.Result;
 import com.iwhalecloud.lottery.service.LotteryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,63 +22,52 @@ import java.util.List;
 @RestController
 @RequestMapping("lottery")
 public class LotteryController {
-    @Autowired
-    LotteryService lotteryService;
+	@Autowired
+	LotteryService lotteryService;
 
-    /**
-     * 导入
-     *
-     * @param file
-     * @return
-     */
-    @PostMapping("getUploadExcel")
-    public Result getUploadExcel(@RequestParam MultipartFile file, Integer lotteryId) {
-        Result result = null;
-        List<Staff> staffList = new ArrayList<Staff>();
-        InputStream inputStream = null;
-        try {
-            inputStream = file.getInputStream();
-            staffList = EasyExcel.read(inputStream).sheet(0).headRowNumber(1).head(Staff.class).doReadSync();
-            result = lotteryService.batchUploadExcel(staffList, lotteryId);
-        } catch (Exception e) {
-            System.out.println(e);
-            result = Result.getFalse("文件解析失败");
-        }
-        return result;
-    }
+	/**
+	 * 导入
+	 *
+	 * @param file
+	 * @return
+	 */
+	@PostMapping("getUploadExcel")
+	public Result getUploadExcel(@RequestParam MultipartFile file, Integer lotteryId) {
+		Result result = null;
+		List<Staff> staffList = new ArrayList<Staff>();
+		InputStream inputStream = null;
+		try {
+			inputStream = file.getInputStream();
+			staffList = EasyExcel.read(inputStream).sheet(0).headRowNumber(1).head(Staff.class).doReadSync();
+			result = lotteryService.batchUploadExcel(staffList, lotteryId);
+		} catch (Exception e) {
+			System.out.println(e);
+			result = Result.getFalse("文件解析失败");
+		}
+		return result;
+	}
 
-    /**
-     * 创建抽奖
-     *
-     * @param form
-     * @return
-     */
-    @ResponseBody
-    @PostMapping("createPrize")
-    public Result createPrize(@RequestBody Form form) {
-        return lotteryService.createPrize(form);
-    }
+	/**
+	 * 创建抽奖
+	 *
+	 * @param form
+	 * @return
+	 */
+	@ResponseBody
+	@PostMapping("createPrize")
+	public Result createPrize(@RequestBody Form form) {
+		return lotteryService.createPrize(form);
+	}
 
-    /**
-     * 更新抽奖
-     *
-     * @param form
-     * @return
-     */
-    @ResponseBody
-    @PostMapping("updatePrize")
-    public Result updatePrize(@RequestBody Form form) {
-        return lotteryService.updatePrize(form);
-    }
-
-    /**
-     * 查询奖品列表
-     *
-     * @param loginReq
-     * @return
-     */
-    @RequestMapping("getPrizeList")
-    public Result getPrizeList(@RequestBody LoginReq loginReq) {
-        return lotteryService.getPrizeList(loginReq.getLotteryId());
-    }
+	/**
+	 * 更新抽奖
+	 *
+	 * @param form
+	 * @return
+	 */
+	@ResponseBody
+	@PostMapping("updatePrize")
+	public Result updatePrize(@RequestBody Form form) {
+		return lotteryService.updatePrize(form);
+	}
 }

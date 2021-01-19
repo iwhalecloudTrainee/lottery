@@ -17,4 +17,9 @@
     insert  into lottery (lottery_name,state,password)
         values (#{lotteryName},#{state},#{password})
   </insert>
+  <select id="selectLottery" resultMap="BaseResultMap">
+       SELECT *
+        FROM lottery where lottery_id = #{lotteryId}
+
+    </select>
 </mapper>

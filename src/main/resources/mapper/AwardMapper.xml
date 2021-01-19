@@ -7,9 +7,14 @@
     -->
     <id column="award_id" jdbcType="INTEGER" property="awardId" />
     <result column="prize_id" jdbcType="INTEGER" property="prizeId" />
-    <result column="staff_id" jdbcType="INTEGER" property="staffId" />
+    <result column="staff_code" jdbcType="VARCHAR" property="staffCode" />
     <result column="time" jdbcType="TIMESTAMP" property="time" />
-    <result column="lottery_id" jdbcType="INTEGER" property="lotteryId" />
-
+    <result column="lottery_id" javaType="INTEGER" property="lotteryId"/>
   </resultMap>
+
+  <select id="selectAwardById" resultMap="BaseResultMap">
+       SELECT *
+        FROM award where lottery_id = #{lotteryId}
+
+    </select>
 </mapper>

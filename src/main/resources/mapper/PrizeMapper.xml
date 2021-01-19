@@ -34,4 +34,10 @@
         where lottery_id =
         #{lotteryId}
     </delete>
+
+    <select id="selectPrizeById" resultMap="BaseResultMap">
+       SELECT *
+        FROM prize where prize_id = #{prizeId}
+
+    </select>
 </mapper>

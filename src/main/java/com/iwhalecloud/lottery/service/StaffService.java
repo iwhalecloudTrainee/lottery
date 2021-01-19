@@ -1,9 +1,11 @@
 package com.iwhalecloud.lottery.service;
 
 import com.iwhalecloud.lottery.entity.Staff;
+import com.iwhalecloud.lottery.params.req.StaffReq;
 import com.iwhalecloud.lottery.params.vo.Result;
 
 import java.util.List;
+
 
 /**
  * @title: StaffService
@@ -14,6 +16,11 @@ import java.util.List;
 
 public interface StaffService {
 
-    List<Staff> getStaff();
+    Result getStaff(StaffReq staffReq);
 
+    Staff selectStaffById(Integer id);
+
+    List<Staff> allStaff();
+
+    List<Staff> selectStaffByStatus(Integer status);
 }
