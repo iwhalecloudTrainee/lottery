@@ -16,6 +16,7 @@ new Vue({
     mounted() {
         this.getAwardList();
         this.getPrizeList();
+        this.getStaffData();
     },
 
     methods: {
@@ -58,6 +59,17 @@ new Vue({
             return params[name];
         },
         lottery: function () {
+                var that = this;
+                var audio = new Audio("resources/bgm.mp3");//这里的路径写上mp3文件在项目中的绝对路径
+                audio.play();//播放
+                console.log(that.prizeId)
+                this.autoplay = true;
+                setTimeout(function () {
+                    that.autoplay=false
+                    audio.pause();
+                }, 2250);
+        },
+        getStaffData:function (){
             var that = this;
             if (!that.prizeId) {
                 alert("请选择抽奖项目")
@@ -73,18 +85,10 @@ new Vue({
                 }
                 axios.post('lottery/getLottery', parma, null).then(res => {
                     if (res.data.success) {
-                        this.staffList = res.data.data
+                        that.staffList = res.data.data
+                        console.log(this.staffList);
                     }
                 })
-                // var audio = new Audio("resources/bgm.mp3");//这里的路径写上mp3文件在项目中的绝对路径
-                // audio.play();//播放
-                //
-                // console.log(that.prizeId)
-                // this.autoplay = true;
-                // setTimeout(function () {
-                //     that.autoplay=false
-                //     audio.pause();
-                // }, 2250);
             }
         },
         endLottery: function () {
