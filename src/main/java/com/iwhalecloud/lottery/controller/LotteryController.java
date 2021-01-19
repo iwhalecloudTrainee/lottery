@@ -1,7 +1,7 @@
 package com.iwhalecloud.lottery.controller;
 
 import com.alibaba.excel.EasyExcel;
-import com.iwhalecloud.lottery.params.req.Form;
+import com.iwhalecloud.lottery.params.req.FormReq;
 import com.iwhalecloud.lottery.entity.Staff;
 import com.iwhalecloud.lottery.params.req.LoginReq;
 import com.iwhalecloud.lottery.params.req.LotteryReq;
@@ -28,49 +28,46 @@ public class LotteryController {
 	LotteryService lotteryService;
 
 	/**
-	 * 导入
+	 * 通过excel导入员工
 	 *
 	 * @param file
 	 * @return
 	 */
 	@PostMapping("getUploadExcel")
 	public Result getUploadExcel(@RequestParam MultipartFile file, Integer lotteryId) {
-		Result result = null;
-		List<Staff> staffList = new ArrayList<Staff>();
-		InputStream inputStream = null;
+		List<Staff> staffList;
+		InputStream inputStream;
 		try {
 			inputStream = file.getInputStream();
 			staffList = EasyExcel.read(inputStream).sheet(0).headRowNumber(1).head(Staff.class).doReadSync();
-			result = lotteryService.batchUploadExcel(staffList, lotteryId);
+			return lotteryService.batchUploadExcel(staffList, lotteryId);
 		} catch (Exception e) {
-			System.out.println(e);
-			result = Result.getFalse("文件解析失败");
+			return Result.getFalse("文件解析失败");
 		}
-		return result;
 	}
 
 	/**
 	 * 创建抽奖
 	 *
-	 * @param form
+	 * @param formReq
 	 * @return
 	 */
 	@ResponseBody
 	@PostMapping("createPrize")
-	public Result createPrize(@RequestBody Form form) {
-		return lotteryService.createPrize(form);
+	public Result createPrize(@RequestBody FormReq formReq) {
+		return lotteryService.createPrize(formReq);
 	}
 
 	/**
 	 * 更新抽奖
 	 *
-	 * @param form
+	 * @param formReq
 	 * @return
 	 */
 	@ResponseBody
 	@PostMapping("updatePrize")
-	public Result updatePrize(@RequestBody Form form) {
-		return lotteryService.updatePrize(form);
+	public Result updatePrize(@RequestBody FormReq formReq) {
+		return lotteryService.updatePrize(formReq);
 	}
 
 	/**
@@ -86,11 +83,12 @@ public class LotteryController {
 
 	/**
 	 * 抽奖
+	 *
 	 * @param lotteryReq
 	 * @return
 	 */
 	@RequestMapping("getLottery")
-	public Result getLottery(@RequestBody LotteryReq lotteryReq){
+	public Result getLottery(@RequestBody LotteryReq lotteryReq) {
 		return lotteryService.getLottery(lotteryReq);
 	}
 

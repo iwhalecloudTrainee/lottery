@@ -4,7 +4,7 @@ import com.iwhalecloud.lottery.entity.*;
 import com.iwhalecloud.lottery.mapper.LotteryMapper;
 import com.iwhalecloud.lottery.mapper.PrizeMapper;
 import com.iwhalecloud.lottery.mapper.StaffMapper;
-import com.iwhalecloud.lottery.params.req.Form;
+import com.iwhalecloud.lottery.params.req.FormReq;
 import com.iwhalecloud.lottery.params.req.LotteryReq;
 import com.iwhalecloud.lottery.params.vo.LotteryVO;
 import com.iwhalecloud.lottery.params.vo.Result;
@@ -51,38 +51,38 @@ public class LotteryServiceImpl implements LotteryService {
     /**
      * 创建奖品
      *
-     * @param form
+     * @param formReq
      * @return
      */
     @Override
-    public Result createPrize(Form form) {
+    public Result createPrize(FormReq formReq) {
         Lottery lottery = new Lottery();
         //copy lottery数据
-        BeanUtils.copyProperties(form, lottery);
+        BeanUtils.copyProperties(formReq, lottery);
         lottery.setState(1);
         // md5加密
         lottery.setPassword(MD5Util.getMD5String(lottery.getPassword()));
         lotteryMapper.insertLottery(lottery);
         // 获取奖品list
-        List<Prize> prize = form.getPrize();
-        for (Prize prizeMap : prize) {
-            prizeMap.setLotteryId(lottery.getLotteryId());
+        List<Prize> prizes = formReq.getPrizes();
+        for (Prize prize : prizes) {
+            prize.setLotteryId(lottery.getLotteryId());
         }
-        prizeMapper.insertPrize(prize);
+        prizeMapper.insertPrize(prizes);
         return Result.getSuccess(lottery.getLotteryId());
     }
 
     /**
      * 更新奖品
      *
-     * @param form
+     * @param formReq
      * @return
      */
     @Override
-    public Result updatePrize(Form form) {
+    public Result updatePrize(FormReq formReq) {
         Lottery lottery = new Lottery();
         //copy lottery数据
-        BeanUtils.copyProperties(form, lottery);
+        BeanUtils.copyProperties(formReq, lottery);
         Integer lotteryId = lottery.getLotteryId();
         Lottery lotteryData = lotteryMapper.selectByPrimaryKey(lotteryId);
         Integer state = lotteryData.getState();
@@ -92,13 +92,13 @@ public class LotteryServiceImpl implements LotteryService {
         }
         // 更新抽奖表
         lotteryMapper.updateByPrimaryKeySelective(lottery);
-        List<Prize> prize = form.getPrize();
-        for (Prize prizeMap : prize) {
+        List<Prize> prizes = formReq.getPrizes();
+        for (Prize prizeMap : prizes) {
             prizeMap.setLotteryId(lotteryId);
         }
         // 先删除后insert达到更新奖品的目的
-        prizeMapper.deleteBatch(prize);
-        prizeMapper.insertPrize(prize);
+        prizeMapper.deleteBatch(prizes);
+        prizeMapper.insertPrize(prizes);
         return Result.getSuccess("更新成功！！");
     }
 

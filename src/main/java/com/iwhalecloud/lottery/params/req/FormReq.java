@@ -6,7 +6,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class Form {
+public class FormReq {
 	/**
 	 * 抽奖id
 	 */
@@ -31,5 +31,5 @@ public class Form {
 	/**
 	 * 奖品
 	 */
-	private List<Prize> prize;
+	private List<Prize> prizes;
 }

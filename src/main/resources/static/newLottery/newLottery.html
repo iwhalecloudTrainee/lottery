@@ -17,7 +17,7 @@
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <style>
-        .el-form-item__content {
+        .el-formReq-item__content {
             line-height: 40px !important;
             position: relative !important;
             font-size: 14px !important;
@@ -34,46 +34,46 @@
 <body>
 <div id="newLottery">
 
-    <el-form :model="dynamicValidateForm" ref="dynamicValidateForm" label-width="100px" class="demo-dynamic">
-        <el-form-item
+    <el-formReq :model="dynamicValidateForm" ref="dynamicValidateForm" label-width="100px" class="demo-dynamic">
+        <el-formReq-item
                 prop="lotteryName"
                 label="抽奖标题"
                 :rules="[{ required: true, message: '请输入抽奖标题', trigger: 'blur' },]">
             <el-input v-model="dynamicValidateForm.lotteryName">{dynamicValidateForm.{lotteryName}}</el-input>
-        </el-form-item>
-        <el-form-item
+        </el-formReq-item>
+        <el-formReq-item
                 prop="password"
                 label="密码"
                 :rules="[{ required: true, message: '请输入密码', trigger: 'blur' },]"
                 v-if="isUpdate">
             <el-input placeholder="请输入密码" v-model="dynamicValidateForm.password" show-password >{{dynamicValidateForm.password}}</el-input>
-        </el-form-item>
-        <el-form-item
+        </el-formReq-item>
+        <el-formReq-item
                 v-for="(domain, index) in dynamicValidateForm.prizes">
-            <el-form-item
-                    class="el-form-item__content"
+            <el-formReq-item
+                    class="el-formReq-item__content"
                     :key="domain.key"
                     :prop="'prizes.' + index + '.prizeName'"
                     label="奖品名"
                     :rules="{required: true, message: '奖品不能为空'}">
                 <el-input v-model="domain.prizeName">{{domain.prizeName}}</el-input>
-            </el-form-item>
-            <el-form-item
-                    class="el-form-item__content"
+            </el-formReq-item>
+            <el-formReq-item
+                    class="el-formReq-item__content"
                     label="数量"
                     :key="domain.key"
                     :prop="'prizes.' + index + '.num'"
                     :rules="[{ required: true, message: '数量不能为空'}]">
                 <el-input-number v-model="domain.num" :min="1">{{domain.num}}</el-input-number>
-            </el-form-item>
+            </el-formReq-item>
             <el-button @click.prevent="removeDomain(domain)" class="el-button">删除</el-button>
-        </el-form-item>
-        <el-form-item>
+        </el-formReq-item>
+        <el-formReq-item>
             <el-button type="primary" @click="submitForm()">提交</el-button>
             <el-button @click="addDomain">新增奖品</el-button>
             <el-button @click="resetForm('dynamicValidateForm')">重置</el-button>
-        </el-form-item>
-    </el-form>
+        </el-formReq-item>
+    </el-formReq>
     <el-dialog
             title="上传员工"
             :visible="uploadVisible"
