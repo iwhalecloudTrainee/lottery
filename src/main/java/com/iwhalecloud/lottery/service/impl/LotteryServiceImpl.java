@@ -174,13 +174,11 @@ public class LotteryServiceImpl implements LotteryService {
 		staff.setState(1);
 		staffMapper.updateByPrimaryKey(staff);
 		//更新prize
-		String staffName;
 		if (null==prize.getStaffName()){
-			staffName="";
+			prize.setStaffName(staff.getStaffCode() + " " + staff.getStaffName());
 		}else {
-			staffName=prize.getStaffName();
+			prize.setStaffName(staff.getStaffCode() + " " + staff.getStaffName()+" , "+prize.getStaffName());
 		}
-		prize.setStaffName(staff.getStaffCode() + " " + staff.getStaffName()+" , "+staffName);
 		prize.setNum(prize.getNum() - 1);
 		prizeMapper.updateByPrimaryKey(prize);
 		//更新lottery

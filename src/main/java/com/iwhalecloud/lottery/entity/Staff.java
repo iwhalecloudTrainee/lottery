@@ -19,7 +19,6 @@ public class Staff {
 	/**
 	 * 工号
 	 */
-	@Id
 	@Column(name = "staff_code")
 	@ExcelProperty("工号")
 	private String staffCode;

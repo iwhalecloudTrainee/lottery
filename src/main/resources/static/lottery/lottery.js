@@ -8,7 +8,7 @@ new Vue({
         autoplay: false,
         staffList: [],
         speed: 200,
-        awardData:{
+        awardData: {
             lotteryId: 0,
             prizeId: 0,
             staffId: 0,
@@ -40,32 +40,45 @@ new Vue({
 
         //抽奖滚动
         lottery: function () {
+            var that = this;
             if (!this.prizeId) {
                 alert("请选择抽奖项目")
                 return;
             } else {
-                var audio = new Audio("resources/bgm.mp3");//这里的路径写上mp3文件在项目中的绝对路径
-                audio.play();//播放
-                this.autoplay = true;
+                //判断是否正在滚动
+                if (that.autoplay) {
+                    that.autoplay = false;
+                    console.log(this.staffList)
+                    this.awardData.staffId = 210;
+                    this.setLottery();
+                } else {
+                    that.autoplay = true;
+                }
+                // var audio = new Audio("resources/bgm.mp3");//这里的路径写上mp3文件在项目中的绝对路径
+                // audio.play();//播放
+                // this.autoplay = true;
                 setTimeout(function () {
-                    this.autoplay = false
+                    //15s后自动停止滚动
+                    that.autoplay = false
                 }, 15000);
-                setTimeout(function () {
-                    audio.pause();
-                }, 16000);
-
-                //抽奖结束后，给this.awardData赋值,然后调用
-                this.setLottery();
+                // setTimeout(function () {
+                //     audio.pause();
+                // }, 16000);
+                //
+                // //抽奖结束后，给this.awardData赋值,然后调用
+                // this.setLottery();
             }
         },
 
         //抽奖完成写表调用
-        setLottery:function (){
+        setLottery: function () {
             var lotteryId = this.getUrlRequestParam("lotteryId");
             if (!lotteryId) {
                 return;
             }
-            axios.post('award/awardInsert', this.awardData, null).then(res => {
+            this.awardData.lotteryId=lotteryId;
+            this.awardData.prizeId=this.prizeId;
+            axios.post('lottery/setLottery', this.awardData, null).then(res => {
                 if (res.data.success) {
                     this.getPrizeList();
                 }
