@@ -6,35 +6,21 @@ new Vue({
         lotteryName: '',
         prizeId: '',
         autoplay: false,
-        staffList: [
-            {
-                staffId: 1,
-                staffName: '快来抽奖',
-            }
-        ],
-        speed: 200
+        staffList: [],
+        speed: 200,
+        awardData:{
+            lotteryId: 0,
+            prizeId: 0,
+            staffId: 0,
+        }
     },
     mounted() {
-        this.getAwardList();
         this.getPrizeList();
         this.getStaffData();
     },
 
     methods: {
-        getAwardList() {
-            var lotteryId = this.getUrlRequestParam("lotteryId");
-            if (!lotteryId) {
-                return;
-            }
-            const parma = {
-                lotteryId: lotteryId
-            }
-            axios.post('award/getAward', parma, null).then(res => {
-                if (res.data.success) {
-                    this.awardList = res.data.data;
-                }
-            })
-        },
+        //获取奖品列表
         getPrizeList() {
             var lotteryId = this.getUrlRequestParam("lotteryId");
             if (!lotteryId) {
@@ -50,51 +36,43 @@ new Vue({
                 }
             })
         },
-        getUrlRequestParam: function (name) {
-            var paramUrl = window.location.search.substr(1);
-            var paramStrs = paramUrl.split('&');
-            var params = {};
-            for (var index = 0; index < paramStrs.length; index++) {
-                params[paramStrs[index].split('=')[0]] = decodeURI(paramStrs[index].split('=')[1]);
-            }
-            return params[name];
-        },
+
+
+        //抽奖滚动
         lottery: function () {
-            var that=this
-            if (!that.prizeId) {
+            if (!this.prizeId) {
                 alert("请选择抽奖项目")
                 return;
             } else {
-                var lotteryId = this.getUrlRequestParam("lotteryId");
-                if (!lotteryId) {
-                    return;
-                }
-                const parma={
-                    lotteryId: lotteryId,
-                    prizeId: that.prizeId,
-                    staffId: that.staffList[74].staffId
-                };
-
-                var that = this;
                 var audio = new Audio("resources/bgm.mp3");//这里的路径写上mp3文件在项目中的绝对路径
                 audio.play();//播放
                 this.autoplay = true;
                 setTimeout(function () {
-                    that.autoplay = false
+                    this.autoplay = false
                 }, 15000);
                 setTimeout(function () {
                     audio.pause();
                 }, 16000);
-                this.awardInsert();
+
+                //抽奖结束后，给this.awardData赋值,然后调用
+                this.setLottery();
             }
         },
-        awardInsert:function (){
-            axios.post('award/awardInsert', parma, null).then(res => {
+
+        //抽奖完成写表调用
+        setLottery:function (){
+            var lotteryId = this.getUrlRequestParam("lotteryId");
+            if (!lotteryId) {
+                return;
+            }
+            axios.post('award/awardInsert', this.awardData, null).then(res => {
                 if (res.data.success) {
-                    this.getAwardList();
+                    this.getPrizeList();
                 }
             })
         },
+
+        //获取员工列表
         getStaffData: function () {
             var that = this;
             var lotteryId = this.getUrlRequestParam("lotteryId");
@@ -104,12 +82,22 @@ new Vue({
             const parma = {
                 lotteryId: lotteryId
             }
-            axios.post('lottery/getLottery', parma, null).then(res => {
-                console.log(res)
+            axios.post('lottery/getStaffList', parma, null).then(res => {
                 if (res.data.success) {
                     that.staffList = res.data.data
                 }
             })
+        },
+
+        //获取链接中的值
+        getUrlRequestParam: function (name) {
+            var paramUrl = window.location.search.substr(1);
+            var paramStrs = paramUrl.split('&');
+            var params = {};
+            for (var index = 0; index < paramStrs.length; index++) {
+                params[paramStrs[index].split('=')[0]] = decodeURI(paramStrs[index].split('=')[1]);
+            }
+            return params[name];
         },
     },
 })

@@ -19,26 +19,7 @@
 </head>
 <body>
 <div id="lottery">
-    {{lotteryName}}
-
-    <div class="awardList">
-        获奖列表
-        <el-table
-                :data="awardList"
-                border
-                style="width: 100%">
-            <el-table-column
-                    prop="staffName"
-                    label="姓名"
-                    width="180">
-            </el-table-column>
-            <el-table-column
-                    prop="prizeName"
-                    label="奖项"
-                    width="180">
-            </el-table-column>
-        </el-table>
-    </div>
+    {{lotteryName}}（抽奖标题，括号内的内容设置好样式了记着删除）
     <div class="lottery">
         抽奖
         <el-carousel :interval="speed"  height="100px" width="400px" direction="vertical"  :autoplay="autoplay" arrow="never">
@@ -58,6 +39,7 @@
     </div>
     <div class="prize">
         奖品列表
+        （如果取出来的num=0，则不可选择）
         <el-table
                 :data="prizeList"
                 border
@@ -69,7 +51,12 @@
             </el-table-column>
             <el-table-column
                     prop="num"
-                    label="数量"
+                    label="剩余数量"
+                    width="180">
+            </el-table-column>
+            <el-table-column
+                    prop="staffName"
+                    label="已获奖"
                     width="180">
             </el-table-column>
         </el-table>
