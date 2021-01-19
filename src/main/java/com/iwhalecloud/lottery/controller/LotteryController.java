@@ -75,7 +75,7 @@ public class LotteryController {
     /**
      * 查询奖品列表
      *
-     * @param lotteryId
+     * @param loginReq
      * @return
      */
     @RequestMapping("getPrizeList")

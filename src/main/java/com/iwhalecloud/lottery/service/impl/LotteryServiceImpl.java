@@ -83,7 +83,12 @@ public class LotteryServiceImpl implements LotteryService {
         //copy lottery数据
         BeanUtils.copyProperties(form, lottery);
         Integer lotteryId = lottery.getLotteryId();
+        String password=MD5Util.getMD5String(lottery.getPassword());
         Lottery lotteryData = lotteryMapper.selectByPrimaryKey(lotteryId);
+//		String passwordDate = lotteryData.getPassword();
+//		if (!password.equals(passwordDate)){
+//			return Result.getFalse("密码错误！请重新输入！");
+//		}
         Integer state = lotteryData.getState();
         // 判断state如果state为1则可以修改 为0 return
         if (state == 0) {
@@ -96,9 +101,9 @@ public class LotteryServiceImpl implements LotteryService {
             prizeMap.setLotteryId(lotteryId);
         }
         // 先删除后insert达到更新奖品的目的
-        prizeMapper.deleteBatch(prize);
+        prizeMapper.deleteBatch(lotteryId);
         prizeMapper.insertPrize(prize);
-        return Result.getSuccess("更新成功！！");
+        return Result.getSuccess(lottery.getLotteryId());
     }
 
     @Override

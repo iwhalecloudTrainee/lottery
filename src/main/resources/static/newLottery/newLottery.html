@@ -16,6 +16,19 @@
     <!-- 引入element 的组件库-->
     <script src="https://unpkg.com/element-ui/lib/index.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <style>
+        .el-form-item__content {
+            line-height: 40px !important;
+            position: relative !important;
+            font-size: 14px !important;
+            float: left !important;
+            margin-left: 13px !important;
+        }
+        .el-button {
+            margin-left: 30px !important;
+        }
+
+    </style>
 </head>
 
 <body>
@@ -26,32 +39,34 @@
                 prop="lotteryName"
                 label="抽奖标题"
                 :rules="[{ required: true, message: '请输入抽奖标题', trigger: 'blur' },]">
-            <el-input v-model="dynamicValidateForm.lotteryName"></el-input>
+            <el-input v-model="dynamicValidateForm.lotteryName">{dynamicValidateForm.{lotteryName}}</el-input>
         </el-form-item>
         <el-form-item
                 prop="password"
                 label="密码"
-                :rules="[{ required: true, message: '请输入密码', trigger: 'blur' },]">
-            <el-input placeholder="请输入密码" v-model="dynamicValidateForm.password" show-password></el-input>
+                :rules="[{ required: true, message: '请输入密码', trigger: 'blur' },]"
+                v-if="isUpdate">
+            <el-input placeholder="请输入密码" v-model="dynamicValidateForm.password" show-password >{{dynamicValidateForm.password}}</el-input>
         </el-form-item>
         <el-form-item
                 v-for="(domain, index) in dynamicValidateForm.prizes">
             <el-form-item
+                    class="el-form-item__content"
                     :key="domain.key"
                     :prop="'prizes.' + index + '.prizeName'"
                     label="奖品名"
                     :rules="{required: true, message: '奖品不能为空'}">
-                <el-input v-model="domain.prizeName"></el-input>
+                <el-input v-model="domain.prizeName">{{domain.prizeName}}</el-input>
             </el-form-item>
-            <br>
             <el-form-item
+                    class="el-form-item__content"
                     label="数量"
                     :key="domain.key"
                     :prop="'prizes.' + index + '.num'"
                     :rules="[{ required: true, message: '数量不能为空'}]">
-                <el-input-number v-model="domain.num" :min="1"></el-input-number>
+                <el-input-number v-model="domain.num" :min="1">{{domain.num}}</el-input-number>
             </el-form-item>
-            <el-button @click.prevent="removeDomain(domain)">删除</el-button>
+            <el-button @click.prevent="removeDomain(domain)" class="el-button">删除</el-button>
         </el-form-item>
         <el-form-item>
             <el-button type="primary" @click="submitForm()">提交</el-button>
@@ -62,7 +77,8 @@
     <el-dialog
             title="上传员工"
             :visible="uploadVisible"
-            :show-close="false">
+            :show-close="false"
+            width="700px">
         <el-upload
                 class="upload-demo"
                 drag
@@ -71,21 +87,40 @@
                 multiple>
             <i class="el-icon-upload"></i>
             <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+            <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
         </el-upload>
+
         <span slot="footer" class="dialog-footer">
-            <el-link href="/resources/lotteryExcel.xlsx" target="_blank">下载模板</el-link>
-            <el-button @click="createEnd">取 消</el-button>
-            <el-button type="primary" @click="createEnd">确 定</el-button>
+            <el-button @click="uploadVisible = false">取 消</el-button>
+            <el-button type="primary" @click="uploadVisible = false">确 定</el-button>
          </span>
     </el-dialog>
     <el-dialog
             title="创建成功"
             :visible="createSuccess"
-            :show-close="false">
-        <p>创建抽奖成功，你的抽奖链接是 {{url}} ，请妥善保管。是否立即上传员工？</p>
+            :show-close="false"
+            width="700px">
+        <p>创建抽奖成功，你的抽奖链接是
+            <el-link href="{{url}}" target="_blank">{{url}}</el-link>
+            ，请妥善保管
+        </p>
+        是否立即上传员工？
         <span slot="footer" class="dialog-footer">
-            <el-button @click="createEnd">取 消</el-button>
+            <el-button @click="createSuccess = false">取 消</el-button>
             <el-button type="primary" @click="uploadVisible = true,createSuccess=false">确 定</el-button>
+         </span>
+    </el-dialog>
+    <el-dialog
+            title="请输入密码"
+            :visible="updateSuccess"
+            :show-close="false"
+            width="700px">
+        <p>密码:
+            <el-input placeholder="请输入密码" v-model="updatePassword" show-password ></el-input>
+        </p>
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="updateSuccess = false">取 消</el-button>
+            <el-button type="primary" @click="uploadVisible = true,updateSuccess=false">确 定</el-button>
          </span>
     </el-dialog>
 </div>
