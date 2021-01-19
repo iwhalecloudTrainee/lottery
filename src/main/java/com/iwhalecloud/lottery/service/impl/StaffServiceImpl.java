@@ -14,8 +14,8 @@ public class StaffServiceImpl implements StaffService {
     private StaffMapper staffMapper;
 
     @Override
-    public List<Staff> getAll() {
+    public List<Staff> getStaff() {
 
-        return staffMapper.selectAll();
+        return staffMapper.selectStaff();
     }
 }

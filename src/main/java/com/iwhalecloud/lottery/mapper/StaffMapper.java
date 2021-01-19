@@ -12,4 +12,6 @@ public interface StaffMapper extends Mapper<Staff> {
 
 	// 批量删除
 	int deleteBatchData(List<Staff> staff);
+
+	List<Staff> selectStaff();
 }

@@ -28,9 +28,12 @@
         </foreach>
     </delete>
     <!-- 查询员工所有信息-->
-<!--    <select id="selectAll" resultMap="BaseResultMap">-->
-<!--        select-->
-<!--        <include refid="Base_Column_List" />-->
-<!--        from staff-->
-<!--    </select>-->
+    <select id="selectStaff" resultMap="BaseResultMap">
+       SELECT
+	staff_code,staff_name,staff.lottery_id,lottery.lottery_id,staff.state,staff_id
+FROM
+	staff,lottery
+WHERE
+staff.lottery_id = lottery.lottery_id
+    </select>
 </mapper>
