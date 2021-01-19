@@ -115,6 +115,9 @@ public class LotteryServiceImpl implements LotteryService {
         prize.setLotteryId(lotteryId);
         List<Prize> prizeList = prizeMapper.select(prize);
         Lottery lottery = lotteryMapper.selectByPrimaryKey(lotteryId);
+        if (null==lottery){
+            return Result.getFalse();
+        }
         LotteryVO lotteryVO = new LotteryVO();
         lotteryVO.setLotteryId(lottery.getLotteryId());
         lotteryVO.setLotteryName(lottery.getLotteryName());

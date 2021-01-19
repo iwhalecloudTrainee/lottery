@@ -28,18 +28,19 @@ new Vue({
     // function¶¼Ð´ÕâÀï
     methods: {
         initUpdate:function (){
-            this.isUpdate=false;
             var lotteryId=this.getUrlRequestParam("lotteryId");
             var params={lotteryId:lotteryId}
             console.log(lotteryId);
             var m = this;
             axios.post('lottery/getPrizeList', params, null).then(res => {
-                if (res.data.success){
+                if (res.data.data.success){
+                    this.isUpdate=false;
                     var result=res.data.data;
                     console.log(result);
                     m.dynamicValidateForm.lotteryId=result.lotteryId;
                     m.dynamicValidateForm.lotteryName=result.lotteryName;
                     m.dynamicValidateForm.prizes=result.prizeList;
+
                 }
             })
 
