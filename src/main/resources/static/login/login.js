@@ -1,39 +1,52 @@
-// 在 #app 标签下渲染一个按钮组件
+// import {urlParamsToJSON} from '../utils/utils'
 new Vue({
     el: '#app',
     data() {
         return {
-            lotteryId: '',
-            password: '',
+            password: "",
+            loginInfo: {},
         };
+    },
+    created: function () {
+        let parames = window.location.search;
+        this.loginInfo = this.urlParamsToJSON(parames);
+        console.log(this.loginInfo[0].value);
     },
     methods: {
         onSubmit(values) {
+            console.log(this.loginInfo);
             $.ajax({
                 url: '',
                 type: 'post',
                 data: {
-                    lotteryId: this.lotteryId,
+                    lotteryId: this.loginInfo[0].value,
                     password: this.password,
                 },
                 success: function (data) {
-                    console.log("data",data)
+                    console.log("data", data)
                 },
                 error: function (xhr, errorType, error) {
                     console.log("xhr", xhr);
                     console.log("errorType", errorType);
                     console.log("error", error);
                 }
-            })
-            console.log('密码', values);
+            });
+            console.log('����', values);
             console.log(this.password)
         },
+        urlParamsToJSON(urlParams) {
+            let parames = urlParams.substring(1).split("&");
+            let arr = [];
+            for (let i = 0; i < parames.length; i++) {
+                let person = {
+                    key: parames[i].split("=")[0],
+                    value: parames[i].split("=")[1],
+                };
+                arr.push(person);
+            }
+            return arr;
+        }
     },
 });
 
-// 调用函数组件，弹出一个 Toast
-vant.Toast('提示');
-
-// 通过 CDN 引入时不会自动注册 Lazyload 组件
-// 可以通过下面的方式手动注册
 Vue.use(vant.Lazyload);

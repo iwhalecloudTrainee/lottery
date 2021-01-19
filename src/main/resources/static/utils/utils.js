@@ -1,3 +1,5 @@
+
+
 var requestMethod = function () {
     return {
         post: function (url, param, callback) {
@@ -34,3 +36,19 @@ var requestMethod = function () {
 
     }();
 }
+
+export function urlParamsToJSON(urlParams) {
+    let parames = urlParams.substring(1).split("&");
+    let arr = [];
+    for (let i = 0; i < parames.length; i++) {
+        let person = {
+            key : parames[i].split("=")[0],
+            value: parames[i].split("=")[1],
+        }
+        arr.push(person);
+    }
+    console.log(arr);
+    return arr;
+}
+
+
