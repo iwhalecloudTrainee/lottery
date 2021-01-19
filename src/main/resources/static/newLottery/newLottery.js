@@ -7,14 +7,14 @@ new Vue({
             prizes: [
                 {
                     prizeName: '',
-                    num: 0
+                    num: 1
                 }
             ],
             password: '',
             lotteryName: '',
-            lotteryId: {},
             url: '',
         },
+        lotteryId: '',
         uploadVisible: false,
         createSuccess: false
     },
@@ -31,8 +31,8 @@ new Vue({
                 if (valid) {
                     axios.post('lottery/createPrize', param, null).then(res => {
                         if (res.data.success) {
-                            this.lotteryId = {'lotteryId': res.data.data};
-                            this.url = "localhost:8089/lottery?lotteryId=" + res.data.data;
+                            this.lotteryId = res.data.data;
+                            this.url = "localhost:8089/lottery?lotteryId=" + this.lotteryId;
                             this.createSuccess = true;
                             // this.uploadVisible=true;
                         }
@@ -52,12 +52,14 @@ new Vue({
         addDomain() {
             this.dynamicValidateForm.prizes.push({
                 prizeName: '',
-                num: 0,
+                num: 1,
             });
         },
         createEnd() {
+            this.createSuccess=false;
             this.uploadVisible = false;
-            self.location.href=this.url;
+            const parma = 'lottery?lotteryId=' + this.lotteryId
+            self.location.href=parma;
         }
     },
 })

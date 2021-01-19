@@ -7,7 +7,7 @@
     -->
     <id column="award_id" jdbcType="INTEGER" property="awardId" />
     <result column="prize_id" jdbcType="INTEGER" property="prizeId" />
-    <result column="staff_code" jdbcType="VARCHAR" property="staffCode" />
+    <result column="staff_id" jdbcType="INTEGER" property="staffId" />
     <result column="time" jdbcType="TIMESTAMP" property="time" />
   </resultMap>
 </mapper>
