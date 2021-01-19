@@ -1,7 +1,9 @@
 package com.iwhalecloud.lottery.routers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * 拿来返回到页面
@@ -35,7 +37,8 @@ public class Router {
 	 * @return
 	 */
 	@RequestMapping("lottery")
-	public String lottery() {
+	public String lottery(Integer lotteryId) {
+		System.out.println("sda");
 		return "lottery/lottery.html";
 	}
 
