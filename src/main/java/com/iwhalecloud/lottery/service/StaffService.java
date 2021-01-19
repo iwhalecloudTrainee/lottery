@@ -20,7 +20,4 @@ public interface StaffService {
 
     Staff selectStaffById(Integer id);
 
-    List<Staff> allStaff();
-
-    List<Staff> selectStaffByStatus(Integer status);
 }

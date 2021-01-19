@@ -31,41 +31,4 @@ public class StaffController {
         return result;
     }
 
-    /**
-     * 抽奖的功能  随机抽三个staffid作为中奖人，就相当于从staff表里的staffid随机抽三个数，然后把staff表里的staffstate从0改为1
-     */
-    @GetMapping("staffLottery")
-    public Result staffLottery() {
-
-        List<Staff> staffList = staffService.selectStaffByStatus(0);
-
-       int[] r = radm(3,staffList.size());
-
-       for(int i=0; i < r.length; i++) {
-
-           System.out.println(staffList.get(r[i]).getStaffName());
-       }
-
-
-
-        return Result.getSuccess();
-    }
-
-    public int[] radm(int n, int k) { //需要整数数量(n必须小于等于k) //整数随机的取值范围
-
-        int[] r = new int[n];
-        int index = 0;
-        Random rand = new Random();//新建一个随机类
-        boolean[] bool = new boolean[k + 1];
-        int randInt = 0;
-        for (int i = 0; i < n; i++) {
-            do {
-                randInt = 1 + rand.nextInt(k);//产生一个随机数
-            } while (bool[randInt]);
-            bool[randInt] = true;
-            r[index++] = randInt;
-        }
-
-        return r;
-    }
 }
