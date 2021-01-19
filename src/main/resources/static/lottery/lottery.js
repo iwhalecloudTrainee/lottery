@@ -72,16 +72,12 @@ new Vue({
                 const parma={
                     lotteryId: lotteryId,
                     prizeId: that.prizeId,
+                    staffId: that.staffList[74].staffId
                 };
-                axios.post('lottery/getLottery', parma, null).then(res => {
-                    if (res.data.success) {
-                        that.staffList = res.data.data
-                    }
-                })
+
                 var that = this;
                 var audio = new Audio("resources/bgm.mp3");//这里的路径写上mp3文件在项目中的绝对路径
                 audio.play();//播放
-                console.log(that.prizeId)
                 this.autoplay = true;
                 setTimeout(function () {
                     that.autoplay = false
@@ -89,7 +85,15 @@ new Vue({
                 setTimeout(function () {
                     audio.pause();
                 }, 16000);
+                this.awardInsert();
             }
+        },
+        awardInsert:function (){
+            axios.post('award/awardInsert', parma, null).then(res => {
+                if (res.data.success) {
+                    this.getAwardList();
+                }
+            })
         },
         getStaffData: function () {
             var that = this;
@@ -107,10 +111,6 @@ new Vue({
                 }
             })
         },
-        endLottery: function () {
-            this.autoplay = false;
-
-        }
     },
 })
 

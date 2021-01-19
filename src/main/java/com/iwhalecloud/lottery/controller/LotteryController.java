@@ -95,9 +95,5 @@ public class LotteryController {
 		return lotteryService.getLottery(lotteryReq);
 	}
 
-	@RequestMapping("roll")
-	public Result roll(@RequestBody LotteryReq lotteryReq){
-		return lotteryService.roll(lotteryReq);
-	}
 }
 

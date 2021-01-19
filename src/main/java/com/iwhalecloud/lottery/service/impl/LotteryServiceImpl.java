@@ -1,7 +1,6 @@
 package com.iwhalecloud.lottery.service.impl;
 
 import com.iwhalecloud.lottery.entity.*;
-import com.iwhalecloud.lottery.mapper.AwardMapper;
 import com.iwhalecloud.lottery.mapper.LotteryMapper;
 import com.iwhalecloud.lottery.mapper.PrizeMapper;
 import com.iwhalecloud.lottery.mapper.StaffMapper;
@@ -15,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -27,8 +25,6 @@ public class LotteryServiceImpl implements LotteryService {
     PrizeMapper prizeMapper;
     @Autowired
     StaffMapper staffMapper;
-    @Autowired
-    AwardMapper awardMapper;
 
     /**
      * 批量上传文件
@@ -167,9 +163,5 @@ public class LotteryServiceImpl implements LotteryService {
         return Result.getSuccess(staffRollData);
     }
 
-    @Override
-    public Result roll(LotteryReq lotteryReq) {
-        System.out.println(lotteryReq);
-        return null;
-    }
+
 }
