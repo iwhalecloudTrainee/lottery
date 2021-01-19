@@ -1,5 +1,8 @@
-# yearLuckReward
-年会抽奖系统
-支持中奖名单范围设定，jquery框架，纯HTML代码
-
-![logo](https://github.com/MrHT/yearReward/blob/master/images/year.png?raw=true)
+# lottery
+# 端口8089
+# router
+# 注意事项
+- 通过router.java进行方法转发到页面，正常的数据交互方法还是返回Result
+- 采用一个页面一个文件夹的方式，绑定同级目录的同名.js
+- 奇奇怪怪的入参放在怕params.req，奇奇怪怪的入参放在params.vo
+- 单表增删改查都有封装好的方法，mapper.insert/select/update/delete就行，除非条件非常奇葩，可以直接调用
