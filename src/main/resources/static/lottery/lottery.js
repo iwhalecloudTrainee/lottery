@@ -93,15 +93,28 @@ new Vue({
                 alert("请选择抽奖项目")
                 return;
             } else {
-                var audio = new Audio("resources/bgm.mp3");//这里的路径写上mp3文件在项目中的绝对路径
-                audio.play();//播放
+                var lotteryId = this.getUrlRequestParam("lotteryId");
+                if (!lotteryId) {
+                    return;
+                }
+                const parma={
+                    prizeId:that.prizeId,
+                    lotteryId: lotteryId
+                }
+                axios.post('lottery/getLottery', parma, null).then(res => {
+                    if (res.data.success) {
 
-                console.log(that.prizeId)
-                this.autoplay = true;
-                setTimeout(function () {
-                    that.autoplay=false
-                    audio.pause();
-                }, 2250);
+                    }
+                })
+                // var audio = new Audio("resources/bgm.mp3");//这里的路径写上mp3文件在项目中的绝对路径
+                // audio.play();//播放
+                //
+                // console.log(that.prizeId)
+                // this.autoplay = true;
+                // setTimeout(function () {
+                //     that.autoplay=false
+                //     audio.pause();
+                // }, 2250);
             }
         },
         endLottery: function () {

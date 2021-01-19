@@ -3,10 +3,11 @@ package com.iwhalecloud.lottery.params.req;
 import lombok.Data;
 
 /**
- * @author pei.hongjun@iwhalecloud.com
- * @date 2021/1/19 14:21
+ * @author W4i
+ * @date 2021/1/19 18:36
  */
 @Data
-public class StaffReq {
+public class LotteryReq {
     private Integer lotteryId;
+    private Integer prizeId;
 }

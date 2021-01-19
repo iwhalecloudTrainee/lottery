@@ -3,8 +3,11 @@ package com.iwhalecloud.lottery.service;
 import com.iwhalecloud.lottery.entity.Form;
 import com.iwhalecloud.lottery.entity.Lottery;
 import com.iwhalecloud.lottery.entity.Staff;
+import com.iwhalecloud.lottery.params.req.LotteryReq;
+import com.iwhalecloud.lottery.params.vo.LotteryVO;
 import com.iwhalecloud.lottery.params.vo.Result;
 import org.springframework.data.relational.core.sql.In;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -43,4 +46,5 @@ public interface LotteryService {
 	 */
 	Result getPrizeList(Integer lotteryId);
 
+	Result getLottery(LotteryReq lotteryReq);
 }
