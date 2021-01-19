@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 
 @NoArgsConstructor
-public class AwardVo {
+public class AwardVO {
 
     private Integer prizeId;
 
@@ -21,7 +21,7 @@ public class AwardVo {
 
     private String staffName;
 
-    public AwardVo(Integer prizeId, String prizeName, Integer lotteryId, String lotteryName, String staffId, String staffName) {
+    public AwardVO(Integer prizeId, String prizeName, Integer lotteryId, String lotteryName, String staffId, String staffName) {
         this.prizeId = prizeId;
         this.prizeName = prizeName;
         this.lotteryId = lotteryId;

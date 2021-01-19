@@ -96,6 +96,9 @@ new Vue({
                 audio.play();//播放
                 console.log(this.prizeId)
                 this.autoplay = true;
+                setTimeout(function(){ alert("Hello");this.autoplay = false;
+                    audio.stop();  }, 3000);
+
             }
         },
         endLottery:function (){
