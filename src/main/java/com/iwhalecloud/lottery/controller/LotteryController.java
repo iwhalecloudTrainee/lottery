@@ -1,6 +1,7 @@
 package com.iwhalecloud.lottery.controller;
 
 import com.alibaba.excel.EasyExcel;
+import com.iwhalecloud.lottery.entity.Lottery;
 import com.iwhalecloud.lottery.params.req.FormReq;
 import com.iwhalecloud.lottery.entity.Staff;
 import com.iwhalecloud.lottery.params.req.LoginReq;
@@ -82,15 +83,25 @@ public class LotteryController {
 	}
 
 	/**
-	 * 抽奖
+	 * 通过lotteryId获取员工数据（等待抽奖）
 	 *
 	 * @param lotteryReq
 	 * @return
 	 */
-	@RequestMapping("getLottery")
-	public Result getLottery(@RequestBody LotteryReq lotteryReq) {
-		return lotteryService.getLottery(lotteryReq);
+	@RequestMapping("getStaffList")
+	public Result getStaffList(@RequestBody LotteryReq lotteryReq) {
+		return lotteryService.getStaffList(lotteryReq);
 	}
 
+	/**
+	 * 抽奖完成，写表
+	 *
+	 * @param lotteryReq
+	 * @return
+	 */
+	@RequestMapping("setLottery")
+	public Result setLottery(@RequestBody LotteryReq lotteryReq) {
+		return lotteryService.setLottery(lotteryReq);
+	}
 }
 

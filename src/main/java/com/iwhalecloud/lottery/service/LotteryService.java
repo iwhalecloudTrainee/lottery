@@ -1,8 +1,7 @@
 package com.iwhalecloud.lottery.service;
 
-import com.iwhalecloud.lottery.params.req.FormReq;
-import com.iwhalecloud.lottery.entity.Lottery;
 import com.iwhalecloud.lottery.entity.Staff;
+import com.iwhalecloud.lottery.params.req.FormReq;
 import com.iwhalecloud.lottery.params.req.LotteryReq;
 import com.iwhalecloud.lottery.params.vo.Result;
 
@@ -33,8 +32,6 @@ public interface LotteryService {
 	 */
 	Result updatePrize(FormReq formReq);
 
-	Lottery selectLottery(Integer id);
-
 	/**
 	 * 查询奖品列表
 	 *
@@ -43,6 +40,8 @@ public interface LotteryService {
 	 */
 	Result getPrizeList(Integer lotteryId);
 
-	Result getLottery(LotteryReq lotteryReq);
+	Result getStaffList(LotteryReq lotteryReq);
+
+	Result setLottery(LotteryReq lotteryReq);
 
 }
