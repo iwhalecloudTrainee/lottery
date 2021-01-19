@@ -9,6 +9,7 @@ import com.iwhalecloud.lottery.mapper.PrizeMapper;
 import com.iwhalecloud.lottery.mapper.StaffMapper;
 import com.iwhalecloud.lottery.params.vo.Result;
 import com.iwhalecloud.lottery.service.LotteryService;
+import com.iwhalecloud.lottery.utils.MD5Util;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,14 +58,16 @@ public class LotteryServiceImpl implements LotteryService {
 		//copy lottery数据
 		BeanUtils.copyProperties(form, lottery);
 		lottery.setState(1);
-		int lotteryId = lotteryMapper.insertLottery(lottery);
+		// md5加密
+		lottery.setPassword(MD5Util.getMD5String(lottery.getPassword()));
+		lotteryMapper.insertLottery(lottery);
 		// 获取奖品list
 		List<Prize> prize = form.getPrize();
 		for (Prize prizeMap : prize) {
 			prizeMap.setLotteryId(lottery.getLotteryId());
 		}
 		prizeMapper.insertPrize(prize);
-		return Result.getSuccess("创建成功");
+		return Result.getSuccess(lottery.getLotteryId());
 	}
 
 	/**
