@@ -7,11 +7,13 @@ import com.iwhalecloud.lottery.entity.Staff;
 import com.iwhalecloud.lottery.mapper.LotteryMapper;
 import com.iwhalecloud.lottery.mapper.PrizeMapper;
 import com.iwhalecloud.lottery.mapper.StaffMapper;
+import com.iwhalecloud.lottery.params.vo.LotteryVO;
 import com.iwhalecloud.lottery.params.vo.Result;
 import com.iwhalecloud.lottery.service.LotteryService;
 import com.iwhalecloud.lottery.utils.MD5Util;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -103,5 +105,18 @@ public class LotteryServiceImpl implements LotteryService {
 	@Override
 	public Lottery selectLottery(Integer id) {
 		return lotteryMapper.selectLottery(id);
+	}
+
+	@Override
+	public Result getPrizeList(Integer lotteryId) {
+		Prize prize = new Prize();
+		prize.setLotteryId(lotteryId);
+		List<Prize> prizeList = prizeMapper.select(prize);
+		Lottery lottery = lotteryMapper.selectByPrimaryKey(lotteryId);
+		LotteryVO lotteryVO = new LotteryVO();
+		lotteryVO.setLotteryId(lottery.getLotteryId());
+		lotteryVO.setLotteryName(lottery.getLotteryName());
+		lotteryVO.setPrizeList(prizeList);
+		return Result.getSuccess(lotteryVO);
 	}
 }

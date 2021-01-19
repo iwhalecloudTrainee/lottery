@@ -5,7 +5,7 @@ import com.iwhalecloud.lottery.entity.Lottery;
 import com.iwhalecloud.lottery.entity.Prize;
 import com.iwhalecloud.lottery.entity.Staff;
 import com.iwhalecloud.lottery.mapper.AwardMapper;
-import com.iwhalecloud.lottery.params.req.AwardReq;
+import com.iwhalecloud.lottery.params.req.LoginReq;
 import com.iwhalecloud.lottery.params.vo.AwardVO;
 import com.iwhalecloud.lottery.params.vo.Result;
 import com.iwhalecloud.lottery.service.AwardService;
@@ -36,8 +36,8 @@ public class AwardServiceImpl implements AwardService {
     private StaffServiceImpl staffServiceImpl;
 
     @Override
-    public Result getAward(AwardReq awardReq) {
-        List<Award> awardList = awardMapper.selectAwardById(awardReq.getLotteryId());
+    public Result getAward(LoginReq loginReq) {
+        List<Award> awardList = awardMapper.selectAwardById(loginReq.getLotteryId());
 
         List<AwardVO> awardVoList = new ArrayList<>();
 

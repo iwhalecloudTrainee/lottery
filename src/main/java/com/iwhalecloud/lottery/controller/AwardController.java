@@ -1,6 +1,6 @@
 package com.iwhalecloud.lottery.controller;
 
-import com.iwhalecloud.lottery.params.req.AwardReq;
+import com.iwhalecloud.lottery.params.req.LoginReq;
 import com.iwhalecloud.lottery.params.vo.Result;
 import com.iwhalecloud.lottery.service.AwardService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,9 +19,7 @@ public class AwardController {
     private AwardService awardService;
 
     @PostMapping("getAward")
-    public Result getAward(@RequestBody AwardReq awardReq) {
-
-        Result result = awardService.getAward(awardReq);
-        return result;
+    public Result getAward(@RequestBody LoginReq loginReq) {
+        return awardService.getAward(loginReq);
     }
 }
