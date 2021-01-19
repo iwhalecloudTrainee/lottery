@@ -101,7 +101,6 @@ new Vue({
         },
         getUrlRequestParam:function (name) {
             var paramUrl = window.location.search.substr(1);
-            console.log(paramUrl);
             var paramStrs = paramUrl.split('&');
             var params = {};
             for (var index = 0; index < paramStrs.length; index++) {

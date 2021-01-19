@@ -25,9 +25,7 @@ public class Router {
 	 * @return
 	 */
 	@RequestMapping("login")
-	public String login(Integer lotteryId,RedirectAttributes redirectAttributes) {
-		System.out.println(lotteryId);
-		redirectAttributes.addAttribute("lotteryId",lotteryId);
+	public String login() {
 		return "redirect:login/login.html";
 	}
 
