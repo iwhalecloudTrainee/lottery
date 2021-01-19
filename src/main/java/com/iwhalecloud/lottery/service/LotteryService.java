@@ -37,5 +37,5 @@ public interface LotteryService {
      * @param lotteryId
      * @return
      */
-    Result getPrizeList(String lotteryId);
+    Result getPrizeList(Integer lotteryId);
 }

@@ -3,6 +3,7 @@ package com.iwhalecloud.lottery.controller;
 import com.alibaba.excel.EasyExcel;
 import com.iwhalecloud.lottery.entity.Form;
 import com.iwhalecloud.lottery.entity.Staff;
+import com.iwhalecloud.lottery.params.req.LoginReq;
 import com.iwhalecloud.lottery.params.vo.Result;
 import com.iwhalecloud.lottery.service.LotteryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,7 +79,7 @@ public class LotteryController {
      * @return
      */
     @RequestMapping("getPrizeList")
-    public Result getPrizeList(@RequestBody String lotteryId) {
-        return lotteryService.getPrizeList(lotteryId);
+    public Result getPrizeList(@RequestBody LoginReq loginReq) {
+        return lotteryService.getPrizeList(loginReq.getLotteryId());
     }
 }
