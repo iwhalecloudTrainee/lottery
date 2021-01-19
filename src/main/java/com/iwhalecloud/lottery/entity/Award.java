@@ -26,8 +26,8 @@ public class Award {
 	/**
 	 * 工号
 	 */
-	@Column(name = "staff_code")
-	private String staffCode;
+	@Column(name = "staff_id")
+	private Integer staffId;
 
 	/**
 	 * 时间
