@@ -12,9 +12,11 @@ new Vue({
             ],
             password: '',
             lotteryName: '',
+            lotteryId: {},
+            url:'',
         },
         uploadVisible:false,
-
+        createSuccess:false
     },
 
     // function¶¼Ð´ÕâÀï
@@ -29,7 +31,10 @@ new Vue({
                 if (valid) {
                     axios.post('lottery/createPrize', param, null).then(res => {
                         if (res.data.success){
-                            this.uploadVisible=true;
+                            this.lotteryId={'lotteryId':res.data.data};
+                            this.url="localhost:8089/lottery?lotteryId="+res.data.data;
+                            this.createSuccess=true;
+                            // this.uploadVisible=true;
                         }
                     })
                 }
