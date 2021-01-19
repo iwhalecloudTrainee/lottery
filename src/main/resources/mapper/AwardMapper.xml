@@ -9,5 +9,7 @@
     <result column="prize_id" jdbcType="INTEGER" property="prizeId" />
     <result column="staff_id" jdbcType="INTEGER" property="staffId" />
     <result column="time" jdbcType="TIMESTAMP" property="time" />
+    <result column="lottery_id" jdbcType="INTEGER" property="lotteryId" />
+
   </resultMap>
 </mapper>

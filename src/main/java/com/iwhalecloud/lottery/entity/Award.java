@@ -34,4 +34,6 @@ public class Award {
 	 */
 	private Date time;
 
+	private Integer lotteryId;
+
 }
