@@ -9,38 +9,8 @@ new Vue({
         staffList: [
             {
                 staffId: 1,
-                staffName: 'asd',
-            }, {
-                staffId: 2,
-                staffName: 'assd',
-            }, {
-                staffId: 3,
-                staffName: 'asad',
-            }, {
-                staffId: 4,
-                staffName: 'awsd',
-            }, {
-                staffId: 5,
-                staffName: 'asdq',
-            }, {
-                staffId: 6,
-                staffName: 'asfd',
-            }, {
-                staffId: 7,
-                staffName: 'asqd',
-            }, {
-                staffId: 8,
-                staffName: 'asqwfd',
-            }, {
-                staffId: 9,
-                staffName: 'adssdqqqqqqqqqqqqqqq',
-            }, {
-                staffId: 10,
-                staffName: 'asdsd',
-            }, {
-                staffId: 11,
-                staffName: 'assdgd',
-            },
+                staffName: '快来抽奖',
+            }
         ]
     },
     mounted() {
@@ -88,7 +58,7 @@ new Vue({
             return params[name];
         },
         lottery: function () {
-            var that=this;
+            var that = this;
             if (!that.prizeId) {
                 alert("请选择抽奖项目")
                 return;
@@ -97,13 +67,13 @@ new Vue({
                 if (!lotteryId) {
                     return;
                 }
-                const parma={
-                    prizeId:that.prizeId,
+                const parma = {
+                    prizeId: that.prizeId,
                     lotteryId: lotteryId
                 }
                 axios.post('lottery/getLottery', parma, null).then(res => {
                     if (res.data.success) {
-
+                        this.staffList = res.data.data
                     }
                 })
                 // var audio = new Audio("resources/bgm.mp3");//这里的路径写上mp3文件在项目中的绝对路径

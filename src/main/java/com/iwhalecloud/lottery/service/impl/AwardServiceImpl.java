@@ -45,7 +45,10 @@ public class AwardServiceImpl implements AwardService {
         for (Award award : awardList) {
             Prize p = prizeService.selectPrizeById(award.getPrizeId());
             Lottery lottery = lotteryService.selectLottery(award.getLotteryId());
-            Staff staff = staffMapper.selectByPrimaryKey(award.getStaffId());
+            Staff staff=new Staff();
+            staff.setStaffId(award.getStaffId());
+            staff = staffMapper.selectOne(staff);
+            staff.setStaffName(staff.getStaffCode() + " "+staff.getStaffName());
             AwardVO awardVo = new AwardVO(p.getPrizeId(), p.getPrizeName(), lottery.getLotteryId(), lottery.getLotteryName(), staff.getStaffId(), staff.getStaffName());
             awardVoList.add(awardVo);
         }

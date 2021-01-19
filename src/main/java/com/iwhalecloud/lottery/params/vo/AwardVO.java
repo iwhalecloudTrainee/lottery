@@ -17,11 +17,11 @@ public class AwardVO {
 
     private String lotteryName;
 
-    private String staffId;
+    private Integer staffId;
 
     private String staffName;
 
-    public AwardVO(Integer prizeId, String prizeName, Integer lotteryId, String lotteryName, String staffId, String staffName) {
+    public AwardVO(Integer prizeId, String prizeName, Integer lotteryId, String lotteryName, Integer staffId, String staffName) {
         this.prizeId = prizeId;
         this.prizeName = prizeName;
         this.lotteryId = lotteryId;

@@ -1,9 +1,7 @@
 package com.iwhalecloud.lottery.service.impl;
 
-import com.iwhalecloud.lottery.entity.Form;
-import com.iwhalecloud.lottery.entity.Lottery;
-import com.iwhalecloud.lottery.entity.Prize;
-import com.iwhalecloud.lottery.entity.Staff;
+import com.iwhalecloud.lottery.entity.*;
+import com.iwhalecloud.lottery.mapper.AwardMapper;
 import com.iwhalecloud.lottery.mapper.LotteryMapper;
 import com.iwhalecloud.lottery.mapper.PrizeMapper;
 import com.iwhalecloud.lottery.mapper.StaffMapper;
@@ -17,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -28,6 +27,8 @@ public class LotteryServiceImpl implements LotteryService {
     PrizeMapper prizeMapper;
     @Autowired
     StaffMapper staffMapper;
+    @Autowired
+    AwardMapper awardMapper;
 
     /**
      * 批量上传文件
@@ -93,7 +94,7 @@ public class LotteryServiceImpl implements LotteryService {
             return Result.getFalse("已抽奖：无法修改！！");
         }
         // 更新抽奖表
-        lotteryMapper.updateByPrimaryKey(lottery);
+        lotteryMapper.updateByPrimaryKeySelective(lottery);
         List<Prize> prize = form.getPrize();
         for (Prize prizeMap : prize) {
             prizeMap.setLotteryId(lotteryId);
@@ -139,7 +140,8 @@ public class LotteryServiceImpl implements LotteryService {
         //随机取出一个幸运观众中奖
         int count = staffList.size();
         Random random = new Random();
-        BeanUtils.copyProperties(staffList.get(random.nextInt(count)), staff);
+        int awardIndex=random.nextInt(count);
+        BeanUtils.copyProperties(staffList.get(awardIndex), staff);
         //准备假数据制造节目效果
         Staff staffFake = new Staff();
         staffFake.setLotteryId(lotteryReq.getLotteryId());
@@ -147,16 +149,33 @@ public class LotteryServiceImpl implements LotteryService {
         List<Staff> staffRollData = new ArrayList<>();
         boolean setData=true;
         while (setData) {
+            //写499个假数据
             for (Staff staff1 : staffFakeList) {
-                staffRollData.add(staff1);
-                if (staffRollData.size()==997){
+                Staff staff2=new Staff();
+                BeanUtils.copyProperties(staff1,staff2);
+                String staffName=staff1.getStaffCode()+" "+staff1.getStaffName();
+                staff2.setStaffName(staffName);
+                staffRollData.add(staff2);
+                if (staffRollData.size()==497){
                     staffRollData.add(staff);
                 }
-                if (staffRollData.size()==999){
+                if (staffRollData.size()==499){
                     setData=false;
                 }
             }
         }
+        Award award=new Award();
+        award.setLotteryId(lotteryReq.getLotteryId());
+        award.setPrizeId(lotteryReq.getPrizeId());
+        award.setStaffId(staff.getStaffId());
+        award.setTime(new Date());
+        awardMapper.insert(award);
+        Lottery lottery=new Lottery();
+        lottery.setState(0);
+        lottery.setLotteryId(lotteryReq.getLotteryId());
+        lotteryMapper.updateByPrimaryKeySelective(lottery);
+        staff.setState(1);
+        staffMapper.updateByPrimaryKeySelective(staff);
         return Result.getSuccess(staffRollData);
     }
 }

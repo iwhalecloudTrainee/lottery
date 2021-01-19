@@ -15,7 +15,7 @@ public class Staff {
 	 */
 	@Id
 	@Column(name = "staff_id")
-	private String staffId;
+	private Integer staffId;
 	/**
 	 * 工号
 	 */
