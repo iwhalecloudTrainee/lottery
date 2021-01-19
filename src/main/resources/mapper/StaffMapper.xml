@@ -34,11 +34,6 @@
         WHERE state = 0 and lottery_id = #{lotteryId}
 
     </select>
-    <select id="selectStaffById" resultMap="BaseResultMap">
-       SELECT *
-        FROM staff where staff_id = #{staffId}
-
-    </select>
 
     <select id="selectStaffByStatus" resultMap="BaseResultMap">
        SELECT *

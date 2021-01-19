@@ -5,10 +5,13 @@ import com.iwhalecloud.lottery.entity.Lottery;
 import com.iwhalecloud.lottery.entity.Prize;
 import com.iwhalecloud.lottery.entity.Staff;
 import com.iwhalecloud.lottery.mapper.AwardMapper;
+import com.iwhalecloud.lottery.mapper.StaffMapper;
 import com.iwhalecloud.lottery.params.req.LoginReq;
 import com.iwhalecloud.lottery.params.vo.AwardVO;
 import com.iwhalecloud.lottery.params.vo.Result;
 import com.iwhalecloud.lottery.service.AwardService;
+import com.iwhalecloud.lottery.service.LotteryService;
+import com.iwhalecloud.lottery.service.PrizeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,28 +30,22 @@ public class AwardServiceImpl implements AwardService {
     private AwardMapper awardMapper;
 
     @Autowired
-    private PrizeServiceImpl prizeService;
+    PrizeService prizeService;
 
     @Autowired
-    private LotteryServiceImpl lotteryService;
+    LotteryService lotteryService;
 
     @Autowired
-    private StaffServiceImpl staffServiceImpl;
+    StaffMapper staffMapper;
 
     @Override
     public Result getAward(LoginReq loginReq) {
         List<Award> awardList = awardMapper.selectAwardById(loginReq.getLotteryId());
-
         List<AwardVO> awardVoList = new ArrayList<>();
-
         for (Award award : awardList) {
-
             Prize p = prizeService.selectPrizeById(award.getPrizeId());
-
             Lottery lottery = lotteryService.selectLottery(award.getLotteryId());
-
-            Staff staff = staffServiceImpl.selectStaffById(award.getStaffId());
-
+            Staff staff = staffMapper.selectByPrimaryKey(award.getStaffId());
             AwardVO awardVo = new AwardVO(p.getPrizeId(), p.getPrizeName(), lottery.getLotteryId(), lottery.getLotteryName(), staff.getStaffId(), staff.getStaffName());
             awardVoList.add(awardVo);
         }

@@ -15,7 +15,6 @@ public interface StaffMapper extends Mapper<Staff> {
 
 	List<Staff> selectStaff(Integer lotteryId);
 
-	Staff selectStaffById(Integer id);
 
 	List<Staff> selectStaffByStatus(Integer status);
 }
