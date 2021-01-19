@@ -10,5 +10,5 @@ import lombok.Data;
 public class LotteryReq {
     private Integer lotteryId;
     private Integer prizeId;
-    private Integer staffId;
+    private String staffName;
 }

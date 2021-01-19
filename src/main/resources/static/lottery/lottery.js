@@ -11,7 +11,7 @@ new Vue({
         awardData: {
             lotteryId: 0,
             prizeId: 0,
-            staffId: 0,
+            staffName: '',
         }
     },
     mounted() {
@@ -50,6 +50,7 @@ new Vue({
                     that.autoplay = false;
                     console.log(this.staffList)
                     this.awardData.staffId = 210;
+                    this.awardData.staffName=document.getElementsByClassName('is-active')[0].outerText
                     this.setLottery();
                 } else {
                     that.autoplay = true;
@@ -76,8 +77,8 @@ new Vue({
             if (!lotteryId) {
                 return;
             }
-            this.awardData.lotteryId=lotteryId;
-            this.awardData.prizeId=this.prizeId;
+            this.awardData.lotteryId = lotteryId;
+            this.awardData.prizeId = this.prizeId;
             axios.post('lottery/setLottery', this.awardData, null).then(res => {
                 if (res.data.success) {
                     this.getPrizeList();

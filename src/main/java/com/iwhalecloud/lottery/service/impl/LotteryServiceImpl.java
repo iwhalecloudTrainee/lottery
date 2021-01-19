@@ -15,6 +15,7 @@ import com.iwhalecloud.lottery.utils.MD5Util;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -160,11 +161,26 @@ public class LotteryServiceImpl implements LotteryService {
 	 */
 	@Override
 	public Result setLottery(LotteryReq lotteryReq) {
-		if (null == lotteryReq.getLotteryId() || null == lotteryReq.getPrizeId() || null == lotteryReq.getStaffId()) {
+		Staff staff=new Staff();
+
+		if (null == lotteryReq.getLotteryId() || null == lotteryReq.getPrizeId() || !StringUtils.hasText(lotteryReq.getStaffName())) {
 			return Result.getFalse("输入有误");
+		} else {
+			try {
+				//拆分staffName，通过staffId和lotteryId查询staff，为防止格式报错，放在tryCatch里面
+				String staffNameStr[] = lotteryReq.getStaffName().split(" ");
+				String staffCode=staffNameStr[0];
+				staff.setStaffCode(staffCode);
+				staff.setLotteryId(lotteryReq.getLotteryId());
+				staff.setState(0);
+				staff=staffMapper.selectOne(staff);
+				if (null==staff){
+					return Result.getFalse("输入有误");
+				}
+			} catch (Exception e) {
+			}
 		}
 		//通过入参获取staff，prize，lottery信息
-		Staff staff = staffMapper.selectByPrimaryKey(lotteryReq.getStaffId());
 		Prize prize = prizeMapper.selectByPrimaryKey(lotteryReq.getPrizeId());
 		Lottery lottery = lotteryMapper.selectByPrimaryKey(lotteryReq.getLotteryId());
 		if (null == staff || null == prize || null == lottery) {
@@ -174,10 +190,10 @@ public class LotteryServiceImpl implements LotteryService {
 		staff.setState(1);
 		staffMapper.updateByPrimaryKey(staff);
 		//更新prize
-		if (null==prize.getStaffName()){
+		if (null == prize.getStaffName()) {
 			prize.setStaffName(staff.getStaffCode() + " " + staff.getStaffName());
-		}else {
-			prize.setStaffName(staff.getStaffCode() + " " + staff.getStaffName()+" , "+prize.getStaffName());
+		} else {
+			prize.setStaffName(staff.getStaffCode() + " " + staff.getStaffName() + " , " + prize.getStaffName());
 		}
 		prize.setNum(prize.getNum() - 1);
 		prizeMapper.updateByPrimaryKey(prize);
