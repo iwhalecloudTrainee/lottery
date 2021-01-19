@@ -6,13 +6,15 @@ new Vue({
         dynamicValidateForm: {
             prizes: [
                 {
-                    prizeName: null,
+                    prizeName: '',
                     num: 0
                 }
             ],
-
+            password: '',
             lotteryName: '',
-        }
+        },
+        uploadVisible:false,
+
     },
 
     // function都写这里
@@ -20,12 +22,18 @@ new Vue({
         submitForm: function () {
             const param = {
                 lotteryName: this.dynamicValidateForm.lotteryName,
+                password: this.dynamicValidateForm.password,
                 prize: this.dynamicValidateForm.prizes,
             }
-            axios.post('lottery/createPrize',param,function (response){
-                console.log("sad")
+            this.$refs['dynamicValidateForm'].validate((valid) => {
+                if (valid) {
+                    axios.post('lottery/createPrize', param, null).then(res => {
+                        if (res.data.success){
+                            this.uploadVisible=true;
+                        }
+                    })
+                }
             })
-
         },
         resetForm(formName) {
             this.$refs[formName].resetFields();
@@ -42,6 +50,13 @@ new Vue({
                 num: 0,
             });
         },
+        handleClose(done) {
+            this.$confirm('确认关闭？')
+                .then(_ => {
+                    done();
+                })
+                .catch(_ => {});
+        }
     },
 })
 
