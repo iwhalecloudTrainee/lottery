@@ -33,4 +33,7 @@ public class Prize {
 	@Column(name = "lottery_id")
 	private Integer lotteryId;
 
+	@Column(name = "staff_name")
+	private String staffName;
+
 }

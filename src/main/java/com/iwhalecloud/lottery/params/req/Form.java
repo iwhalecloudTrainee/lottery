@@ -1,5 +1,6 @@
-package com.iwhalecloud.lottery.entity;
+package com.iwhalecloud.lottery.params.req;
 
+import com.iwhalecloud.lottery.entity.Prize;
 import lombok.Data;
 
 import java.util.List;

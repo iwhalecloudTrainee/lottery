@@ -19,15 +19,6 @@ public class Router {
 		return "newLottery/newLottery.html";
 	}
 
-	/**
-	 * 登录界面返回
-	 *
-	 * @return
-	 */
-	@RequestMapping("login")
-	public String login() {
-		return "redirect:login/login.html";
-	}
 
 	/**
 	 * 单个抽奖查询
@@ -40,14 +31,4 @@ public class Router {
 		return "lottery/lottery.html";
 	}
 
-	/**
-	 * 用户创建的所有抽奖列表
-	 * 预计入参：userId，session
-	 *
-	 * @return
-	 */
-	@RequestMapping("lotteryList")
-	public String lotteryList() {
-		return "lotteryList/lotteryList.html";
-	}
 }
