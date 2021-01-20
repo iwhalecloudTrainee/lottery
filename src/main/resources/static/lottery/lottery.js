@@ -13,7 +13,6 @@ new Vue({
         admin: false,
         password: '',
         lotteryId: 0,
-        rollText:'开始抽奖',
         awardData: {
             lotteryId: 0,
             prizeId: 0,
@@ -36,7 +35,6 @@ new Vue({
                 if (res.data.success) {
                     this.lotteryName = res.data.data.lotteryName;
                     this.prizeList = res.data.data.prizeList;
-                    this.prizeId=''
                     console.log(this.prizeList)
                 }
             })
@@ -51,42 +49,21 @@ new Vue({
                 return;
             } else {
                 if (this.isLottery == "开始抽奖") {
-                    console.log("抽奖开始时间",new Date());
                     that.timeOutNub = setTimeout(function stopLottery() {
                         that.autoplay = false;
                         that.isLottery = "开始抽奖";
-                        console.log("定时结束",new Date());
-                    }, 3000);
+                        that.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText;
+                        that.setLottery();
+                    }, 15000);
                     this.isLottery = "停止抽奖";
                     that.autoplay = true;
-                }else {
-                    console.log(that.timeOutNub);
+                } else {
                     clearTimeout(that.timeOutNub);
-                    console.log("抽奖结束时间",new Date());
                     this.isLottery = "开始抽奖";
                     that.autoplay = false;
-                    console.log(this.staffList);
                     this.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText;
                     this.setLottery();
                 }
-                //判断是否正在滚动
-                // if (that.autoplay) {
-                //     that.autoplay = false;
-                //     console.log(this.staffList);
-                //     this.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText;
-                //     this.setLottery();
-                // } else {
-                //     that.autoplay = true;
-                // }
-                // var audio = new Audio("resources/bgm.mp3");//这里的路径写上mp3文件在项目中的绝对路径
-                // audio.play();//播放
-                // this.autoplay = true;
-                // setTimeout(function () {
-                //     audio.pause();
-                // }, 16000);
-                //
-                // //抽奖结束后，给this.awardData赋值,然后调用
-                // this.setLottery();
             }
         },
 
