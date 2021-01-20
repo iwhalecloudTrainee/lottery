@@ -44,7 +44,9 @@ public class LotteryServiceImpl implements LotteryService {
 			staffMap.setState(0);
 		}
 		//先删除再导入
-		staffMapper.deleteBatchData(staff);
+		Staff staff1=new Staff();
+		staff1.setLotteryId(lotteryId);
+		staffMapper.delete(staff1);
 		staffMapper.insertBatchExcel(staff);
 		result = Result.getSuccess("成功导入" + staff.size() + "条");
 		return result;
