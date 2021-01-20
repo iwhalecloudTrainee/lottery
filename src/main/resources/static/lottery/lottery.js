@@ -13,6 +13,7 @@ new Vue({
         admin: false,
         password: '',
         lotteryId: 0,
+        rollText:'开始抽奖',
         awardData: {
             lotteryId: 0,
             prizeId: 0,
@@ -46,7 +47,7 @@ new Vue({
         lottery: function () {
             var that = this;
             if (!this.prizeId) {
-                alert("请选择抽奖项目");
+                alert("请选择抽奖项目")
                 return;
             } else {
                 if (this.isLottery == "开始抽奖") {

@@ -11,44 +11,38 @@
     <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
     <!-- 必须先引入vue，  后使用element-ui -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
-    <!--本地引入-->
-<!--    <link rel="stylesheet" href="../node_modules/element-ui/lib/theme-chalk/index.css">-->
-<!--    <script src="../node_modules/element-ui/lib/index.js"></script>-->
-    <!--CDN引入-->
-    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
-    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
-
+    <link rel="stylesheet" href="../node_modules/element-ui/lib/theme-chalk/index.css">
+    <script src="../node_modules/element-ui/lib/index.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
 <div id="lottery">
     {{lotteryName}}（抽奖标题，括号内的内容设置好样式了记着删除）
     <div class="lottery" v-show="admin">
-        抽奖
-        <el-carousel :interval="speed" height="100px" width="400px" direction="vertical" :autoplay="autoplay" arrow="never" indicator-position="none">
+        <el-carousel :interval="speed" height="100px" direction="vertical" :autoplay="autoplay" arrow="never"
+                     indicator-position="none">
             <el-carousel-item v-for="item in staffList" :key="item.staffId">
                 <h3 class="medium">{{ item.staffName }}</h3>
             </el-carousel-item>
         </el-carousel>
 
-        <el-select v-model="prizeId" placeholder="请选择">
-            <el-option
-                    v-for="item in prizeList"
-                    :key="item.prizeId"
-                    :label="item.prizeName"
-                    :value="item.prizeId"
-                    :disabled="item.disable">
-            </el-option>
-        </el-select>
-        <el-button @click="lottery">{{this.isLottery}}</el-button>
-        奖品列表
-        （如果取出来的num=0，则不可选择）
+        <div class="roll">
+            <el-select v-model="prizeId" placeholder="请选择">
+                <el-option
+                        v-for="item in prizeList"
+                        :key="item.prizeId"
+                        :label="item.prizeName"
+                        :value="item.prizeId"
+                        :disabled="item.disable">
+                </el-option>
+            </el-select>
+            <el-button @click="lottery">{{ rollText }}</el-button>
+        </div>
     </div>
     <div class="prize">
         <el-table
-                :data="prizeList"
-                border
-                style="width: 100%">
+                :stripe="true"
+                :data="prizeList">
             <el-table-column
                     prop="prizeName"
                     label="奖项"
@@ -62,24 +56,60 @@
             <el-table-column
                     prop="staffName"
                     label="已获奖"
-                    width="180">
+                    width="300">
             </el-table-column>
         </el-table>
-    </div>
-    <div class="login" v-show="!admin">
-        <el-input placeholder="请输入密码" v-model="password" show-password ></el-input>
-        <el-button @click="login">登录</el-button>
-    </div>
-    <div class="update">
-        <el-button @click="update">编辑</el-button>
+        <div class="function">
+            <div class="login" v-show="!admin">
+                <el-input placeholder="请输入密码" v-model="password" show-password></el-input>
+                <el-button @click="login">登录</el-button>
+            </div>
+            <el-button @click="update">编辑</el-button>
+
+        </div>
     </div>
 </div>
 <script type="text/javascript" src="lottery/lottery.js"></script>
 <style>
-    #lottery{
+    #lottery {
+        padding-left: 10%;
+        padding-right: 10%;
+        margin-top: 5%;
+        width: 80%;
+    }
+
+    .lotteryName {
+        font-size: 25px;
+        text-align: center;
+    }
+
+    .lottery {
         padding-left: 10%;
         padding-right: 10%;
         width: 80%;
+    }
+
+    .el-carousel__item h3 {
+        color: #475669;
+        font-size: 18px;
+        opacity: 0.75;
+        margin: 0;
+        text-align: center;
+        line-height: 100px;
+    }
+
+    .roll {
+        padding-right: 20%;
+        padding-left: 20%;
+    }
+
+    .prize {
+        margin-right: 5px;
+        margin-left: 5px;
+    }
+    .el-table{
+
+
     }
 </style>
 </body>
