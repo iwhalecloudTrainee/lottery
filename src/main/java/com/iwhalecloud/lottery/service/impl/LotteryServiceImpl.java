@@ -39,6 +39,9 @@ public class LotteryServiceImpl implements LotteryService {
      */
     @Override
     public Result batchUploadExcel(List<Staff> staff, Integer lotteryId) {
+        if (null==lotteryId){
+            return Result.getFalse();
+        }
         Result result = null;
         // 默认未中奖
         for (Staff staffMap : staff) {
@@ -110,7 +113,7 @@ public class LotteryServiceImpl implements LotteryService {
         // 先删除后insert达到更新奖品的目的
         prizeMapper.deleteBatch(lotteryId);
         prizeMapper.insertPrize(prizes);
-        return Result.getSuccess("更新成功！！");
+        return Result.getSuccess(lotteryId);
     }
 
     /**

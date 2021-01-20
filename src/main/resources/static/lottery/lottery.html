@@ -17,8 +17,7 @@
 </head>
 <body>
 <div id="lottery">
-
-    <div class="lotteryName">{{ lotteryName }}</div>
+    {{lotteryName}}（抽奖标题，括号内的内容设置好样式了记着删除）
     <div class="lottery" v-show="admin">
         <el-carousel :interval="speed" height="100px" direction="vertical" :autoplay="autoplay" arrow="never"
                      indicator-position="none">
@@ -37,7 +36,7 @@
                         :disabled="item.disable">
                 </el-option>
             </el-select>
-            <el-button @click="lottery">{{ isLottery }}</el-button>
+            <el-button @click="lottery">{{ rollText }}</el-button>
         </div>
     </div>
     <div class="prize">

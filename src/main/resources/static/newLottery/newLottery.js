@@ -47,7 +47,6 @@ new Vue({
             })
         },
         submitForm: function () {
-            this.uploadVisible=true;
             const param = {
                 lotteryName: this.dynamicValidateForm.lotteryName,
                 password: this.dynamicValidateForm.password,
@@ -56,6 +55,7 @@ new Vue({
             // �ж��޸Ļ�����
             var url='lottery/createPrize';
             if (this.isUpdate==false){
+                this.uploadVisible = true;
                 var lotteryId=this.getUrlRequestParam("lotteryId");
                 url='lottery/updatePrize'
                 param["lotteryId"]=lotteryId;
@@ -67,7 +67,7 @@ new Vue({
                         console.log(res);
                         var data=res.data;
                         if (data.success){
-                            this.lotteryId=data.data;
+                            this.lotteryId={'lotteryId':data.data};
                             this.url="localhost:8089/lottery?lotteryId="+data.data;
                             if (this.isUpdate==true){
                                 this.createSuccess=true;
@@ -96,10 +96,10 @@ new Vue({
             });
         },
         createEnd() {
-            console.log("--------------------");
             this.createSuccess=false;
             this.uploadVisible = false;
-            const parma = 'lottery?lotteryId=' + this.lotteryId
+
+            const parma = 'lottery?lotteryId=' + this.lotteryId["lotteryId"]
             self.location.href=parma;
         },
         getUrlRequestParam:function (name) {
@@ -123,7 +123,6 @@ new Vue({
                     alert("登录成功");
                     this.updateSuccess=false
                 }else {
-                    console.log(res);
                     var message=res.data
                     alert(message.data)
                 }
