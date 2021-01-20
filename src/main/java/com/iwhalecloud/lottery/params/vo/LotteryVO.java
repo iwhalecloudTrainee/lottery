@@ -1,6 +1,5 @@
 package com.iwhalecloud.lottery.params.vo;
 
-import com.iwhalecloud.lottery.entity.Prize;
 import lombok.Data;
 
 import java.util.List;
@@ -13,5 +12,5 @@ import java.util.List;
 public class LotteryVO {
     private Integer lotteryId;
     private String lotteryName;
-    private List<Prize> prizeList;
+    private List<PrizeVO> prizeList;
 }

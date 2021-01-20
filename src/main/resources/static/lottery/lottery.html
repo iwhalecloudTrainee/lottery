@@ -31,7 +31,8 @@
                     v-for="item in prizeList"
                     :key="item.prizeId"
                     :label="item.prizeName"
-                    :value="item.prizeId">
+                    :value="item.prizeId"
+                    :disabled="item.disable">
             </el-option>
         </el-select>
         <el-button @click="lottery">开始抽奖</el-button>
