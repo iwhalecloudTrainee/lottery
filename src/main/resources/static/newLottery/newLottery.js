@@ -33,14 +33,14 @@ new Vue({
             console.log(lotteryId);
             var m = this;
             axios.post('lottery/getPrizeList', params, null).then(res => {
-                if (res.data.data.success){
-                    this.isUpdate=false;
+                console.log(res.data.data);
+                if (res.data.data.lotteryId){
+                    m.isUpdate=false;
                     var result=res.data.data;
                     console.log(result);
                     m.dynamicValidateForm.lotteryId=result.lotteryId;
                     m.dynamicValidateForm.lotteryName=result.lotteryName;
                     m.dynamicValidateForm.prizes=result.prizeList;
-
                 }
             })
 
