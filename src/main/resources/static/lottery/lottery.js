@@ -59,7 +59,7 @@ new Vue({
                         that.isLottery = "开始抽奖";
                         that.audio.pause();
                         console.log("定时结束",new Date());
-                    }, 3000);
+                    }, 15000);
                     this.isLottery = "停止抽奖";
                     that.autoplay = true;
                 }else {
