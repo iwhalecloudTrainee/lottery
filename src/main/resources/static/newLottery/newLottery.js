@@ -53,7 +53,7 @@ new Vue({
             const param = {
                 lotteryName: this.dynamicValidateForm.lotteryName,
                 password: this.dynamicValidateForm.password,
-                prize: this.dynamicValidateForm.prizes,
+                prizes: this.dynamicValidateForm.prizes,
             }
             // 判断修改或新增
             var url='lottery/createPrize';
