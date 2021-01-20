@@ -50,24 +50,32 @@ new Vue({
                 return;
             } else {
                 if (this.isLottery == "开始抽奖") {
-                    that.audio.play();
-                    that.timeOutNub = setTimeout(function stopLottery() {
-                        that.autoplay = false;
-                        that.isLottery = "开始抽奖";
-                        that.audio.pause();
-                        console.log("定时结束",new Date());
-                        that.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText;
-                        that.setLottery();
-                    }, 15000);
-                    this.isLottery = "停止抽奖";
-                    that.autoplay = true;
+                    const parma = {
+                        lotteryId: this.lotteryId
+                    }
+                    axios.post('lottery/getStaffList', parma, null).then(res => {
+                        if (res.data.success) {
+                            that.staffList = res.data.data
+                            that.audio.play();
+                            that.timeOutNub = setTimeout(function stopLottery() {
+                                that.autoplay = false;
+                                that.isLottery = "开始抽奖";
+                                that.audio.pause();
+                                that.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText;
+                                that.setLottery();
+                            }, 15000);
+                            this.isLottery = "停止抽奖";
+                            that.autoplay = true;
+                        }
+                    })
+
                 }else {
                     that.audio.pause();
                     clearTimeout(that.timeOutNub);
-                    this.isLottery = "开始抽奖";
+                    that.isLottery = "开始抽奖";
                     that.autoplay = false;
-                    this.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText;
-                    this.setLottery();
+                    that.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText;
+                    that.setLottery();
                 }
 
             }
@@ -80,7 +88,7 @@ new Vue({
             axios.post('lottery/setLottery', this.awardData, null).then(res => {
                 if (res.data.success) {
                     this.getPrizeList();
-                    this.getStaffData();
+                    // this.getStaffData();
                 }
             })
         },
