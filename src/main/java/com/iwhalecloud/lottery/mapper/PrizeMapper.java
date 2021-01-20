@@ -14,7 +14,7 @@ public interface PrizeMapper extends Mapper<Prize> {
 	int updateBatch(List<Prize> prize);
 
 	// 批量删除
-	int deleteBatch(List<Prize> prize);
+	int deleteBatch(Integer LotteryId);
 
 	Prize selectPrizeById(Integer id);
 }

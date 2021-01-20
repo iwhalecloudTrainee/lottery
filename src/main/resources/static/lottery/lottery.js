@@ -33,8 +33,10 @@ new Vue({
             };
             axios.post('lottery/getPrizeList', parma, null).then(res => {
                 if (res.data.success) {
-                    this.prizeList = res.data.data.prizeList;
                     this.lotteryName = res.data.data.lotteryName;
+                    this.prizeList = res.data.data.prizeList;
+                    this.prizeId=''
+                    console.log(this.prizeList)
                 }
             })
         },

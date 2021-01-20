@@ -10,8 +10,8 @@
 - 抽奖结束后，会调用getStaffData();重新获取员工数据（为了剔除刚才中奖的员工），但是马上调用会导致转盘的抽奖结果发生变动，和下面的抽奖结果不一致，会给人一种强行内定的感觉，让他保留一下，或者在每次抽奖前再调用getStaffData()方法，但是需要注意异步请求管理。
 # 前端页面 lottery 优化
 - 主要负责人 裴俊宇
-- 右上角新增编辑按钮，点击后跳转到newLottery（localhost:8089/lottery?lotteryId=lotteryId）
-- 奖品列表限制
+- done 右上角新增编辑按钮，点击后跳转到newLottery（localhost:8089/lottery?lotteryId=lotteryId）
+- done 奖品列表限制
 - 界面美化
 # 前端界面 newLottery 优化
 - 主要负责人 马驰崴 裴俊宇
