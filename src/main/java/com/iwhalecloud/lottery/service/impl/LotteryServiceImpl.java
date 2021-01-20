@@ -130,7 +130,6 @@ public class LotteryServiceImpl implements LotteryService {
                 prizeVO.setDisable(false);
             }
             prizeVOList.add(prizeVO);
-
         }
         //获取抽奖基本信息
         Lottery lottery = lotteryMapper.selectByPrimaryKey(lotteryId);

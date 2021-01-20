@@ -111,11 +111,11 @@
             :show-close="false"
             width="700px">
         <p>密码:
-            <el-input placeholder="请输入密码" v-model="updatePassword" show-password ></el-input>
+            <el-input placeholder="请输入密码" v-model="updatePassword"  show-password ></el-input>
         </p>
         <span slot="footer" class="dialog-footer">
-            <el-button @click="updateSuccess = false">取 消</el-button>
-            <el-button type="primary" @click="uploadVisible = true,updateSuccess=false">确 定</el-button>
+<!--            <el-button @click="updateSuccess = false">取 消</el-button>-->
+            <el-button type="primary" @click="checkPassword">确 定</el-button>
          </span>
     </el-dialog>
 </div>
