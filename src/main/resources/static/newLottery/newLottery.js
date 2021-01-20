@@ -74,7 +74,11 @@ new Vue({
                             }
                             // this.uploadVisible=true;
                         }else {
-                            alert(date.data)
+                            this.uploadVisible = false;
+                            alert(data.data)
+                            const parma = 'lottery?lotteryId=' + lotteryId
+                            self.location.href=parma;
+
                         }
                     })
                 }
