@@ -9,17 +9,17 @@ new Vue({
         prizeId: '',
         autoplay: false,
         staffList: [],
-        speed: 250,
+        speed: 300,
         admin: false,
         password: '',
         lotteryId: 0,
-        ip:'',
+        ip: '',
         awardData: {
             lotteryId: 0,
             prizeId: 0,
             staffName: '',
         },
-        audio:new Audio("resources/bgm.mp3"),//这里的路径写上mp3文件在项目中的绝对路径
+        audio: new Audio("resources/bgm.mp3"),//这里的路径写上mp3文件在项目中的绝对路径
     },
     mounted() {
         this.getLotteryId();
@@ -37,7 +37,7 @@ new Vue({
                 if (res.data.success) {
                     this.lotteryName = res.data.data.lotteryName;
                     this.prizeList = res.data.data.prizeList;
-                    this.prizeId=''
+                    this.prizeId = ''
                 }
             })
         },
@@ -71,7 +71,7 @@ new Vue({
                         }
                     })
 
-                }else {
+                } else {
                     that.audio.pause();
                     that.audio.currentTime = 0;
                     clearTimeout(that.timeOutNub);
@@ -141,7 +141,7 @@ new Vue({
         //获取链接中的值
         getUrlRequestParam: function (name) {
             var paramUrl = window.location.search.substr(1);
-            this.ip=window.location.origin;
+            this.ip = window.location.origin;
             var paramStrs = paramUrl.split('&');
             var params = {};
             for (var index = 0; index < paramStrs.length; index++) {
