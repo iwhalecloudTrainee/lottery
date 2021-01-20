@@ -96,6 +96,8 @@ public class LotteryServiceImpl implements LotteryService {
         if (state == 0) {
             return Result.getFalse("已抽奖：无法修改！！");
         }
+        lottery.setPassword(MD5Util.getMD5String(lottery.getPassword()));
+
         // 更新抽奖表
         lotteryMapper.updateByPrimaryKeySelective(lottery);
         List<Prize> prizes = formReq.getPrizes();
@@ -103,7 +105,7 @@ public class LotteryServiceImpl implements LotteryService {
             prizeMap.setLotteryId(lotteryId);
         }
         // 先删除后insert达到更新奖品的目的
-        prizeMapper.deleteBatch(prizes);
+        prizeMapper.deleteBatch(lotteryId);
         prizeMapper.insertPrize(prizes);
         return Result.getSuccess("更新成功！！");
     }
@@ -125,8 +127,8 @@ public class LotteryServiceImpl implements LotteryService {
             PrizeVO prizeVO = new PrizeVO();
             BeanUtils.copyProperties(prize1, prizeVO);
             if (prizeVO.getNum() < 1) {
-				prizeVO.setDisable(true);
-            }else {
+                prizeVO.setDisable(true);
+            } else {
                 prizeVO.setDisable(false);
             }
             prizeVOList.add(prizeVO);
