@@ -86,6 +86,9 @@ public class LotteryServiceImpl implements LotteryService {
      */
     @Override
     public Result updatePrize(FormReq formReq) {
+        if (null==formReq.getLotteryId()){
+            return Result.getFalse();
+        }
         Lottery lottery = new Lottery();
         //copy lottery数据
         BeanUtils.copyProperties(formReq, lottery);
