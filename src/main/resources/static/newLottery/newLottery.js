@@ -13,13 +13,14 @@ new Vue({
             password: '',
             lotteryName: '',
             lotteryId: {},
-            url:'',
         },
         updatePassword:'',
         isUpdate:true,
         uploadVisible:false,
         createSuccess:false,
-        updateSuccess:false
+        updateSuccess:false,
+        url:'',
+        lotteryId: 0,
     },
     created:function (){
         this.initUpdate();
@@ -30,11 +31,10 @@ new Vue({
         initUpdate:function (){
             var lotteryId=this.getUrlRequestParam("lotteryId");
             var params={lotteryId:lotteryId}
-            console.log(lotteryId);
             var m = this;
             axios.post('lottery/getPrizeList', params, null).then(res => {
                 console.log(res.data.data);
-                if (res.data.data.lotteryId){
+                if (res.data.success){
                     m.isUpdate=false;
                     var result=res.data.data;
                     console.log(result);
