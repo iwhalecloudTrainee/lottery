@@ -9,7 +9,7 @@ new Vue({
         prizeId: '',
         autoplay: false,
         staffList: [],
-        speed: 200,
+        speed: 250,
         admin: false,
         password: '',
         lotteryId: 0,
@@ -61,9 +61,10 @@ new Vue({
                                 that.autoplay = false;
                                 that.isLottery = "开始抽奖";
                                 that.audio.pause();
+                                that.audio.currentTime = 0;
                                 that.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText;
                                 that.setLottery();
-                            }, 15000);
+                            }, 115000);
                             this.isLottery = "停止抽奖";
                             that.autoplay = true;
                         }
@@ -71,6 +72,7 @@ new Vue({
 
                 }else {
                     that.audio.pause();
+                    that.audio.currentTime = 0;
                     clearTimeout(that.timeOutNub);
                     that.isLottery = "开始抽奖";
                     that.autoplay = false;

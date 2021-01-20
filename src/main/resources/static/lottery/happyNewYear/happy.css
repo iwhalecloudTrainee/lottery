@@ -14,15 +14,7 @@ body {
   min-height: 103vh;
   background: url("../images/background.png");
 }
-.section::before {
-  content: "";
-  position: absolute;
-  width: 30vw;
-  height: 30vw;
-  border: 5vw solid #ff1062;
-  border-radius: 50%;
-  box-shadow: 0 0 0 1vw #222, 0 0 0 1.3vw #fff;
-}
+
 .section .section__title {
   transform: skewY(-7deg);
   z-index: 10;

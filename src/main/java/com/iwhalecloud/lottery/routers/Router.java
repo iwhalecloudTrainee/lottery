@@ -6,7 +6,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * 拿来返回到页面
- * index lottery lotteryList这三个应该要带modelAndView
  *
  * @author by W4i
  * @date 2021/1/15 20:23
@@ -19,16 +18,14 @@ public class Router {
 		return "newLottery/newLottery.html";
 	}
 
-
-	/**
-	 * 单个抽奖查询
-	 * 预计入参 lotteryId，session
-	 *
-	 * @return
-	 */
 	@RequestMapping("lottery")
 	public String lottery() {
 		return "lottery/lottery.html";
+	}
+
+	@RequestMapping("lotteryPE")
+	public String lotteryPE() {
+		return "lotteryPE/lotteryPE.html";
 	}
 
 }
