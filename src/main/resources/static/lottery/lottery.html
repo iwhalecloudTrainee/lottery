@@ -64,18 +64,15 @@
                 :data="prizeList">
             <el-table-column
                     prop="prizeName"
-                    label="奖项"
-                    width="200">
+                    label="奖项">
             </el-table-column>
             <el-table-column
                     prop="num"
-                    label="剩余数量"
-                    width="50">
+                    label="剩余数量">
             </el-table-column>
             <el-table-column
                     prop="staffName"
-                    label="已获奖"
-                    width="400">
+                    label="已获奖">
             </el-table-column>
         </el-table>
         <div class="function">
@@ -112,7 +109,7 @@
     .lottery {
         padding-left: 10%;
         padding-right: 10%;
-        height: 20%;
+        height: 40%;
         width: 80%;
     }
 
@@ -128,6 +125,11 @@
         margin: 0;
         text-align: center;
         line-height: 100px;
+    }
+    .el-table{
+        text-align: center;
+        background: transparent;
+        font-size: 20px;
     }
 
     .roll {
