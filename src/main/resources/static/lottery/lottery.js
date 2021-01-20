@@ -33,6 +33,7 @@ new Vue({
                 if (res.data.success) {
                     this.lotteryName = res.data.data.lotteryName;
                     this.prizeList = res.data.data.prizeList;
+                    this.prizeId=''
                     console.log(this.prizeList)
                 }
             })

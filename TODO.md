@@ -11,7 +11,7 @@
 # 前端页面 lottery 优化
 - 主要负责人 裴俊宇
 - done 右上角新增编辑按钮，点击后跳转到newLottery（localhost:8089/lottery?lotteryId=lotteryId）
-- 奖品列表限制
+- done 奖品列表限制
 - 界面美化
 # 前端界面 newLottery 优化
 - 主要负责人 马驰崴 裴俊宇
