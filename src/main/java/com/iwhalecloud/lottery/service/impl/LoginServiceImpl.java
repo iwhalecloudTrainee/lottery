@@ -36,7 +36,7 @@ public class LoginServiceImpl implements LoginService {
 		if (lotteryMapper.selectCount(lottery) < 1) {
 			return Result.getFalse("密码错误");
 		}
-		return Result.getSuccess("http://localhost:8089/lottery?lotteryId="+lottery.getLotteryId());
+		return Result.getSuccess();
 	}
 
 }

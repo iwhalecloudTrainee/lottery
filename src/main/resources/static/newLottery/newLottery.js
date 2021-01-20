@@ -21,6 +21,7 @@ new Vue({
         updateSuccess:false,
         url:'',
         lotteryId: 0,
+        ip:'',
     },
     created:function (){
         this.initUpdate();
@@ -68,7 +69,7 @@ new Vue({
                         var data=res.data;
                         if (data.success){
                             this.lotteryId={'lotteryId':data.data};
-                            this.url="localhost:8089/lottery?lotteryId="+data.data;
+                            this.url=this.ip+"/lottery?lotteryId="+data.data;
                             if (this.isUpdate==true){
                                 this.createSuccess=true;
                             }
@@ -106,13 +107,13 @@ new Vue({
             self.location.href=parma;
         },
         getUrlRequestParam:function (name) {
+            this.ip=window.location.origin;
             var paramUrl = window.location.search.substr(1);
             var paramStrs = paramUrl.split('&');
             var params = {};
             for (var index = 0; index < paramStrs.length; index++) {
                 params[paramStrs[index].split('=')[0]] = decodeURI(paramStrs[index].split('=')[1]);
             }
-            console.log( params[name]);
             return params[name];
         },
         checkPassword:function (){

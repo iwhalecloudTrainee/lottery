@@ -13,6 +13,7 @@ new Vue({
         admin: false,
         password: '',
         lotteryId: 0,
+        ip:'',
         awardData: {
             lotteryId: 0,
             prizeId: 0,
@@ -140,6 +141,7 @@ new Vue({
         //获取链接中的值
         getUrlRequestParam: function (name) {
             var paramUrl = window.location.search.substr(1);
+            this.ip=window.location.origin;
             var paramStrs = paramUrl.split('&');
             var params = {};
             for (var index = 0; index < paramStrs.length; index++) {

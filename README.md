@@ -7,3 +7,9 @@
 - 奇奇怪怪的入参放在怕params.req，奇奇怪怪的入参放在params.vo
 - 单表增删改查都有封装好的方法，mapper.insert/select/update/delete就行，除非条件非常奇葩，可以直接调用
 - 手机端适配已删除
+# pc端地址
+- newLottery 创建新抽奖
+- lottery?lotteryId=? 根据id访问抽奖
+- newLottery?lotteryId 根据id修改抽奖
+# 手机端地址
+- lotteryPE?lotteryId=? 根据id访问抽奖
