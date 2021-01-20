@@ -70,7 +70,7 @@ new Vue({
                             }
                             // this.uploadVisible=true;
                         }else {
-                            alert(this.date.data)
+                            alert(res.data.data)
                         }
                     })
                 }
