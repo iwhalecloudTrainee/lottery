@@ -6,3 +6,4 @@
 - 采用一个页面一个文件夹的方式，绑定同级目录的同名.js
 - 奇奇怪怪的入参放在怕params.req，奇奇怪怪的入参放在params.vo
 - 单表增删改查都有封装好的方法，mapper.insert/select/update/delete就行，除非条件非常奇葩，可以直接调用
+- 手机端适配已删除
