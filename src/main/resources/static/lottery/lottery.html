@@ -46,6 +46,7 @@
                 <el-carousel :interval="speed" height="100px" direction="vertical" :autoplay="autoplay" arrow="never"
                              indicator-position="none" class="rollCarousel">
                     <el-carousel-item v-for="item in staffList" :key="item.staffId">
+                        <h3 class="medium">{{ item.staffCode }}</h3>
                         <h3 class="medium">{{ item.staffName }}</h3>
                     </el-carousel-item>
                 </el-carousel>
@@ -129,7 +130,7 @@
     }
 
     .lottery {
-        top: 50%;
+        top: 40%;
         left: 50%;
         transform: translate(-50%, -50%);
         position: absolute;
@@ -184,6 +185,9 @@
         right: -14%;
         transform: translate(-50%, -50%);
         position: absolute;
+    }
+    .el-carousel__container{
+        height: 200px !important;
     }
 </style>
 </body>

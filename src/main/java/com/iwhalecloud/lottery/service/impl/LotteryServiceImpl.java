@@ -169,9 +169,9 @@ public class LotteryServiceImpl implements LotteryService {
         staff.setState(0);
         //打乱顺序
         List<Staff> staffList = staffMapper.select(staff);
-        for (Staff staff1 : staffList) {
-            staff1.setStaffName(staff1.getStaffCode() + " " + staff1.getStaffName());
-        }
+//        for (Staff staff1 : staffList) {
+//            staff1.setStaffName(staff1.getStaffCode() + " " + staff1.getStaffName());
+//        }
         Collections.shuffle(staffList);
         return Result.getSuccess(staffList);
     }
@@ -191,7 +191,7 @@ public class LotteryServiceImpl implements LotteryService {
         } else {
             try {
                 //拆分staffName，通过staffId和lotteryId查询staff，为防止格式报错，放在tryCatch里面
-                String staffNameStr[] = lotteryReq.getStaffName().split(" ");
+                String staffNameStr[] = lotteryReq.getStaffName().split("\n");
                 String staffCode = staffNameStr[0];
                 staff.setStaffCode(staffCode);
                 staff.setLotteryId(lotteryReq.getLotteryId());
