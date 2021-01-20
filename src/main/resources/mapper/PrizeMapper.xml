@@ -10,14 +10,15 @@
         <result column="num" jdbcType="INTEGER" property="num"/>
         <result column="lottery_id" jdbcType="INTEGER" property="lotteryId"/>
         <result column="staff_name" jdbcType="VARCHAR" property="staffName"/>
+        <result column="count" jdbcType="INTEGER" property="count"/>
 
     </resultMap>
     <!--  插入sql-->
     <insert id="insertPrize" parameterType="java.util.List">
-        insert into prize (prize_name,num,lottery_id)
+        insert into prize (prize_name,num,lottery_id,count)
         values
         <foreach collection="list" item="prize" separator=",">
-            (#{prize.prizeName},#{prize.num},#{prize.lotteryId})
+            (#{prize.prizeName},#{prize.num},#{prize.lotteryId},#{prize.count})
         </foreach>
     </insert>
     <!--  批量更新    -->

@@ -75,6 +75,7 @@ public class LotteryServiceImpl implements LotteryService {
         // 获取奖品list
         List<Prize> prizes = formReq.getPrizes();
         for (Prize prize : prizes) {
+            prize.setCount(prize.getNum());
             prize.setLotteryId(lottery.getLotteryId());
         }
         prizeMapper.insertPrize(prizes);
@@ -108,6 +109,7 @@ public class LotteryServiceImpl implements LotteryService {
         lotteryMapper.updateByPrimaryKeySelective(lottery);
         List<Prize> prizes = formReq.getPrizes();
         for (Prize prizeMap : prizes) {
+            prizeMap.setCount(prizeMap.getNum());
             prizeMap.setLotteryId(lotteryId);
         }
         // 先删除后insert达到更新奖品的目的
@@ -131,8 +133,9 @@ public class LotteryServiceImpl implements LotteryService {
         List<PrizeVO> prizeVOList = new ArrayList<>();
         for (Prize prize1 : prizeList) {
             PrizeVO prizeVO = new PrizeVO();
+            prizeVO.setNum(prize1.getNum()+"（总量："+prize1.getCount()+"）");
             BeanUtils.copyProperties(prize1, prizeVO);
-            if (prizeVO.getNum() < 1) {
+            if (prize1.getNum() < 1) {
                 prizeVO.setDisable(true);
             } else {
                 prizeVO.setDisable(false);

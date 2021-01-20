@@ -102,7 +102,6 @@ new Vue({
         createEnd() {
             this.createSuccess=false;
             this.uploadVisible = false;
-
             const parma = 'lottery?lotteryId=' + this.lotteryId["lotteryId"]
             self.location.href=parma;
         },

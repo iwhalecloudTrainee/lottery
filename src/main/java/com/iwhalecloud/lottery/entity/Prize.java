@@ -36,4 +36,7 @@ public class Prize {
 	@Column(name = "staff_name")
 	private String staffName;
 
+	@Column(name = "count")
+	private Integer count;
+
 }

@@ -11,7 +11,7 @@ public class PrizeVO {
 
     private Integer prizeId;
     private String prizeName;
-    private Integer num;
+    private String num;
     private Integer lotteryId;
     private String staffName;
     private boolean disable;

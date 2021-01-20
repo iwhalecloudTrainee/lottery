@@ -21,9 +21,10 @@
             float: left !important;
             margin-left: 13px !important;
         }
+
         .el-button {
             margin-left: 1rem !important;
-            top:  5rem;
+            top: 5rem;
         }
 
     </style>
@@ -44,7 +45,7 @@
                 label="密码"
                 :rules="[{ required: true, message: '请输入密码', trigger: 'blur' },]"
                 v-if="isUpdate">
-            <el-input placeholder="请输入密码" v-model="dynamicValidateForm.password" show-password >{{dynamicValidateForm.password}}</el-input>
+            <el-input placeholder="请输入密码" v-model="dynamicValidateForm.password" show-password>{{dynamicValidateForm.password}}</el-input>
         </el-form-item>
         <el-form-item
                 v-for="(domain, index) in dynamicValidateForm.prizes">
@@ -88,6 +89,7 @@
             <div class="el-upload__text">ps:重新上传会删除原有的员工数据</div>
         </el-upload>
         <span slot="footer" class="dialog-footer">
+            <a href="../resources/lotteryExcel.xlsx">下载导入模板</a>
             <el-button @click="uploadVisible = false">取 消</el-button>
             <el-button type="primary" @click="createEnd">确 定</el-button>
          </span>
@@ -103,7 +105,7 @@
         </p>
         是否立即上传员工？
         <span slot="footer" class="dialog-footer">
-            <el-button @click="createSuccess = false">取 消</el-button>
+            <el-button @click="createEnd">取 消</el-button>
             <el-button type="primary" @click="uploadVisible = true,createSuccess=false">确 定</el-button>
          </span>
     </el-dialog>
@@ -113,7 +115,7 @@
             :show-close="false"
             width="700px">
         <p>密码:
-            <el-input placeholder="请输入密码" v-model="updatePassword"  show-password ></el-input>
+            <el-input placeholder="请输入密码" v-model="updatePassword" show-password></el-input>
         </p>
         <span slot="footer" class="dialog-footer">
 <!--            <el-button @click="updateSuccess = false">取 消</el-button>-->

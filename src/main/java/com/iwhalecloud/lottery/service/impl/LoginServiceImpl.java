@@ -39,8 +39,4 @@ public class LoginServiceImpl implements LoginService {
 		return Result.getSuccess("http://localhost:8089/lottery?lotteryId="+lottery.getLotteryId());
 	}
 
-	public static void main(String[] args) {
-		System.out.println(		MD5Util.getMD5String("asd")
-		);
-	}
 }
