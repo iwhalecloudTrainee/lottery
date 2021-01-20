@@ -11,8 +11,13 @@
     <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
     <!-- 必须先引入vue，  后使用element-ui -->
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
-    <link rel="stylesheet" href="../node_modules/element-ui/lib/theme-chalk/index.css">
-    <script src="../node_modules/element-ui/lib/index.js"></script>
+    <!--本地引入-->
+<!--    <link rel="stylesheet" href="../node_modules/element-ui/lib/theme-chalk/index.css">-->
+<!--    <script src="../node_modules/element-ui/lib/index.js"></script>-->
+    <!--CDN引入-->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
@@ -34,7 +39,7 @@
                     :value="item.prizeId">
             </el-option>
         </el-select>
-        <el-button @click="lottery">开始抽奖</el-button>
+        <el-button @click="lottery">{{this.isLottery}}</el-button>
         奖品列表
         （如果取出来的num=0，则不可选择）
     </div>

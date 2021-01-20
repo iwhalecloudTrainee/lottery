@@ -1,6 +1,8 @@
 new Vue({
     el: "#lottery",
     data: {
+        isLottery: "开始抽奖",
+        timeOutNu: "",
         awardList: [],
         prizeList: [],
         lotteryName: '',
@@ -28,7 +30,7 @@ new Vue({
         getPrizeList() {
             const parma = {
                 lotteryId: this.lotteryId
-            }
+            };
             axios.post('lottery/getPrizeList', parma, null).then(res => {
                 if (res.data.success) {
                     this.prizeList = res.data.data.prizeList;
@@ -42,25 +44,40 @@ new Vue({
         lottery: function () {
             var that = this;
             if (!this.prizeId) {
-                alert("请选择抽奖项目")
+                alert("请选择抽奖项目");
                 return;
             } else {
-                //判断是否正在滚动
-                if (that.autoplay) {
-                    that.autoplay = false;
-                    console.log(this.staffList)
-                    this.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText
-                    this.setLottery();
-                } else {
+                if (this.isLottery == "开始抽奖") {
+                    console.log("抽奖开始时间",new Date());
+                    that.timeOutNub = setTimeout(function stopLottery() {
+                        that.autoplay = false;
+                        that.isLottery = "开始抽奖";
+                        console.log("定时结束",new Date());
+                    }, 3000);
+                    this.isLottery = "停止抽奖";
                     that.autoplay = true;
+                }else {
+                    console.log(that.timeOutNub);
+                    clearTimeout(that.timeOutNub);
+                    console.log("抽奖结束时间",new Date());
+                    this.isLottery = "开始抽奖";
+                    that.autoplay = false;
+                    console.log(this.staffList);
+                    this.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText;
+                    this.setLottery();
                 }
+                //判断是否正在滚动
+                // if (that.autoplay) {
+                //     that.autoplay = false;
+                //     console.log(this.staffList);
+                //     this.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText;
+                //     this.setLottery();
+                // } else {
+                //     that.autoplay = true;
+                // }
                 // var audio = new Audio("resources/bgm.mp3");//这里的路径写上mp3文件在项目中的绝对路径
                 // audio.play();//播放
                 // this.autoplay = true;
-                setTimeout(function () {
-                    //15s后自动停止滚动
-                    that.autoplay = false
-                }, 15000);
                 // setTimeout(function () {
                 //     audio.pause();
                 // }, 16000);
