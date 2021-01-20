@@ -37,16 +37,11 @@ new Vue({
                 if (res.data.success){
                     m.isUpdate=false;
                     var result=res.data.data;
-                    console.log(result);
                     m.dynamicValidateForm.lotteryId=result.lotteryId;
                     m.dynamicValidateForm.lotteryName=result.lotteryName;
                     m.dynamicValidateForm.prizes=result.prizeList;
                 }
             })
-
-        },
-        updateForm:function (){
-
 
         },
         submitForm: function () {
@@ -74,6 +69,8 @@ new Vue({
                                 this.createSuccess=true;
                             }
                             // this.uploadVisible=true;
+                        }else {
+                            alert(this.date.data)
                         }
                     })
                 }
