@@ -49,7 +49,6 @@ new Vue({
                 if (that.autoplay) {
                     that.autoplay = false;
                     console.log(this.staffList)
-                    this.awardData.staffId = 210;
                     this.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText
                     this.setLottery();
                 } else {
