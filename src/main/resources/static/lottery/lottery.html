@@ -46,25 +46,25 @@
             <el-table-column
                     prop="prizeName"
                     label="奖项"
-                    width="180">
+                    width="200">
             </el-table-column>
             <el-table-column
                     prop="num"
                     label="剩余数量"
-                    width="180">
+                    width="50">
             </el-table-column>
             <el-table-column
                     prop="staffName"
                     label="已获奖"
-                    width="300">
+                    width="400">
             </el-table-column>
         </el-table>
         <div class="function">
             <div class="login" v-show="!admin">
                 <el-input placeholder="请输入密码" v-model="password" show-password></el-input>
-                <el-button @click="login">登录</el-button>
+                <el-button style="float: right" @click="login">登录</el-button>
             </div>
-            <el-button @click="update">编辑</el-button>
+            <el-button style="float: right" @click="update">编辑</el-button>
 
         </div>
     </div>
@@ -119,6 +119,11 @@
         width: 80%;
     }
 
+    .function{
+        position: fixed; /*or前面的是absolute就可以用*/
+        bottom: 0px;
+        right: 0px;
+    }
     .el-carousel__item h3 {
         color: #475669;
         font-size: 18px;
