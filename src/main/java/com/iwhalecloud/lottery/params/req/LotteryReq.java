@@ -8,7 +8,7 @@ import lombok.Data;
  */
 @Data
 public class LotteryReq {
-    private Integer lotteryId;
-    private Integer prizeId;
-    private String staffName;
+	private Integer lotteryId;
+	private Integer prizeId;
+	private String staffName;
 }

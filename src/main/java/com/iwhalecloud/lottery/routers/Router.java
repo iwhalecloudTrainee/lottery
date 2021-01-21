@@ -2,7 +2,6 @@ package com.iwhalecloud.lottery.routers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * 拿来返回到页面

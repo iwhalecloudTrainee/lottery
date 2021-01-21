@@ -1,7 +1,5 @@
 new Vue({
-    // ��html id
     el: '#newLottery',
-    // ȫ�ֱ����洢
     data: {
         dynamicValidateForm: {
             prizes: [
@@ -14,36 +12,35 @@ new Vue({
             lotteryName: '',
             lotteryId: {},
         },
-        updatePassword:'',
-        isUpdate:true,
-        uploadVisible:false,
-        createSuccess:false,
-        updateSuccess:false,
-        url:'',
+        updatePassword: '',
+        isUpdate: true,
+        uploadVisible: false,
+        createSuccess: false,
+        updateSuccess: false,
+        url: '',
         lotteryId: 0,
-        ip:'',
+        ip: '',
     },
-    created:function (){
+    created: function () {
         this.initUpdate();
     },
 
-    // function��д����
     methods: {
-        initUpdate:function (){
-            var lotteryId=this.getUrlRequestParam("lotteryId");
-            if (lotteryId){
-                this.updateSuccess=true;
+        initUpdate: function () {
+            var lotteryId = this.getUrlRequestParam("lotteryId");
+            if (lotteryId) {
+                this.updateSuccess = true;
             }
-            var params={lotteryId:lotteryId}
+            var params = {lotteryId: lotteryId}
             var m = this;
             axios.post('lottery/getPrizeList', params, null).then(res => {
                 console.log(res.data.data);
-                if (res.data.success){
-                    m.isUpdate=false;
-                    var result=res.data.data;
-                    m.dynamicValidateForm.lotteryId=result.lotteryId;
-                    m.dynamicValidateForm.lotteryName=result.lotteryName;
-                    m.dynamicValidateForm.prizes=result.prizeList;
+                if (res.data.success) {
+                    m.isUpdate = false;
+                    var result = res.data.data;
+                    m.dynamicValidateForm.lotteryId = result.lotteryId;
+                    m.dynamicValidateForm.lotteryName = result.lotteryName;
+                    m.dynamicValidateForm.prizes = result.prizeList;
                 }
             })
         },
@@ -53,32 +50,31 @@ new Vue({
                 password: this.dynamicValidateForm.password,
                 prizes: this.dynamicValidateForm.prizes,
             }
-            // �ж��޸Ļ�����
-            var url='lottery/createPrize';
-            if (this.isUpdate==false){
+            var url = 'lottery/createPrize';
+            if (this.isUpdate == false) {
                 this.uploadVisible = true;
-                var lotteryId=this.getUrlRequestParam("lotteryId");
-                url='lottery/updatePrize'
-                param["lotteryId"]=lotteryId;
-                param["password"]=this.updatePassword;
+                var lotteryId = this.getUrlRequestParam("lotteryId");
+                url = 'lottery/updatePrize'
+                param["lotteryId"] = lotteryId;
+                param["password"] = this.updatePassword;
             }
             this.$refs['dynamicValidateForm'].validate((valid) => {
                 if (valid) {
                     axios.post(url, param, null).then(res => {
                         console.log(res);
-                        var data=res.data;
-                        if (data.success){
-                            this.lotteryId={'lotteryId':data.data};
-                            this.url=this.ip+"/lottery?lotteryId="+data.data;
-                            if (this.isUpdate==true){
-                                this.createSuccess=true;
+                        var data = res.data;
+                        if (data.success) {
+                            this.lotteryId = {'lotteryId': data.data};
+                            this.url = this.ip + "/lottery?lotteryId=" + data.data;
+                            if (this.isUpdate == true) {
+                                this.createSuccess = true;
                             }
                             // this.uploadVisible=true;
-                        }else {
+                        } else {
                             this.uploadVisible = false;
                             alert(data.data)
                             const parma = 'lottery?lotteryId=' + lotteryId
-                            self.location.href=parma;
+                            self.location.href = parma;
 
                         }
                     })
@@ -101,13 +97,13 @@ new Vue({
             });
         },
         createEnd() {
-            this.createSuccess=false;
+            this.createSuccess = false;
             this.uploadVisible = false;
             const parma = 'lottery?lotteryId=' + this.lotteryId["lotteryId"]
-            self.location.href=parma;
+            self.location.href = parma;
         },
-        getUrlRequestParam:function (name) {
-            this.ip=window.location.origin;
+        getUrlRequestParam: function (name) {
+            this.ip = window.location.origin;
             var paramUrl = window.location.search.substr(1);
             var paramStrs = paramUrl.split('&');
             var params = {};
@@ -116,18 +112,18 @@ new Vue({
             }
             return params[name];
         },
-        checkPassword:function (){
-            var lotteryId=this.getUrlRequestParam("lotteryId");
+        checkPassword: function () {
+            var lotteryId = this.getUrlRequestParam("lotteryId");
             const param = {
                 lotteryId: lotteryId,
                 password: this.updatePassword
             }
             axios.post("user/login", param, null).then(res => {
-                if (res.data.success){
+                if (res.data.success) {
                     alert("登录成功");
-                    this.updateSuccess=false
-                }else {
-                    var message=res.data
+                    this.updateSuccess = false
+                } else {
+                    var message = res.data
                     alert(message.data)
                 }
             })

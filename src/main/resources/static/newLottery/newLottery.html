@@ -8,31 +8,12 @@
     <script src="https://cdn.jsdelivr.net/npm/vue@2.6/dist/vue.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vant@2.12/lib/vant.min.js"></script>
     <script src="../node_modules/vue/dist/vue.js"></script>
-
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-
     <link rel="stylesheet" href="../node_modules/element-ui/lib/theme-chalk/index.css">
     <script src="../node_modules/element-ui/lib/index.js"></script>
-    <style>
-        .el-form-item__content {
-            line-height: 40px !important;
-            position: relative !important;
-            font-size: 14px !important;
-            float: left !important;
-            margin-left: 13px !important;
-        }
-
-        .el-button {
-            margin-left: 1rem !important;
-            top: 5rem;
-        }
-
-    </style>
 </head>
 
-<body>
 <div id="newLottery">
-
     <el-form :model="dynamicValidateForm" ref="dynamicValidateForm" label-width="100px" class="demo-dynamic">
         <el-form-item
                 prop="lotteryName"
@@ -99,11 +80,8 @@
             :visible="createSuccess"
             :show-close="false"
             width="700px">
-        <p>创建抽奖成功，你的抽奖链接是
-            {{url}}
-            ，请妥善保管
-        </p>
-        是否立即上传员工？
+        <p>创建抽奖成功，你的抽奖链接是 {{url}} ，请妥善保管</p>
+        <p>是否立即上传员工？</p>
         <span slot="footer" class="dialog-footer">
             <el-button @click="createEnd">取 消</el-button>
             <el-button type="primary" @click="uploadVisible = true,createSuccess=false">确 定</el-button>
@@ -118,13 +96,24 @@
             <el-input placeholder="请输入密码" v-model="updatePassword" show-password></el-input>
         </p>
         <span slot="footer" class="dialog-footer">
-<!--            <el-button @click="updateSuccess = false">取 消</el-button>-->
             <el-button type="primary" @click="checkPassword">确 定</el-button>
          </span>
     </el-dialog>
 </div>
 <script type="text/javascript" src="newLottery/newLottery.js"></script>
-
+<style>
+    .el-form-item__content {
+        line-height: 40px !important;
+        position: relative !important;
+        font-size: 14px !important;
+        float: left !important;
+        margin-left: 13px !important;
+    }
+    .el-button {
+        margin-left: 1rem !important;
+        top: 5rem;
+    }
+</style>
 </body>
 
 </html>

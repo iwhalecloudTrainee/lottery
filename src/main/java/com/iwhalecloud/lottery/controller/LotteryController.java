@@ -1,9 +1,8 @@
 package com.iwhalecloud.lottery.controller;
 
 import com.alibaba.excel.EasyExcel;
-import com.iwhalecloud.lottery.entity.Lottery;
-import com.iwhalecloud.lottery.params.req.FormReq;
 import com.iwhalecloud.lottery.entity.Staff;
+import com.iwhalecloud.lottery.params.req.FormReq;
 import com.iwhalecloud.lottery.params.req.LoginReq;
 import com.iwhalecloud.lottery.params.req.LotteryReq;
 import com.iwhalecloud.lottery.params.vo.Result;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -10,7 +10,7 @@ import java.util.List;
  */
 @Data
 public class LotteryVO {
-    private Integer lotteryId;
-    private String lotteryName;
-    private List<PrizeVO> prizeList;
+	private Integer lotteryId;
+	private String lotteryName;
+	private List<PrizeVO> prizeList;
 }
