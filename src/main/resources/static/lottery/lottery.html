@@ -29,6 +29,7 @@
                 <el-carousel :interval="speed" height="300px" direction="vertical" :autoplay="autoplay" arrow="never"
                              indicator-position="none" class="rollCarousel">
                     <el-carousel-item v-for="item in staffList" :key="item.staffId">
+                        <br><br><br><br><br><br>
                         <h3 class="medium">{{ item.staffCode }}</h3>
                         <h3 class="medium">{{ item.staffName }}</h3>
                     </el-carousel-item>
@@ -58,12 +59,12 @@
                         fixed
                         prop="prizeName"
                         label="奖项"
-                        width="150px">
+                        width="135px">
                 </el-table-column>
                 <el-table-column
                         prop="num"
                         label="数量"
-                        width="300px">
+                        width="135px">
                 </el-table-column>
                 <el-table-column
                         prop="staffName"
@@ -119,7 +120,7 @@
     }
 
     .lottery {
-        top: 30%;
+        top: 25%;
         left: 35%;
         position: absolute;
         height: 40%;
@@ -152,7 +153,6 @@
     }
 
     .el-carousel__item h3 {
-        margin-top: 10%;
         color: #ffffff;
         font-size: 50px;
         text-align: center;
@@ -184,15 +184,15 @@
         z-index: 3;
         position: absolute;
         left: 10%;
-        bottom: 20%;
+        bottom: 10%;
     }
 
     .prize {
         top: 30%;
         right: 1%;
         position: absolute;
-        width: 26%;
-        height: 26%;
+        width: 32%;
+        height: 42%;
     }
 </style>
 </body>
