@@ -22,7 +22,6 @@
 
     <div id="lottery">
         <div class="lotteryName">{{ lotteryName }}</div>
-        <div class="ring"></div>
         <div class="lotteryB" v-show="admin"></div>
         <div class="lottery" v-show="admin">
             <div class="rollName">
@@ -53,7 +52,7 @@
         <div class="prize">
             <el-table
                     :data="prizeList"
-                    height="500">
+                    height="400">
                 <el-table-column
                         fixed
                         prop="prizeName"
@@ -118,9 +117,10 @@
         right: 0px;
         bottom: 0px;
         margin: auto;
-        font-size: 60px;
         text-align: center;
         font-weight: bold;
+        z-index: 1;
+        font-size: 4vw;
     }
 
     .lottery {
@@ -154,6 +154,7 @@
         position: fixed;
         bottom: 0px;
         right: 30px;
+        z-index: 10;
     }
 
     .el-carousel__item h3 {
@@ -182,10 +183,6 @@
         padding-right: 1px;
     }
 
-    .cell {
-        line-height: 40px !important;
-    }
-
     .el-table th,
     .el-table tr,
     .el-table td {
@@ -198,14 +195,18 @@
         position: absolute;
         left: 10%;
         bottom: 15%;
+        width: 20%;
     }
-
+    .el-select{
+        width: 40%;
+    }
     .prize {
         top: 30%;
         right: 1%;
         position: absolute;
         width: 26%;
-        height: 26%;
+        height: 30%;
+        z-index: 2;
     }
 
     .staffName {
@@ -215,7 +216,13 @@
         font-size: 3vw;
         line-height: 1.5em;
     }
-
+    .staffName {
+        z-index: 10;
+        color: #fff;
+        text-align: center;
+        font-size: 3vw;
+        line-height: 1.5em;
+    }
     .staffName span {
         font-weight: 700;
         font-size: 1em;
