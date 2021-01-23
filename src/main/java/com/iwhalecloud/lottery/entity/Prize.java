@@ -39,4 +39,9 @@ public class Prize {
 	@Column(name = "count")
 	private Integer count;
 
+	/**
+	 * 奖项
+	 */
+	@Column(name = "prize_level")
+	private String prizeLevel;
 }

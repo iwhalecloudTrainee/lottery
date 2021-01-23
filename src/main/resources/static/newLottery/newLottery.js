@@ -11,7 +11,7 @@ new Vue({
             password: '',
             lotteryName: '',
             lotteryId: {},
-            prizeLevel:'',
+            prizeLevel:'一等奖',
         },
         updatePassword: '',
         isUpdate: true,
@@ -42,6 +42,8 @@ new Vue({
                     m.dynamicValidateForm.lotteryId = result.lotteryId;
                     m.dynamicValidateForm.lotteryName = result.lotteryName;
                     m.dynamicValidateForm.prizes = result.prizeList;
+                    m.dynamicValidateForm.prizeLevel = result.prizeLevel;
+
                 }
             })
         },
@@ -50,6 +52,7 @@ new Vue({
                 lotteryName: this.dynamicValidateForm.lotteryName,
                 password: this.dynamicValidateForm.password,
                 prizes: this.dynamicValidateForm.prizes,
+                prizeLevel: this.dynamicValidateForm.prizeLevel,
             }
             var url = 'lottery/createPrize';
             if (this.isUpdate == false) {
@@ -95,6 +98,7 @@ new Vue({
             this.dynamicValidateForm.prizes.push({
                 prizeName: '',
                 num: 0,
+                prizeLevel:''
             });
         },
         createEnd() {

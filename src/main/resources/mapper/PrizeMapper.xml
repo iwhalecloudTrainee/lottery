@@ -11,14 +11,14 @@
         <result column="lottery_id" jdbcType="INTEGER" property="lotteryId"/>
         <result column="staff_name" jdbcType="VARCHAR" property="staffName"/>
         <result column="count" jdbcType="INTEGER" property="count"/>
-
+        <result column="prize_level" jdbcType="VARCHAR" property="prizeLevel"/>
     </resultMap>
     <!--  插入sql-->
     <insert id="insertPrize" parameterType="java.util.List">
-        insert into prize (prize_name,num,lottery_id,count)
+        insert into prize (prize_name,num,lottery_id,count,prize_level)
         values
         <foreach collection="list" item="prize" separator=",">
-            (#{prize.prizeName},#{prize.num},#{prize.lotteryId},#{prize.count})
+            (#{prize.prizeName},#{prize.num},#{prize.lotteryId},#{prize.count},#{prize.prizeLevel})
         </foreach>
     </insert>
     <!--  批量更新    -->
@@ -28,6 +28,7 @@
             <set>
                 prize_name=#{prize.prizeName},
                 num=#{prize.num}
+                prize_level=#{prize.prizeLevel}
             </set>
             where prize_id = ${prize.PrizeId}
         </foreach>
