@@ -65,7 +65,7 @@ new Vue({
                                 that.audio.currentTime = 0;
                                 that.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText;
                                 that.setLottery();
-                            }, 115000);
+                            }, 15000);
                             this.isLottery = "停止抽奖";
                             that.autoplay = true;
                         }

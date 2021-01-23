@@ -29,7 +29,8 @@
                 <el-carousel :interval="speed" class="full-height" direction="vertical" :autoplay="autoplay" arrow="never"
                              indicator-position="none" class="rollCarousel">
                     <el-carousel-item v-for="item in staffList" :key="item.staffId">
-                        <h3 class="medium">{{ item.staffCode }}<br>{{ item.staffName }}</h3>
+                        <h2 class="staffName">{{ item.staffCode }}<br><span>{{ item.staffName }}</span></h2>
+
                     </el-carousel-item>
                 </el-carousel>
             </div>
@@ -51,7 +52,8 @@
         </div>
         <div class="prize">
             <el-table
-                    :data="prizeList">
+                    :data="prizeList"
+                    height="500">
                 <el-table-column
                         fixed
                         prop="prizeName"
@@ -167,8 +169,8 @@
     }
 
     .el-carousel__container {
-        height: 70%;
-        margin-top: 30%;
+        height: 75%;
+        margin-top: 25%;
     }
 
     .el-table {
@@ -204,6 +206,19 @@
         position: absolute;
         width: 26%;
         height: 26%;
+    }
+
+    .staffName {
+        z-index: 10;
+        color: #fff;
+        text-align: center;
+        font-size: 3vw;
+        line-height: 1.5em;
+    }
+
+    .staffName span {
+        font-weight: 700;
+        font-size: 1em;
     }
 </style>
 </body>
