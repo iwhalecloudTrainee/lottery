@@ -172,9 +172,6 @@ public class LotteryServiceImpl implements LotteryService {
 		staff.setState(0);
 		//打乱顺序
 		List<Staff> staffList = staffMapper.select(staff);
-//        for (Staff staff1 : staffList) {
-//            staff1.setStaffName(staff1.getStaffCode() + " " + staff1.getStaffName());
-//        }
 		Collections.shuffle(staffList);
 		return Result.getSuccess(staffList);
 	}
