@@ -75,7 +75,7 @@ public class LotteryServiceImpl implements LotteryService {
 		// 获取奖品list
 		List<Prize> prizes = formReq.getPrizes();
 		for (Prize prize : prizes) {
-			prize.setCount(prize.getNum());
+			prize.setNum(prize.getCount());
 			prize.setLotteryId(lottery.getLotteryId());
 		}
 		prizeMapper.insertPrize(prizes);
@@ -109,7 +109,7 @@ public class LotteryServiceImpl implements LotteryService {
 		lotteryMapper.updateByPrimaryKeySelective(lottery);
 		List<Prize> prizes = formReq.getPrizes();
 		for (Prize prizeMap : prizes) {
-			prizeMap.setCount(prizeMap.getNum());
+			prizeMap.setNum(prizeMap.getCount());
 			prizeMap.setLotteryId(lotteryId);
 		}
 		// 先删除后insert达到更新奖品的目的
@@ -133,8 +133,8 @@ public class LotteryServiceImpl implements LotteryService {
 		List<PrizeVO> prizeVOList = new ArrayList<>();
 		for (Prize prize1 : prizeList) {
 			PrizeVO prizeVO = new PrizeVO();
-			prizeVO.setNum( (prize1.getCount() - prize1.getNum())+ "/" +prize1.getNum() );
 			BeanUtils.copyProperties(prize1, prizeVO);
+			prizeVO.setNum((prize1.getCount()-prize1.getNum())+ "/" + prize1.getNum());
 			if (prize1.getNum() < 1) {
 				prizeVO.setDisable(true);
 			} else {
@@ -188,7 +188,6 @@ public class LotteryServiceImpl implements LotteryService {
 	@Override
 	public Result setLottery(LotteryReq lotteryReq) {
 		Staff staff = new Staff();
-
 		if (null == lotteryReq.getLotteryId() || null == lotteryReq.getPrizeId() || !StringUtils.hasText(lotteryReq.getStaffName())) {
 			return Result.getFalse("输入有误");
 		} else {

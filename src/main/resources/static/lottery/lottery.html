@@ -35,7 +35,7 @@
             </div>
         </div>
         <div class="roll" v-show="admin">
-            <el-select v-model="prizeId" placeholder="请选择">
+            <el-select v-model="prizeId" placeholder="请选择奖项">
                 <el-option
                         v-for="item in prizeList"
                         :key="item.prizeId"
@@ -44,7 +44,7 @@
                         :disabled="item.disable">
                 </el-option>
             </el-select>
-            <el-button round type="primary" style="margin-top: 5%;" @click="lottery">{{ isLottery }}</el-button>
+            <p class="clickButton" @click="lottery">{{ isLottery }}</p>
         </div>
         <div class="waiting" v-show="!admin">
             <p style="color: #ffffff; font-weight: bolder;font-size: 80px">敬请期待</p>
@@ -55,22 +55,22 @@
                 <el-table-column
                         prop="prizeLevel"
                         label="奖项"
-                        >
+                >
                 </el-table-column>
                 <el-table-column
                         prop="prizeName"
                         label="奖品"
-                        >
+                >
                 </el-table-column>
                 <el-table-column
                         prop="num"
                         label="数量（已抽/剩余）"
-                        >
+                >
                 </el-table-column>
                 <el-table-column
                         prop="staffName"
                         label="获奖名单"
-                        >
+                >
                 </el-table-column>
             </el-table>
         </div>
@@ -87,6 +87,22 @@
 <script type="text/javascript" src="lottery/lottery.js"></script>
 <script type="text/javascript" src="lottery/happyNewYear/const.js"></script>
 <style>
+    .input {
+        width: 30%;
+    }
+
+    .el-input__suffix {
+        display: none;
+    }
+
+    .clickButton {
+        z-index: 10;
+        color: #fff;
+        text-align: center;
+        font-size: 4vw;
+        line-height: 1.5em;
+        text-shadow: 1px 1px 0 #ccc, 2px 2px 0 #ccc, 3px 3px 0 #ccc, 4px 4px 0 #ccc, 5px 5px 0 #ccc, 10px 10px 0 rgba(0, 0, 0, 0.2);
+    }
 
     .full-height {
         height: 100%;
@@ -202,9 +218,11 @@
         bottom: 15%;
         width: 20%;
     }
-    .el-select{
+
+    .el-select {
         width: 40%;
     }
+
     .prize {
         top: 30%;
         right: 1%;
@@ -221,6 +239,7 @@
         font-size: 3vw;
         line-height: 1.5em;
     }
+
     .staffName span {
         font-weight: 700;
         font-size: 1em;

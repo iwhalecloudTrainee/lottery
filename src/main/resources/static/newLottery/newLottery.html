@@ -50,9 +50,9 @@
                     class="el-form-item__content"
                     label="数量"
                     :key="domain.key"
-                    :prop="'prizes.' + index + '.num'"
+                    :prop="'prizes.' + index + '.count'"
                     :rules="[{ required: true, message: '数量不能为空'}]">
-                <el-input-number v-model="domain.num" :min="1">{{domain.num}}</el-input-number>
+                <el-input-number v-model="domain.count" :min="1">{{domain.count}}</el-input-number>
             </el-form-item>
             <el-button @click.prevent="removeDomain(domain)" class="el-button">删除</el-button>
         </el-form-item>

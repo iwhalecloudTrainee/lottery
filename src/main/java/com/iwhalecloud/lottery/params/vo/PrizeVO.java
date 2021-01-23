@@ -15,4 +15,5 @@ public class PrizeVO {
 	private String staffName;
 	private boolean disable;
 	private String prizeLevel;
+	private Integer count;
 }

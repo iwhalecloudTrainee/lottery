@@ -5,13 +5,13 @@ new Vue({
             prizes: [
                 {
                     prizeName: '',
-                    num: 0
+                    count: 1,
+                    prizeLevel: '',
                 }
             ],
             password: '',
             lotteryName: '',
             lotteryId: {},
-            prizeLevel:'一等奖',
         },
         updatePassword: '',
         isUpdate: true,
@@ -42,8 +42,9 @@ new Vue({
                     m.dynamicValidateForm.lotteryId = result.lotteryId;
                     m.dynamicValidateForm.lotteryName = result.lotteryName;
                     m.dynamicValidateForm.prizes = result.prizeList;
-                    m.dynamicValidateForm.prizeLevel = result.prizeLevel;
-
+                    for(var i=0;i<result.prizeList.length;i++){
+                        result.prizeList[i].num=0
+                    }
                 }
             })
         },
@@ -52,7 +53,6 @@ new Vue({
                 lotteryName: this.dynamicValidateForm.lotteryName,
                 password: this.dynamicValidateForm.password,
                 prizes: this.dynamicValidateForm.prizes,
-                prizeLevel: this.dynamicValidateForm.prizeLevel,
             }
             var url = 'lottery/createPrize';
             if (this.isUpdate == false) {
@@ -65,8 +65,8 @@ new Vue({
             this.$refs['dynamicValidateForm'].validate((valid) => {
                 if (valid) {
                     axios.post(url, param, null).then(res => {
-                        console.log(res);
                         var data = res.data;
+                        const parma = 'lottery?lotteryId=' + lotteryId
                         if (data.success) {
                             this.lotteryId = {'lotteryId': data.data};
                             this.url = this.ip + "/lottery?lotteryId=" + data.data;
@@ -77,7 +77,6 @@ new Vue({
                         } else {
                             this.uploadVisible = false;
                             alert(data.data)
-                            const parma = 'lottery?lotteryId=' + lotteryId
                             self.location.href = parma;
 
                         }
@@ -97,8 +96,8 @@ new Vue({
         addDomain() {
             this.dynamicValidateForm.prizes.push({
                 prizeName: '',
-                num: 0,
-                prizeLevel:''
+                count: 1,
+                prizeLevel: ''
             });
         },
         createEnd() {
