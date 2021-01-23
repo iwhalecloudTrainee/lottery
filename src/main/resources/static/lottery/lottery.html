@@ -26,11 +26,10 @@
         <div class="lotteryB" v-show="admin"></div>
         <div class="lottery" v-show="admin">
             <div class="rollName">
-                <el-carousel :interval="speed" height="300px" direction="vertical" :autoplay="autoplay" arrow="never"
+                <el-carousel :interval="speed" class="full-height" direction="vertical" :autoplay="autoplay" arrow="never"
                              indicator-position="none" class="rollCarousel">
                     <el-carousel-item v-for="item in staffList" :key="item.staffId">
-                        <h3 class="medium">{{ item.staffCode }}</h3>
-                        <h3 class="medium">{{ item.staffName }}</h3>
+                        <h3 class="medium">{{ item.staffCode }}<br>{{ item.staffName }}</h3>
                     </el-carousel-item>
                 </el-carousel>
             </div>
@@ -52,8 +51,7 @@
         </div>
         <div class="prize">
             <el-table
-                    :data="prizeList"
-                    style="width: 100%">
+                    :data="prizeList">
                 <el-table-column
                         fixed
                         prop="prizeName"
@@ -63,7 +61,7 @@
                 <el-table-column
                         prop="num"
                         label="数量"
-                        width="300px">
+                        width="150px">
                 </el-table-column>
                 <el-table-column
                         prop="staffName"
@@ -85,6 +83,11 @@
 <script type="text/javascript" src="lottery/lottery.js"></script>
 <script type="text/javascript" src="lottery/happyNewYear/const.js"></script>
 <style>
+
+    .full-height {
+        height: 100%;
+    }
+
     .rollName {
         width: 30vw;
         height: 30vw;
@@ -152,25 +155,33 @@
     }
 
     .el-carousel__item h3 {
-        margin-top: 10%;
         color: #ffffff;
         font-size: 50px;
         text-align: center;
         word-break: normal;
-        line-height: 100px;
         font-weight: bold;
         width: 100%;
         z-index: 999;
         text-overflow: unset;
+        line-height: 150%;
+    }
+
+    .el-carousel__container {
+        height: 70%;
+        margin-top: 30%;
     }
 
     .el-table {
         margin-top: 5%;
         text-align: center;
         background: transparent;
-        font-size: 18px;
+        font-size: 25px;
         color: black;
         padding-right: 1px;
+    }
+
+    .cell {
+        line-height: 40px !important;
     }
 
     .el-table th,
@@ -184,7 +195,7 @@
         z-index: 3;
         position: absolute;
         left: 10%;
-        bottom: 20%;
+        bottom: 15%;
     }
 
     .prize {

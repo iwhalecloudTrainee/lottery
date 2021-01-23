@@ -21,7 +21,7 @@ new Vue({
         },
         audio: new Audio("resources/bgm.mp3"),//这里的路径写上mp3文件在项目中的绝对路径
     },
-    mounted() {
+    created:function() {
         this.getLotteryId();
         this.getPrizeList();
         this.getStaffData();
