@@ -133,7 +133,7 @@ public class LotteryServiceImpl implements LotteryService {
 		List<PrizeVO> prizeVOList = new ArrayList<>();
 		for (Prize prize1 : prizeList) {
 			PrizeVO prizeVO = new PrizeVO();
-			prizeVO.setNum(prize1.getNum() + "（总量：" + prize1.getCount() + "）");
+			prizeVO.setNum( (prize1.getCount() - prize1.getNum())+ "/" +prize1.getNum() );
 			BeanUtils.copyProperties(prize1, prizeVO);
 			if (prize1.getNum() < 1) {
 				prizeVO.setDisable(true);

@@ -11,6 +11,7 @@ new Vue({
             password: '',
             lotteryName: '',
             lotteryId: {},
+            prizeLevel:'',
         },
         updatePassword: '',
         isUpdate: true,
