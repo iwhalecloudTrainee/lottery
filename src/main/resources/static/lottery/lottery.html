@@ -17,6 +17,7 @@
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
+
 <section class="section">
     <h2 class="section__title">Happy New Year<br><span>2021</span></h2>
 
@@ -29,13 +30,12 @@
                              indicator-position="none" class="rollCarousel">
                     <el-carousel-item v-for="item in staffList" :key="item.staffId">
                         <h2 class="staffName">{{ item.staffCode }}<br><span>{{ item.staffName }}</span></h2>
-
                     </el-carousel-item>
                 </el-carousel>
             </div>
         </div>
         <div class="roll" v-show="admin">
-            <el-select v-model="prizeId" placeholder="请选择奖项">
+            <el-select v-model="prizeId" placeholder="请选择奖项" size="medium" style="width: 80%;height: 20%;">
                 <el-option
                         v-for="item in prizeList"
                         :key="item.prizeId"
@@ -80,7 +80,7 @@
         </div>
         <div class="function">
             <div class="login" v-show="!admin">
-                <el-input placeholder="请输入密码" v-model="password" show-password></el-input>
+                <el-input placeholder="请输入密码" v-model="password" show-password ></el-input>
                 <el-button style="float: right" @click="login">登录</el-button>
             </div>
             <el-button style="float: right" @click="update">编辑</el-button>
@@ -91,8 +91,25 @@
 <script type="text/javascript" src="lottery/lottery.js"></script>
 <script type="text/javascript" src="lottery/happyNewYear/const.js"></script>
 <style>
+    .el-select-dropdown__item {
+        font-size: 20px
+    }
+
+    .el-select {
+        font-size: 100px;
+    }
+
+    .el-input {
+        height: 100%;
+    }
+
     .input {
         width: 30%;
+    }
+
+    .el-input__inner {
+        height: 100% !important;
+        font-size: 20px
     }
 
     .el-input__suffix {
@@ -225,9 +242,10 @@
         text-align: center;
         z-index: 3;
         position: absolute;
-        left: 10%;
-        bottom: 10%;
+        left: 5%;
+        bottom: 7%;
         width: 20%;
+        height: 10vw;
     }
 
     .el-select {

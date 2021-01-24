@@ -19,15 +19,19 @@ new Vue({
             prizeId: 0,
             staffName: '',
         },
-        audio: new Audio("resources/bgm.mp3"),//这里的路径写上mp3文件在项目中的绝对路径
+        audio: new Audio("resources/bgmShorter.mp3"),//这里的路径写上mp3文件在项目中的绝对路径
     },
     created:function() {
         this.getLotteryId();
         this.getPrizeList();
         this.getStaffData();
+        this.open();
     },
 
     methods: {
+        open() {
+            this.$message('抽奖自动停止时间为30秒');
+        },
         //获取奖品列表
         getPrizeList() {
             const parma = {
@@ -65,12 +69,11 @@ new Vue({
                                 that.audio.currentTime = 0;
                                 that.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText;
                                 that.setLottery();
-                            }, 15000);
+                            }, 30000);
                             this.isLottery = "停止抽奖";
                             that.autoplay = true;
                         }
                     })
-
                 } else {
                     that.audio.pause();
                     that.audio.currentTime = 0;
@@ -91,7 +94,6 @@ new Vue({
             axios.post('lottery/setLottery', this.awardData, null).then(res => {
                 if (res.data.success) {
                     this.getPrizeList();
-                    // this.getStaffData();
                 }
             })
         },
