@@ -126,7 +126,7 @@ public class LotteryServiceImpl implements LotteryService {
 	 */
 	@Override
 	public Result getPrizeList(Integer lotteryId) {
-		if (null==lotteryId){
+		if (null == lotteryId) {
 			return Result.getFalse();
 		}
 		Prize prize = new Prize();
@@ -137,7 +137,7 @@ public class LotteryServiceImpl implements LotteryService {
 		for (Prize prize1 : prizeList) {
 			PrizeVO prizeVO = new PrizeVO();
 			BeanUtils.copyProperties(prize1, prizeVO);
-			prizeVO.setNum((prize1.getCount()-prize1.getNum())+ "/" + prize1.getCount());
+			prizeVO.setNum((prize1.getCount() - prize1.getNum()) + "/" + prize1.getCount());
 			if (prize1.getNum() < 1) {
 				prizeVO.setDisable(true);
 			} else {
@@ -176,13 +176,17 @@ public class LotteryServiceImpl implements LotteryService {
 		staff.setState(0);
 		//打乱顺序
 		List<Staff> staffList = staffMapper.select(staff);
-		if (staffList.size()>0){
-			Collections.shuffle(staffList);
-			return Result.getSuccess(staffList);
-		}else {
-			return Result.getFalse();
+		if (staffList.size() < 10&&staffList.size()>0) {
+			//让滚动看起来逼真一点
+			for (int i = 0; i < 3; i++) {
+				Collections.shuffle(staffList);
+				staffList.addAll(staffList);
+			}
 		}
-
+		if (staffList.size()>0){
+			return Result.getSuccess(staffList);
+		}
+		return Result.getFalse();
 	}
 
 	/**
@@ -236,7 +240,7 @@ public class LotteryServiceImpl implements LotteryService {
 
 	@Override
 	public Result updateStaff(LotteryReq lotteryReq) {
-		if (null==lotteryReq.getLotteryId()){
+		if (null == lotteryReq.getLotteryId()) {
 			return Result.getFalse("输入有误");
 		}
 		staffMapper.updateStaff(lotteryReq.getLotteryId());

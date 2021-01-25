@@ -41,8 +41,8 @@ new Vue({
                     m.dynamicValidateForm.lotteryId = result.lotteryId;
                     m.dynamicValidateForm.lotteryName = result.lotteryName;
                     m.dynamicValidateForm.prizes = result.prizeList;
-                    for(var i=0;i<result.prizeList.length;i++){
-                        result.prizeList[i].num=0
+                    for (var i = 0; i < result.prizeList.length; i++) {
+                        result.prizeList[i].num = 0
                     }
                 }
             })
@@ -82,6 +82,15 @@ new Vue({
                     })
                 }
             })
+        },
+        uploadChange: function (file, fileList) {
+            if (file.status == "success") {
+                if (file.response.success == true) {
+                    this.createEnd();
+                } else {
+                    alert(file.response.data)
+                }
+            }
         },
         resetForm(formName) {
             this.$refs[formName].resetFields();

@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="roll" v-show="admin">
-            <el-select v-model="prizeId" placeholder="请选择奖项" size="medium" style="width: 80%;height: 20%;">
+            <el-select v-model="prizeId" placeholder="请选择奖项" style="width: 80%;height: 30%;">
                 <el-option
                         v-for="item in prizeList"
                         :key="item.prizeId"
@@ -55,7 +55,8 @@
         </div>
         <div class="prize">
             <el-table
-                    :data="prizeList">
+                    :data="prizeList"
+                    :row-class-name="tableRowClassName">
                 <el-table-column
                         min-width="15%"
                         prop="prizeLevel"
@@ -86,29 +87,34 @@
                     title="获奖名单"
                     :visible="this.more"
                     :before-close="showMore"
-                    width="80%">
+                    width="80%"
+                    >
                 <el-table style="margin-top: 0 !important;"
-                          :data="prizeList">
+                          :data="prizeList"
+                          :row-class-name="tableRowClassName"
+                          height="90%"
+
+                >
                     <el-table-column
-                            min-width="5%"
+                            min-width="10%"
                             prop="prizeLevel"
                             label="奖项"
                     >
                     </el-table-column>
                     <el-table-column
-                            min-width="5%"
+                            min-width="10%"
                             prop="prizeName"
                             label="奖品"
                     >
                     </el-table-column>
                     <el-table-column
-                            min-width="4%"
+                            min-width="10%"
                             prop="num"
                             label="数量"
                     >
                     </el-table-column>
                     <el-table-column
-                            min-width="88%"
+                            min-width="70%"
                             prop="staffName"
                             label="获奖名单"
                     >
@@ -117,20 +123,23 @@
                 </el-table>
             </el-dialog>
         </div>
-        <el-dialog
-                title="提示"
-                :visible="this.staffEnd"
-                :show-close="false"
-                width="30%">
-            <p>所有员工已中奖，是否重新抽奖？</p>
-            <span slot="footer" class="dialog-footer">
+        <div class="staffUpdate">
+            <el-dialog
+                    title="提示"
+                    :visible="this.staffEnd"
+                    :show-close="false"
+                    width="30%"
+            >
+                <p>所有员工已中奖，是否重新抽奖？</p>
+                <span slot="footer" class="dialog-footer">
                 <el-button @click="staffEnd = false">否</el-button>
                 <el-button type="primary" @click="updateStaff">是</el-button>
             </span>
-        </el-dialog>
+            </el-dialog>
+        </div>
         <div class="function">
             <div class="login" v-show="!admin">
-                <el-input placeholder="请输入密码" v-model="password"></el-input>
+                <el-input placeholder="请输入密码" v-model="password" show-password> </el-input>
                 <el-button style="float: right" @click="login">登录</el-button>
             </div>
             <div @click="update"><a href="#" style="color: white;float: right" v-show="allowUpdate">管理入口></a></div>
@@ -141,9 +150,12 @@
 <script type="text/javascript" src="lottery/lottery.js"></script>
 <script type="text/javascript" src="lottery/happyNewYear/const.js"></script>
 <style>
-
+    .staffUpdate .el-dialog{
+        height: 15%;
+    }
     .el-select-dropdown__item {
-        font-size: 20px
+        font-size: 1vw;
+        font-weight: bolder;
     }
 
     .el-select {
@@ -160,16 +172,17 @@
 
     .el-input__inner {
         height: 100% !important;
-        font-size: 20px
     }
-
-    /*.el-input__suffix {*/
-    /*    display: none;*/
-    /*}*/
+    .roll .el-input__inner{
+        font-size:2vw;
+    }
+    .function .el-input__suffix {
+        display: none;
+    }
 
     .clickButton {
         cursor: pointer;
-        margin-top: 5%;
+        margin-top: 10%;
         z-index: 10;
         color: #fff;
         text-align: center;
@@ -278,6 +291,15 @@
         width: 100%;
     }
 
+    .el-table th,
+    .el-table tr,
+    .el-table td {
+        background: rgba(250, 250, 250, 0.5);
+        padding-right: 1%;
+    }
+    .success-row {
+        background: rgba(52, 210, 187, 0.5) !important;
+    }
     .prize .el-table .cell {
         font-size: 1vw;
         line-height: 35px !important;
@@ -293,25 +315,20 @@
         line-height: 35px !important;
     }
 
-    .el-table th,
-    .el-table tr,
-    .el-table td {
-        background: rgba(250, 250, 250, 0.5);
-    }
-
     .roll {
         text-align: center;
         z-index: 3;
         position: absolute;
         left: 5%;
-        bottom: 10%;
+        bottom: 5%;
         width: 20%;
-        height: 10vw;
+        height: 15vw;
     }
 
     .roll .el-select .el-input .el-input__inner {
         background: transparent;
         color: white;
+        border: 3px solid #ffffff;
     }
 
     .el-select {
@@ -343,6 +360,16 @@
     .moreTable .el-dialog__body {
         margin: 0 !important;
         padding: 1% 0% !important;
+        height: 100%;
+    }
+    .moreTable{
+        height: 70%;
+    }
+    .el-dialog__body .el-table{
+        height: 90%;
+    }
+    .el-dialog{
+        height: 70%;
     }
 </style>
 </body>

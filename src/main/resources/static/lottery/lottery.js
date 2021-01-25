@@ -13,7 +13,7 @@ new Vue({
         prizeId: '',
         autoplay: false,
         staffList: [],
-        speed: 300,
+        speed: 250,
         admin: false,
         password: '',
         lotteryId: 0,
@@ -101,13 +101,13 @@ new Vue({
             } else {
                 that.audio.pause();
                 that.audio.currentTime = 0;
-                clearTimeout(that.timeOutNub);
-                clearInterval(that.countDownSetIntervalNub);
                 that.sec = '30';
                 that.isLottery = "开始抽奖";
                 that.autoplay = false;
                 that.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText;
                 that.setLottery();
+                clearTimeout(that.timeOutNub);
+                clearInterval(that.countDownSetIntervalNub);
             }
         },
 
@@ -187,6 +187,14 @@ new Vue({
                 this.staffEnd = false;
             })
         },
+        tableRowClassName({row, rowIndex}) {
+            const line = rowIndex % 2;
+            if (line === 1) {
+                return 'success-row';
+            }
+            return '';
+        },
+
         //获取链接中的值
         getUrlRequestParam: function (name) {
             var paramUrl = window.location.search.substr(1);
