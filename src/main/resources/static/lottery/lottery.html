@@ -26,14 +26,16 @@
         <div class="lotteryB" v-show="admin"></div>
         <div class="lottery" v-show="admin">
             <div class="rollName">
-                <el-carousel :interval="speed" class="full-height" direction="vertical" :autoplay="autoplay" arrow="never"
+                <el-carousel :interval="speed" class="full-height" direction="vertical" :autoplay="autoplay"
+                             arrow="never"
                              indicator-position="none" class="rollCarousel">
                     <el-carousel-item v-for="item in staffList" :key="item.staffId">
                         <h2 class="staffName">{{ item.staffCode }}<br><span>{{ item.staffName }}</span></h2>
                     </el-carousel-item>
                 </el-carousel>
             </div>
-            <div >倒计时{{sec}}秒</div>
+            <div style="width: 30vw;text-align: center;margin-top: 5%;font-size: 3vw; color: #fff">倒计时{{ sec }}秒
+            </div>
 
         </div>
         <div class="roll" v-show="admin">
@@ -82,10 +84,10 @@
         </div>
         <div class="function">
             <div class="login" v-show="!admin">
-                <el-input placeholder="请输入密码" v-model="password" show-password ></el-input>
+                <el-input placeholder="请输入密码" v-model="password" show-password></el-input>
                 <el-button style="float: right" @click="login">登录</el-button>
             </div>
-            <div @click="update"><a href="#" style="color: white;float: right">管理入口></a> </div>
+            <div @click="update"><a href="#" style="color: white;float: right">管理入口></a></div>
         </div>
     </div>
 </section>
@@ -119,7 +121,7 @@
     }
 
     .clickButton {
-        cursor:pointer;
+        cursor: pointer;
         margin-top: 1%;
         z-index: 10;
         color: #fff;
