@@ -21,7 +21,7 @@ new Vue({
         },
         audio: new Audio("resources/bgmShorter.mp3"),//这里的路径写上mp3文件在项目中的绝对路径
     },
-    created:function() {
+    created: function () {
         this.getLotteryId();
         this.getPrizeList();
         this.getStaffData();
@@ -41,7 +41,6 @@ new Vue({
                 if (res.data.success) {
                     this.lotteryName = res.data.data.lotteryName;
                     this.prizeList = res.data.data.prizeList;
-                    this.prizeId = ''
                 }
             })
         },
@@ -51,9 +50,18 @@ new Vue({
         lottery: function () {
             var that = this;
             if (!this.prizeId) {
-                alert("请选择抽奖项目");
                 return;
-            } else {
+            }
+            for (var index = 0; index < this.prizeList.length; index++) {
+                if (this.prizeList[index].prizeId === this.prizeId) {
+                    if (this.prizeList[index].disable==true){
+                        this.prizeId='';
+                        alert("该奖项已抽完");
+                        return ;
+                    }
+                }
+            }
+            {
                 if (this.isLottery == "开始抽奖") {
                     const parma = {
                         lotteryId: this.lotteryId
