@@ -6,6 +6,7 @@ new Vue({
         sec: 30,
         isLottery: "开始抽奖",
         timeOutNu: "",
+        countDownSetIntervalNub:'',
         prizeList: [],
         lotteryName: '',
         prizeId: '',
@@ -74,13 +75,20 @@ new Vue({
                 }
                 axios.post('lottery/getStaffList', parma, null).then(res => {
                     if (res.data.success) {
-                        that.staffList = res.data.data
+                        that.staffList = res.data.data;
                         that.audio.play();
+                        //开始倒计时
+                        that.countDownSetIntervalNub = setInterval(this.countDown,1000);
+                        //30s时自动停止
                         that.timeOutNub = setTimeout(function stopLottery() {
                             that.autoplay = false;
                             that.isLottery = "开始抽奖";
                             that.audio.pause();
                             that.audio.currentTime = 0;
+                            //清除定时器 设置初始倒计时间
+                            console.log("清除倒计时");
+                            clearInterval(that.countDownSetIntervalNub);
+                            that.sec = '30';
                             that.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText;
                             that.setLottery();
                         }, 30000);
@@ -92,11 +100,20 @@ new Vue({
                 that.audio.pause();
                 that.audio.currentTime = 0;
                 clearTimeout(that.timeOutNub);
+                console.log("暂停倒计时");
+                clearInterval(that.countDownSetIntervalNub);
+                that.sec = '30';
                 that.isLottery = "开始抽奖";
                 that.autoplay = false;
                 that.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText;
                 that.setLottery();
             }
+        },
+
+        //30s倒计时
+        countDown(){
+            this.sec = parseInt(this.sec)-1;
+            console.log(this.sec);
         },
 
         //抽奖完成写表调用
