@@ -1,6 +1,7 @@
 new Vue({
     el: "#lottery",
     data: {
+        sec: 30,
         isLottery: "开始抽奖",
         timeOutNu: "",
         awardList: [],
@@ -54,44 +55,41 @@ new Vue({
             }
             for (var index = 0; index < this.prizeList.length; index++) {
                 if (this.prizeList[index].prizeId === this.prizeId) {
-                    if (this.prizeList[index].disable==true){
-                        this.prizeId='';
+                    if (this.prizeList[index].disable == true) {
+                        this.prizeId = '';
                         alert("该奖项已抽完");
-                        return ;
+                        return;
                     }
                 }
             }
-            {
-                if (this.isLottery == "开始抽奖") {
-                    const parma = {
-                        lotteryId: this.lotteryId
-                    }
-                    axios.post('lottery/getStaffList', parma, null).then(res => {
-                        if (res.data.success) {
-                            that.staffList = res.data.data
-                            that.audio.play();
-                            that.timeOutNub = setTimeout(function stopLottery() {
-                                that.autoplay = false;
-                                that.isLottery = "开始抽奖";
-                                that.audio.pause();
-                                that.audio.currentTime = 0;
-                                that.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText;
-                                that.setLottery();
-                            }, 30000);
-                            this.isLottery = "停止抽奖";
-                            that.autoplay = true;
-                        }
-                    })
-                } else {
-                    that.audio.pause();
-                    that.audio.currentTime = 0;
-                    clearTimeout(that.timeOutNub);
-                    that.isLottery = "开始抽奖";
-                    that.autoplay = false;
-                    that.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText;
-                    that.setLottery();
+            if (this.isLottery == "开始抽奖") {
+                const parma = {
+                    lotteryId: this.lotteryId
                 }
-
+                axios.post('lottery/getStaffList', parma, null).then(res => {
+                    if (res.data.success) {
+                        that.staffList = res.data.data
+                        that.audio.play();
+                        that.timeOutNub = setTimeout(function stopLottery() {
+                            that.autoplay = false;
+                            that.isLottery = "开始抽奖";
+                            that.audio.pause();
+                            that.audio.currentTime = 0;
+                            that.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText;
+                            that.setLottery();
+                        }, 30000);
+                        this.isLottery = "停止抽奖";
+                        that.autoplay = true;
+                    }
+                })
+            } else {
+                that.audio.pause();
+                that.audio.currentTime = 0;
+                clearTimeout(that.timeOutNub);
+                that.isLottery = "开始抽奖";
+                that.autoplay = false;
+                that.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText;
+                that.setLottery();
             }
         },
 
