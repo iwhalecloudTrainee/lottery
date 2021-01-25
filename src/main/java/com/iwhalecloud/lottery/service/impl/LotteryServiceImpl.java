@@ -149,6 +149,7 @@ public class LotteryServiceImpl implements LotteryService {
 		}
 		//设置奖品信息
 		LotteryVO lotteryVO = new LotteryVO();
+		lotteryVO.setState(lottery.getState());
 		lotteryVO.setLotteryId(lottery.getLotteryId());
 		lotteryVO.setLotteryName(lottery.getLotteryName());
 		lotteryVO.setPrizeList(prizeVOList);

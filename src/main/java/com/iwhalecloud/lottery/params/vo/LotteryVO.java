@@ -12,5 +12,6 @@ import java.util.List;
 public class LotteryVO {
 	private Integer lotteryId;
 	private String lotteryName;
+	private Integer state;
 	private List<PrizeVO> prizeList;
 }

@@ -1,10 +1,11 @@
 new Vue({
     el: "#lottery",
     data: {
+        allowUpdate:true,
+        more: false,
         sec: 30,
         isLottery: "开始抽奖",
         timeOutNu: "",
-        awardList: [],
         prizeList: [],
         lotteryName: '',
         prizeId: '',
@@ -42,6 +43,11 @@ new Vue({
                 if (res.data.success) {
                     this.lotteryName = res.data.data.lotteryName;
                     this.prizeList = res.data.data.prizeList;
+                    if (res.data.data.state==1){
+                        this.allowUpdate=true
+                    }else{
+                        this.allowUpdate=false
+                    }
                 }
             })
         },
@@ -144,6 +150,14 @@ new Vue({
                 window.close();
             } else {
                 this.lotteryId = lotteryId;
+            }
+        },
+        showMore: function () {
+            console.log(this.more)
+            if (this.more) {
+                this.more = false;
+            } else {
+                this.more = true;
             }
         },
         //获取链接中的值

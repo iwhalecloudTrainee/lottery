@@ -14,10 +14,10 @@ body {
     align-items: center;
     position: relative;
     min-height: 103vh;
-    background: url("../images/background.png");
 }
 
 .section .section__title {
+    margin-bottom: 10%;
     transform: skewY(-7deg);
     z-index: 10;
     color: #fff;
@@ -34,7 +34,7 @@ body {
     font-size: 2.5em;
 }
 
-.section i {
+.section star {
     position: absolute;
     background: #fff;
     border-radius: 50%;

@@ -3,7 +3,7 @@ const stars = () => {
     const section = document.querySelector('.section');
     let i = 0;
     while (i < count) {
-        const star = document.createElement('i');
+        const star = document.createElement('star');
         const x = Math.floor(Math.random() * window.innerWidth);
         const y = Math.floor(Math.random() * window.innerHeight);
 

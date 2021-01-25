@@ -34,9 +34,9 @@
                     </el-carousel-item>
                 </el-carousel>
             </div>
-            <div style="width: 30vw;text-align: center;margin-top: 5%;font-size: 3vw; color: #fff">倒计时{{ sec }}秒
+            <div style="width: 30vw;text-align: center;margin-top: 3%;margin-bottom:2%;font-size: 3vw; color: #fff">
+                倒计时{{ sec }}秒
             </div>
-
         </div>
         <div class="roll" v-show="admin">
             <el-select v-model="prizeId" placeholder="请选择奖项" size="medium" style="width: 80%;height: 20%;">
@@ -59,35 +59,68 @@
                 <el-table-column
                         min-width="15%"
                         prop="prizeLevel"
+                        label="奖项">
+                </el-table-column>
+                <el-table-column
+                        min-width="15%"
+                        prop="prizeName"
+                        label="奖品">
+                </el-table-column>
+                <el-table-column
+                        min-width="10%"
+                        prop="num"
+                        label="数量">
+                </el-table-column>
+                <el-table-column
+                        min-width="60%"
+                        prop="staffName">
+                    <template slot="header" slot-scope="scope">
+                        获奖名单
+                        <div style="float: right;cursor: pointer; color: deepskyblue" @click="showMore">(详情)</div>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
+        <el-dialog
+                title="获奖名单"
+                :visible="this.more"
+                :before-close="showMore"
+                width="80%">
+            <el-table style="margin-top: 0 !important;"
+                      :data="prizeList">
+                <el-table-column
+                        min-width="5%"
+                        prop="prizeLevel"
                         label="奖项"
                 >
                 </el-table-column>
                 <el-table-column
-                        min-width="20%"
+                        min-width="5%"
                         prop="prizeName"
                         label="奖品"
                 >
                 </el-table-column>
                 <el-table-column
-                        min-width="10%"
+                        min-width="4%"
                         prop="num"
                         label="数量"
                 >
                 </el-table-column>
                 <el-table-column
-                        min-width="45%"
+                        min-width="88%"
                         prop="staffName"
                         label="获奖名单"
                 >
+
                 </el-table-column>
             </el-table>
-        </div>
+        </el-dialog>
         <div class="function">
             <div class="login" v-show="!admin">
-                <el-input placeholder="请输入密码" v-model="password" show-password></el-input>
+                <el-input placeholder="请输入密码" v-model="password" ></el-input>
                 <el-button style="float: right" @click="login">登录</el-button>
             </div>
-            <div @click="update"><a href="#" style="color: white;float: right">管理入口></a></div>
+            <div @click="update"><a href="#" style="color: white;float: right" v-show="allowUpdate">管理入口></a></div>
         </div>
     </div>
 </section>
@@ -95,6 +128,7 @@
 <script type="text/javascript" src="lottery/lottery.js"></script>
 <script type="text/javascript" src="lottery/happyNewYear/const.js"></script>
 <style>
+
     .el-select-dropdown__item {
         font-size: 20px
     }
@@ -116,13 +150,13 @@
         font-size: 20px
     }
 
-    .el-input__suffix {
-        display: none;
-    }
+    /*.el-input__suffix {*/
+    /*    display: none;*/
+    /*}*/
 
     .clickButton {
         cursor: pointer;
-        margin-top: 1%;
+        margin-top: 5%;
         z-index: 10;
         color: #fff;
         text-align: center;
@@ -231,6 +265,16 @@
         width: 100%;
     }
 
+    .prize .el-table .cell {
+        font-size: 1vw;
+        line-height: 35px !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+
     .cell {
         font-size: 1vw;
         line-height: 35px !important;
@@ -247,9 +291,14 @@
         z-index: 3;
         position: absolute;
         left: 5%;
-        bottom: 7%;
+        bottom: 10%;
         width: 20%;
         height: 10vw;
+    }
+
+    .roll .el-select .el-input .el-input__inner {
+            background: transparent;
+        color: white;
     }
 
     .el-select {
@@ -262,7 +311,7 @@
         position: absolute;
         height: 30%;
         z-index: 2;
-        width: 30%;
+        width: 33%;
     }
 
     .staffName {
@@ -276,6 +325,11 @@
     .staffName span {
         font-weight: 700;
         font-size: 1em;
+    }
+
+    .el-dialog__body {
+        margin: 0 !important;
+        padding: 1% 0% !important;
     }
 </style>
 </body>
