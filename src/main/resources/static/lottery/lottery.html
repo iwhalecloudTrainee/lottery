@@ -81,43 +81,56 @@
                 </el-table-column>
             </el-table>
         </div>
-        <el-dialog
-                title="获奖名单"
-                :visible="this.more"
-                :before-close="showMore"
-                width="80%">
-            <el-table style="margin-top: 0 !important;"
-                      :data="prizeList">
-                <el-table-column
-                        min-width="5%"
-                        prop="prizeLevel"
-                        label="奖项"
-                >
-                </el-table-column>
-                <el-table-column
-                        min-width="5%"
-                        prop="prizeName"
-                        label="奖品"
-                >
-                </el-table-column>
-                <el-table-column
-                        min-width="4%"
-                        prop="num"
-                        label="数量"
-                >
-                </el-table-column>
-                <el-table-column
-                        min-width="88%"
-                        prop="staffName"
-                        label="获奖名单"
-                >
+        <div class="moreTable">
+            <el-dialog
+                    title="获奖名单"
+                    :visible="this.more"
+                    :before-close="showMore"
+                    width="80%">
+                <el-table style="margin-top: 0 !important;"
+                          :data="prizeList">
+                    <el-table-column
+                            min-width="5%"
+                            prop="prizeLevel"
+                            label="奖项"
+                    >
+                    </el-table-column>
+                    <el-table-column
+                            min-width="5%"
+                            prop="prizeName"
+                            label="奖品"
+                    >
+                    </el-table-column>
+                    <el-table-column
+                            min-width="4%"
+                            prop="num"
+                            label="数量"
+                    >
+                    </el-table-column>
+                    <el-table-column
+                            min-width="88%"
+                            prop="staffName"
+                            label="获奖名单"
+                    >
 
-                </el-table-column>
-            </el-table>
+                    </el-table-column>
+                </el-table>
+            </el-dialog>
+        </div>
+        <el-dialog
+                title="提示"
+                :visible="this.staffEnd"
+                :show-close="false"
+                width="30%">
+            <p>所有员工已中奖，是否重新抽奖？</p>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="staffEnd = false">否</el-button>
+                <el-button type="primary" @click="updateStaff">是</el-button>
+            </span>
         </el-dialog>
         <div class="function">
             <div class="login" v-show="!admin">
-                <el-input placeholder="请输入密码" v-model="password" ></el-input>
+                <el-input placeholder="请输入密码" v-model="password"></el-input>
                 <el-button style="float: right" @click="login">登录</el-button>
             </div>
             <div @click="update"><a href="#" style="color: white;float: right" v-show="allowUpdate">管理入口></a></div>
@@ -297,7 +310,7 @@
     }
 
     .roll .el-select .el-input .el-input__inner {
-            background: transparent;
+        background: transparent;
         color: white;
     }
 
@@ -327,7 +340,7 @@
         font-size: 1em;
     }
 
-    .el-dialog__body {
+    .moreTable .el-dialog__body {
         margin: 0 !important;
         padding: 1% 0% !important;
     }

@@ -173,8 +173,13 @@ public class LotteryServiceImpl implements LotteryService {
 		staff.setState(0);
 		//打乱顺序
 		List<Staff> staffList = staffMapper.select(staff);
-		Collections.shuffle(staffList);
-		return Result.getSuccess(staffList);
+		if (staffList.size()>0){
+			Collections.shuffle(staffList);
+			return Result.getSuccess(staffList);
+		}else {
+			return Result.getFalse();
+		}
+
 	}
 
 	/**
@@ -223,6 +228,15 @@ public class LotteryServiceImpl implements LotteryService {
 		//更新lottery
 		lottery.setState(0);
 		lotteryMapper.updateByPrimaryKey(lottery);
+		return Result.getSuccess();
+	}
+
+	@Override
+	public Result updateStaff(LotteryReq lotteryReq) {
+		if (null==lotteryReq.getLotteryId()){
+			return Result.getFalse("输入有误");
+		}
+		staffMapper.updateStaff(lotteryReq.getLotteryId());
 		return Result.getSuccess();
 	}
 }

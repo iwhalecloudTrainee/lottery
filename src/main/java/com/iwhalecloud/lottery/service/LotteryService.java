@@ -44,4 +44,6 @@ public interface LotteryService {
 
 	Result setLottery(LotteryReq lotteryReq);
 
+	Result updateStaff(LotteryReq lotteryReq);
+
 }

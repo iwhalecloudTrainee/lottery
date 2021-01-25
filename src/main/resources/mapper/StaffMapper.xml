@@ -19,6 +19,9 @@
             (#{staff.staffCode,jdbcType=VARCHAR},#{staff.staffName,jdbcType=VARCHAR},#{staff.lotteryId},#{staff.state})
         </foreach>
     </insert>
+    <update id="updateStaff">
+        update staff set state=0 where lottery_id=#{lotteryId}
+    </update>
     <!--  批量删除 -->
     <delete id="deleteBatchData" parameterType="java.lang.String">
         delete from staff

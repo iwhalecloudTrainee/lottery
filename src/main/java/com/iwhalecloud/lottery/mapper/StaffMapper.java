@@ -1,6 +1,7 @@
 package com.iwhalecloud.lottery.mapper;
 
 import com.iwhalecloud.lottery.entity.Staff;
+import org.apache.ibatis.annotations.Param;
 import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
@@ -16,4 +17,6 @@ public interface StaffMapper extends Mapper<Staff> {
 	List<Staff> selectStaff(Integer lotteryId);
 
 	List<Staff> selectStaffByStatus(Integer status);
+
+	int updateStaff(@Param("lotteryId") Integer lotteryId);
 }

@@ -1,12 +1,13 @@
 new Vue({
     el: "#lottery",
     data: {
-        allowUpdate:true,
+        staffEnd: false,
+        allowUpdate: true,
         more: false,
         sec: 30,
         isLottery: "开始抽奖",
         timeOutNu: "",
-        countDownSetIntervalNub:'',
+        countDownSetIntervalNub: '',
         prizeList: [],
         lotteryName: '',
         prizeId: '',
@@ -44,10 +45,10 @@ new Vue({
                 if (res.data.success) {
                     this.lotteryName = res.data.data.lotteryName;
                     this.prizeList = res.data.data.prizeList;
-                    if (res.data.data.state==1){
-                        this.allowUpdate=true
-                    }else{
-                        this.allowUpdate=false
+                    if (res.data.data.state == 1) {
+                        this.allowUpdate = true
+                    } else {
+                        this.allowUpdate = false
                     }
                 }
             })
@@ -78,7 +79,7 @@ new Vue({
                         that.staffList = res.data.data;
                         that.audio.play();
                         //开始倒计时
-                        that.countDownSetIntervalNub = setInterval(this.countDown,1000);
+                        that.countDownSetIntervalNub = setInterval(this.countDown, 1000);
                         //30s时自动停止
                         that.timeOutNub = setTimeout(function stopLottery() {
                             that.autoplay = false;
@@ -86,7 +87,6 @@ new Vue({
                             that.audio.pause();
                             that.audio.currentTime = 0;
                             //清除定时器 设置初始倒计时间
-                            console.log("清除倒计时");
                             clearInterval(that.countDownSetIntervalNub);
                             that.sec = '30';
                             that.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText;
@@ -94,13 +94,14 @@ new Vue({
                         }, 30000);
                         this.isLottery = "停止抽奖";
                         that.autoplay = true;
+                    } else {
+                        this.staffEnd = true;
                     }
                 })
             } else {
                 that.audio.pause();
                 that.audio.currentTime = 0;
                 clearTimeout(that.timeOutNub);
-                console.log("暂停倒计时");
                 clearInterval(that.countDownSetIntervalNub);
                 that.sec = '30';
                 that.isLottery = "开始抽奖";
@@ -111,9 +112,8 @@ new Vue({
         },
 
         //30s倒计时
-        countDown(){
-            this.sec = parseInt(this.sec)-1;
-            console.log(this.sec);
+        countDown() {
+            this.sec = parseInt(this.sec) - 1;
         },
 
         //抽奖完成写表调用
@@ -170,12 +170,22 @@ new Vue({
             }
         },
         showMore: function () {
-            console.log(this.more)
             if (this.more) {
                 this.more = false;
             } else {
                 this.more = true;
             }
+        },
+        updateStaff: function () {
+            const param = {
+                lotteryId: this.lotteryId
+            }
+            axios.post('lottery/updateStaff', param, null).then(res => {
+                if (!res.data.success) {
+                    alert(res.data.msg);
+                }
+                this.staffEnd = false;
+            })
         },
         //获取链接中的值
         getUrlRequestParam: function (name) {

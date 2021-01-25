@@ -101,5 +101,10 @@ public class LotteryController {
 	public Result setLottery(@RequestBody LotteryReq lotteryReq) {
 		return lotteryService.setLottery(lotteryReq);
 	}
+
+	@RequestMapping("updateStaff")
+	public Result updateStaff(@RequestBody LotteryReq lotteryReq){
+		return lotteryService.updateStaff(lotteryReq);
+	}
 }
 

@@ -35,7 +35,6 @@ new Vue({
             var params = {lotteryId: lotteryId}
             var m = this;
             axios.post('lottery/getPrizeList', params, null).then(res => {
-                console.log(res.data.data);
                 if (res.data.success) {
                     m.isUpdate = false;
                     var result = res.data.data;
