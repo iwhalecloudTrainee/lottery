@@ -126,6 +126,9 @@ public class LotteryServiceImpl implements LotteryService {
 	 */
 	@Override
 	public Result getPrizeList(Integer lotteryId) {
+		if (null==lotteryId){
+			return Result.getFalse();
+		}
 		Prize prize = new Prize();
 		//设置条件
 		prize.setLotteryId(lotteryId);
