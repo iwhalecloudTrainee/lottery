@@ -126,7 +126,10 @@ new Vue({
                 }
             })
         },
-
+        downloadAward:function (){
+            const url='lottery/downloadAward?lotteryId='+this.lotteryId;
+            axios.get(url)
+        },
         //获取员工列表
         getStaffData: function () {
             var that = this;

@@ -1,18 +1,25 @@
 package com.iwhalecloud.lottery.controller;
 
 import com.alibaba.excel.EasyExcel;
+import com.iwhalecloud.lottery.entity.Lottery;
+import com.iwhalecloud.lottery.entity.Prize;
 import com.iwhalecloud.lottery.entity.Staff;
 import com.iwhalecloud.lottery.params.req.FormReq;
 import com.iwhalecloud.lottery.params.req.LoginReq;
 import com.iwhalecloud.lottery.params.req.LotteryReq;
+import com.iwhalecloud.lottery.params.vo.AwardVO;
 import com.iwhalecloud.lottery.params.vo.Result;
 import com.iwhalecloud.lottery.service.LotteryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLEncoder;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * 用用于提供与抽奖事件有关的接口（抽奖、设置奖项……）
@@ -102,9 +109,33 @@ public class LotteryController {
 		return lotteryService.setLottery(lotteryReq);
 	}
 
+	/**
+	 * 刷新所有员工为未中奖状态
+	 *
+	 * @param lotteryReq
+	 * @return
+	 */
 	@RequestMapping("updateStaff")
-	public Result updateStaff(@RequestBody LotteryReq lotteryReq){
+	public Result updateStaff(@RequestBody LotteryReq lotteryReq) {
 		return lotteryService.updateStaff(lotteryReq);
+	}
+
+	/**
+	 * 下载获奖数据
+	 *
+	 * @param response
+	 * @param lotteryId
+	 * @throws IOException
+	 */
+	@RequestMapping("downloadAward")
+	public void downloadAward(HttpServletResponse response, @RequestParam Integer lotteryId) throws IOException {
+		response.setContentType("application/vnd.ms-excel");
+		response.setCharacterEncoding("utf-8");
+		List<AwardVO> awardVOList = lotteryService.downloadAward(lotteryId);
+		Lottery lottery = lotteryService.getPrizeByLotteryId(lotteryId);
+		String fileName = lottery.getLotteryName() + "获奖数据";
+		response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
+		EasyExcel.write(response.getOutputStream(), AwardVO.class).sheet("sheet1").doWrite(awardVOList);
 	}
 }
 

@@ -1,8 +1,11 @@
 package com.iwhalecloud.lottery.service;
 
+import com.iwhalecloud.lottery.entity.Lottery;
+import com.iwhalecloud.lottery.entity.Prize;
 import com.iwhalecloud.lottery.entity.Staff;
 import com.iwhalecloud.lottery.params.req.FormReq;
 import com.iwhalecloud.lottery.params.req.LotteryReq;
+import com.iwhalecloud.lottery.params.vo.AwardVO;
 import com.iwhalecloud.lottery.params.vo.Result;
 
 import java.util.List;
@@ -46,4 +49,7 @@ public interface LotteryService {
 
 	Result updateStaff(LotteryReq lotteryReq);
 
+	List<AwardVO> downloadAward(Integer lotteryId);
+
+	Lottery getPrizeByLotteryId(Integer lotteryId);
 }
