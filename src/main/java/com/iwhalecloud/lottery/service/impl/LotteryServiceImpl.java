@@ -8,7 +8,6 @@ import com.iwhalecloud.lottery.mapper.PrizeMapper;
 import com.iwhalecloud.lottery.mapper.StaffMapper;
 import com.iwhalecloud.lottery.params.req.FormReq;
 import com.iwhalecloud.lottery.params.req.LotteryReq;
-import com.iwhalecloud.lottery.params.vo.AwardVO;
 import com.iwhalecloud.lottery.params.vo.LotteryVO;
 import com.iwhalecloud.lottery.params.vo.PrizeVO;
 import com.iwhalecloud.lottery.params.vo.Result;
@@ -249,17 +248,11 @@ public class LotteryServiceImpl implements LotteryService {
 	}
 
 	@Override
-	public List<AwardVO> downloadAward(Integer lotteryId) {
+	public List<Prize> downloadAward(Integer lotteryId) {
 		Prize prize=new Prize();
 		prize.setLotteryId(lotteryId);
 		List<Prize> prizeList=prizeMapper.select(prize);
-		List<AwardVO> awardVOList=new ArrayList<>();
-		for (Prize prize1 : prizeList) {
-			AwardVO awardVO=new AwardVO();
-			BeanUtils.copyProperties(prize1,awardVO);
-			awardVOList.add(awardVO);
-		}
-		return awardVOList;
+		return prizeList;
 	}
 
 	@Override
