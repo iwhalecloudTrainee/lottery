@@ -213,5 +213,12 @@ new Vue({
             return params[name];
         },
     },
+    beforeDestroy() {
+        clearInterval(this.countDownSetIntervalNub);
+        clearInterval(this.timeOutNub);
+        this.countDownSetIntervalNub = "";
+        this.timeOutNub = "";
+    }
+
 })
 
