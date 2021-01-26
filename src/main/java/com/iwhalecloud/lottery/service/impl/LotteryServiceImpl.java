@@ -270,6 +270,10 @@ public class LotteryServiceImpl implements LotteryService {
 		//更新staff
 		staff.setState(1);
 		staffMapper.updateByPrimaryKey(staff);
+		StaffDic staffDic=new StaffDic();
+		staffDic.setStaffId(staff.getStaffId());
+		staffDic.setStaffId(1);
+		staffDicMapper.updateByPrimaryKeySelective(staffDic);
 		//更新prize
 		if (null == prize.getStaffName()) {
 			prize.setStaffName(staff.getStaffCode() + " " + staff.getStaffName());
