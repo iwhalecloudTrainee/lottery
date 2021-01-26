@@ -8,6 +8,7 @@ import com.iwhalecloud.lottery.params.req.LotteryReq;
 import com.iwhalecloud.lottery.params.vo.Result;
 
 import java.util.List;
+import java.util.Map;
 
 public interface LotteryService {
 	/**
@@ -48,7 +49,7 @@ public interface LotteryService {
 
 	Result updateStaff(LotteryReq lotteryReq);
 
-	List<Prize> downloadAward(Integer lotteryId);
+	Map<String ,Object> downloadAward(Integer lotteryId);
 
 	Lottery getPrizeByLotteryId(Integer lotteryId);
 }

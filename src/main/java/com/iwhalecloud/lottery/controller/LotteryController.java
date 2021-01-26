@@ -10,6 +10,7 @@ import com.iwhalecloud.lottery.params.req.FormReq;
 import com.iwhalecloud.lottery.params.req.LoginReq;
 import com.iwhalecloud.lottery.params.req.LotteryReq;
 import com.iwhalecloud.lottery.params.vo.Result;
+import com.iwhalecloud.lottery.params.vo.StaffVO;
 import com.iwhalecloud.lottery.service.LotteryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URLEncoder;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 用用于提供与抽奖事件有关的接口（抽奖、设置奖项……）
@@ -131,14 +133,17 @@ public class LotteryController {
 	public void downloadAward(HttpServletResponse response, @RequestParam Integer lotteryId) throws IOException {
 		response.setContentType("application/vnd.ms-excel");
 		response.setCharacterEncoding("utf-8");
-		List<Prize> prizeList = lotteryService.downloadAward(lotteryId);
+		Map<String ,Object> map = lotteryService.downloadAward(lotteryId);
+		List<Prize> prizeList= (List<Prize>) map.get("prizeList");
+		List<StaffVO> staffVOList= (List<StaffVO>) map.get("staffVOList");
 		Lottery lottery = lotteryService.getPrizeByLotteryId(lotteryId);
 		String fileName = URLEncoder.encode(lottery.getLotteryName() + "获奖数据", "UTF-8");
 		response.setHeader("Content-disposition", "attachment;filename=" + fileName + ".xlsx");
-		EasyExcel.write(response.getOutputStream(), Prize.class).sheet("sheet1").doWrite(prizeList);
 		ExcelWriter excelWriter = EasyExcel.write(response.getOutputStream()).autoCloseStream(Boolean.FALSE).build();
-		WriteSheet writeSheet = EasyExcel.writerSheet(0, "获奖名单").head(Prize.class).build();
+		WriteSheet writeSheet = EasyExcel.writerSheet(0, "获奖名单（奖品版）").head(Prize.class).build();
+		WriteSheet writeSheet1 = EasyExcel.writerSheet(1, "获奖名单（员工版）").head(StaffVO.class).build();
 		excelWriter.write(prizeList, writeSheet);
+		excelWriter.write(staffVOList, writeSheet1);
 		excelWriter.finish();
 	}
 }

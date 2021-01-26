@@ -11,6 +11,7 @@ import com.iwhalecloud.lottery.params.req.LotteryReq;
 import com.iwhalecloud.lottery.params.vo.LotteryVO;
 import com.iwhalecloud.lottery.params.vo.PrizeVO;
 import com.iwhalecloud.lottery.params.vo.Result;
+import com.iwhalecloud.lottery.params.vo.StaffVO;
 import com.iwhalecloud.lottery.service.LotteryService;
 import com.iwhalecloud.lottery.utils.MD5Util;
 import org.springframework.beans.BeanUtils;
@@ -18,9 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class LotteryServiceImpl implements LotteryService {
@@ -248,11 +247,28 @@ public class LotteryServiceImpl implements LotteryService {
 	}
 
 	@Override
-	public List<Prize> downloadAward(Integer lotteryId) {
+	public Map<String ,Object> downloadAward(Integer lotteryId) {
 		Prize prize=new Prize();
 		prize.setLotteryId(lotteryId);
 		List<Prize> prizeList=prizeMapper.select(prize);
-		return prizeList;
+		List<StaffVO> staffVOList=new ArrayList<>();
+		for (Prize prize1 : prizeList) {
+			String staffName=prize1.getStaffName();
+			String staffs[]=staffName.split(" , ");
+			for (String staff : staffs) {
+				StaffVO staffVO=new StaffVO();
+				staffVO.setPrizeName(prize1.getPrizeName());
+				staffVO.setPrizeLevel(prize1.getPrizeLevel());
+				int index= staff.indexOf(" ");
+				staffVO.setStaffCode(staff.substring(0,index));
+				staffVO.setStaffName(staff.substring(index));
+				staffVOList.add(staffVO);
+			}
+		}
+		Map<String ,Object> map=new HashMap();
+		map.put("prizeList",prizeList);
+		map.put("staffVOList", staffVOList);
+		return map;
 	}
 
 	@Override
