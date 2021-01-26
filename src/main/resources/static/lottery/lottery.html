@@ -83,7 +83,7 @@
                     :visible="this.more"
                     :before-close="showMore"
                     width="80%"
-                    >
+            >
                 <el-table style="margin-top: 0 !important;"
                           :data="prizeList"
                           :row-class-name="tableRowClassName"
@@ -116,7 +116,9 @@
 
                     </el-table-column>
                 </el-table>
-                    <el-button type="primary" style="float: right;margin-right: 1%" @click="downloadAward">下载数据</el-button>
+                <div class="downloadButton" @click="downloadAward">
+                    下载获奖数据
+                </div>
             </el-dialog>
         </div>
         <div class="staffUpdate">
@@ -135,7 +137,7 @@
         </div>
         <div class="function">
             <div class="login" v-show="!admin">
-                <el-input placeholder="请输入密码" v-model="password" show-password> </el-input>
+                <el-input placeholder="请输入密码" v-model="password" show-password></el-input>
                 <el-button style="float: right" @click="login">登录</el-button>
             </div>
             <div @click="update"><a href="#" style="color: white;float: right" v-show="allowUpdate">管理入口></a></div>
@@ -146,9 +148,19 @@
 <script type="text/javascript" src="lottery/lottery.js"></script>
 <script type="text/javascript" src="lottery/happyNewYear/const.js"></script>
 <style>
-    .staffUpdate .el-dialog{
+    .downloadButton {
+        color: deepskyblue;
+        float: right;
+        margin-right: 1%;
+        height: 5%;
+        cursor: pointer;
+
+    }
+
+    .staffUpdate .el-dialog {
         height: 15%;
     }
+
     .el-select-dropdown__item {
         font-size: 1vw;
         font-weight: bolder;
@@ -169,9 +181,11 @@
     .el-input__inner {
         height: 100% !important;
     }
-    .roll .el-input__inner{
-        font-size:2vw;
+
+    .roll .el-input__inner {
+        font-size: 2vw;
     }
+
     .function .el-input__suffix {
         display: none;
     }
@@ -293,9 +307,11 @@
         background: rgba(250, 250, 250, 0.5);
         padding-right: 1%;
     }
+
     .success-row {
         background: rgba(52, 210, 187, 0.5) !important;
     }
+
     .prize .el-table .cell {
         font-size: 1vw;
         line-height: 35px !important;
@@ -358,13 +374,16 @@
         padding: 1% 0% !important;
         height: 100%;
     }
-    .moreTable{
+
+    .moreTable {
         height: 70%;
     }
-    .el-dialog__body .el-table{
+
+    .el-dialog__body .el-table {
         height: 90%;
     }
-    .el-dialog{
+
+    .el-dialog {
         height: 70%;
     }
 </style>
