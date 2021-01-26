@@ -106,10 +106,12 @@ new Vue({
 
 
         //抽奖滚动
+        //todo 需要通过isOld属性对两种抽奖方式进行拆分，isOld=true使用第一版滚动，isOld=false使用新版
         lottery: function () {
             var that = this;
             if (!that.autoplay) {
-                this.getStaffDic();
+                this.getStaffDic()
+                //todo 这个判断方式要不得，要改
                 if (this.continue) {
                     that.audio.play();
                     //开始倒计时
