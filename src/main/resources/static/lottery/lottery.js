@@ -1,7 +1,7 @@
 new Vue({
     el: "#lottery",
     data: {
-        isOld:false,
+        isOld: false,
         staffName1: '好',
         staffName2: '运',
         staffName3: '来',
@@ -16,7 +16,6 @@ new Vue({
         staffNameList3: [],
         staffAwardName: [],
         staffAwardCode: [],
-        continue: false,
         size: 0,
         sizeCount: 0,
         staffEnd: false,
@@ -36,6 +35,7 @@ new Vue({
         password: '',
         lotteryId: 0,
         ip: '',
+        isRolling: false,
         awardData: {
             lotteryId: 0,
             prizeId: 0,
@@ -46,46 +46,13 @@ new Vue({
     created: function () {
         this.getLotteryId();
         this.getPrizeList();
-        this.getStaffData();
-        this.open();
+        if (this.isOld) {
+            this.getStaffData();
+        }
     },
 
     methods: {
 
-        open() {
-            this.$message('抽奖自动停止时间为30秒');
-        },
-        getStaffDic: function () {
-            const parma = {
-                lotteryId: this.lotteryId,
-                prizeId: this.prizeId
-            };
-            axios.post('lottery/getLotteryData', parma, null).then(res => {
-                if (res.data.success) {
-                    this.staffCodeList1 = res.data.data.staffCodeList1;
-                    this.staffCodeList2 = res.data.data.staffCodeList2;
-                    this.staffCodeList3 = res.data.data.staffCodeList3;
-                    this.staffNameList1 = res.data.data.staffNameList1;
-                    this.staffNameList2 = res.data.data.staffNameList2;
-                    this.staffNameList3 = res.data.data.staffNameList3;
-                    this.staffAwardName = res.data.data.staffAwardName;
-                    this.staffAwardCode = res.data.data.staffAwardCode;
-                    this.size = res.data.data.staffCodeList1.length;
-                    this.sizeCount = res.data.data.staffCodeList1.length;
-                    this.continue = true;
-                } else if (res.data.code == 99) {
-                    alert("该奖项已抽完");
-                    this.prizeId = '';
-                    this.continue = false;
-                } else if (res.data.code == 88) {
-                    this.staffEnd = true
-                    this.continue = false;
-                } else {
-                    alert(res.data.data);
-                    this.continue = false;
-                }
-            })
-        },
         //获取奖品列表
         getPrizeList() {
             const parma = {
@@ -108,60 +75,155 @@ new Vue({
         //抽奖滚动
         //todo 需要通过isOld属性对两种抽奖方式进行拆分，isOld=true使用第一版滚动，isOld=false使用新版
         lottery: function () {
-            var that = this;
-            if (!that.autoplay) {
-                this.getStaffDic()
-                //todo 这个判断方式要不得，要改
-                if (this.continue) {
-                    that.audio.play();
-                    //开始倒计时
-                    that.countDownSetIntervalNub = setInterval(this.countDown, 1000);
-                    this.isLottery = "停止抽奖";
-                    that.autoplay = true;
-                    console.log(this.staffCodeList1)
-                    that.countDownSetIntervalNub = setInterval(this.staffNameRoll, 150);
-                }
+            if (this.isOld) {
+                this.lotteryOld();
             } else {
-                // setTimeout(function (){
-                this.staffName1 = this.staffAwardName[0];
-                this.staffCode1 = this.staffAwardCode[0];
-                // }, 1000);
-                // setTimeout(function (){
-                this.staffName2 = this.staffAwardName[1];
-                this.staffCode2 = this.staffAwardCode[1];
-                // }, 3000);
+                if (this.isRolling==false) {
+                    this.lotteryNew();
+                }
+            }
+        },
 
-                // setTimeout(function stopLottery() {
-                this.staffName3 = this.staffAwardName[2];
-                this.staffCode3 = this.staffAwardCode[2];
+        lotteryNew: function () {
+            var that = this;
+            const parma = {
+                lotteryId: this.lotteryId,
+                prizeId: this.prizeId
+            };
+            axios.post('lottery/getLotteryData', parma, null).then(res => {
+                if (res.data.success) {
+                    this.isRolling=true;
+                    that.staffCodeList1 = res.data.data.staffCodeList1;
+                    that.staffCodeList2 = res.data.data.staffCodeList2;
+                    that.staffCodeList3 = res.data.data.staffCodeList3;
+                    that.staffNameList1 = res.data.data.staffNameList1;
+                    that.staffNameList2 = res.data.data.staffNameList2;
+                    that.staffNameList3 = res.data.data.staffNameList3;
+                    that.staffAwardName = res.data.data.staffAwardName;
+                    that.staffAwardCode = res.data.data.staffAwardCode;
+                    that.size = res.data.data.staffCodeList1.length;
+                    that.sizeCount = res.data.data.staffCodeList1.length;
+                    that.audio.play();
+                    that.isLottery = "抽奖中";
+                    console.log(that.staffAwardName)
+                    let count = 0;
+                    let roll1 = true;
+                    let roll2 = true;
+                    let roll3 = true;
+                    var interval =setInterval(function () {
+                        //todo 循环10s
+                        if (roll1) {
+                            that.staffName1 = that.staffNameList1[that.sizeCount - 1];
+                            that.staffCode1 = that.staffCodeList1[that.sizeCount - 1];
+                        }
+                        if (roll2) {
+                            that.staffName2 = that.staffNameList2[that.sizeCount - 1];
+                            that.staffCode2 = that.staffCodeList2[that.sizeCount - 1];
+                        }
+                        if (roll3) {
+                            that.staffCode3 = that.staffCodeList3[that.sizeCount - 1];
+                            that.staffName3 = that.staffNameList3[that.sizeCount - 1];
+                        }
+                        that.sizeCount = that.sizeCount - 1;
+                        if (that.sizeCount == 0) {
+                            that.sizeCount = that.size;
+                        }
+                        if (count > 70) {
+                            roll1 = false;
+                            that.staffName1 = that.staffAwardName[0];
+                            that.staffCode1 = that.staffAwardCode[0];
+                        }
+                        if (count > 90) {
+                            roll2 = false;
+                            that.staffName2 = that.staffAwardName[1];
+                            that.staffCode2 = that.staffAwardCode[1];
+                        }
+                        if (count > 120) {
+                            roll3 = false;
+                            that.staffName3 = that.staffAwardName[2];
+                            that.staffCode3 = that.staffAwardCode[2];
+                        }
+                        count++;
+                        if (count==125){
+                            //结束
+                            clearInterval(interval);
+                            that.audio.pause();
+                            that.audio.currentTime = 0;
+                            that.isLottery = "开始抽奖";
+                            that.isRolling=false;
+                            that.getPrizeList();
+                        }
+                    }, 100);
+                } else if (res.data.code == 99) {
+                    alert("该奖项已抽完");
+                } else if (res.data.code == 88) {
+                    this.staffEnd = true
+                } else {
+                    alert(res.data.data);
+                }
+            })
+        },
+
+        //抽奖滚动
+        lotteryOld: function () {
+            var that = this;
+            if (!this.prizeId) {
+                return;
+            }
+            for (var index = 0; index < this.prizeList.length; index++) {
+                if (this.prizeList[index].prizeId === this.prizeId) {
+                    if (this.prizeList[index].disable == true) {
+                        this.prizeId = '';
+                        alert("该奖项已抽完");
+                        return;
+                    }
+                }
+            }
+            if (this.isLottery == "开始抽奖") {
+                const parma = {
+                    lotteryId: this.lotteryId
+                }
+                axios.post('lottery/getStaffList', parma, null).then(res => {
+                    if (res.data.success) {
+                        that.staffList = res.data.data;
+                        that.audio.play();
+                        //开始倒计时
+                        that.countDownSetIntervalNub = setInterval(this.countDown, 1000);
+                        //30s时自动停止
+                        that.timeOutNub = setTimeout(function stopLottery() {
+                            that.autoplay = false;
+                            that.isLottery = "开始抽奖";
+                            that.audio.pause();
+                            that.audio.currentTime = 0;
+                            //清除定时器 设置初始倒计时间
+                            clearInterval(that.countDownSetIntervalNub);
+                            that.sec = '30';
+                            that.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText;
+                            that.setLottery();
+                        }, 30000);
+                        this.isLottery = "停止抽奖";
+                        that.autoplay = true;
+                    } else {
+                        this.staffEnd = true;
+                    }
+                })
+            } else {
                 that.audio.pause();
                 that.audio.currentTime = 0;
                 that.sec = '30';
                 that.isLottery = "开始抽奖";
                 that.autoplay = false;
-                // }, 5000);
-                this.getPrizeList();
+                that.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText;
+                that.setLottery();
                 clearTimeout(that.timeOutNub);
                 clearInterval(that.countDownSetIntervalNub);
             }
         },
-
         //30s倒计时
         countDown() {
             this.sec = parseInt(this.sec) - 1;
         },
-        staffNameRoll() {
-            this.staffName1 = this.staffNameList1[this.sizeCount - 1];
-            this.staffName2 = this.staffNameList2[this.sizeCount - 1];
-            this.staffName3 = this.staffNameList3[this.sizeCount - 1];
-            this.staffCode1 = this.staffCodeList1[this.sizeCount - 1];
-            this.staffCode2 = this.staffCodeList2[this.sizeCount - 1];
-            this.staffCode3 = this.staffCodeList3[this.sizeCount - 1];
-            this.sizeCount = this.sizeCount - 1;
-            if (this.sizeCount == 0) {
-                this.sizeCount = this.size;
-            }
-        },
+
         //抽奖完成写表调用
         setLottery: function () {
             this.awardData.lotteryId = this.lotteryId;
@@ -220,12 +282,13 @@ new Vue({
                 window.close();
             } else {
                 this.lotteryId = lotteryId;
-                if (type==1){
-                    this.isOld=true;
-                }else {
-                    this.isOld=false;
+                if (type == 1) {
+                    this.isOld = true;
+                } else {
+                    this.isOld = false;
                 }
             }
+            console.log(this.isOld)
         },
         showMore: function () {
             if (this.more) {

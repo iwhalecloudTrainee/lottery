@@ -407,7 +407,7 @@ public class LotteryServiceImpl implements LotteryService {
 		List<StaffDic> lotteryStaffs = staffDicMapper.select(staffDic1);
 		if (lotteryStaffs.size() == 0) {
 			//都中奖了
-			Result.getFalseCode(88);
+			return Result.getFalseCode(88);
 		}
 		//后台完成抽奖
 		int index = (int) (Math.random() * (lotteryStaffs.size() - 1));
