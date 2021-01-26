@@ -52,4 +52,6 @@ public interface LotteryService {
 	Map<String ,Object> downloadAward(Integer lotteryId);
 
 	Lottery getPrizeByLotteryId(Integer lotteryId);
+
+	Result getLotteryDic(LotteryReq lotteryReq);
 }

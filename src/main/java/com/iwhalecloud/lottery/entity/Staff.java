@@ -4,6 +4,7 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import lombok.Data;
 
 import javax.persistence.Column;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -14,6 +15,7 @@ public class Staff {
 	 * id
 	 */
 	@Id
+	@GeneratedValue(generator = "JDBC")
 	@Column(name = "staff_id")
 	private Integer staffId;
 	/**

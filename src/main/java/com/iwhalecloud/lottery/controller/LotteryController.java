@@ -9,8 +9,7 @@ import com.iwhalecloud.lottery.entity.Staff;
 import com.iwhalecloud.lottery.params.req.FormReq;
 import com.iwhalecloud.lottery.params.req.LoginReq;
 import com.iwhalecloud.lottery.params.req.LotteryReq;
-import com.iwhalecloud.lottery.params.vo.Result;
-import com.iwhalecloud.lottery.params.vo.StaffVO;
+import com.iwhalecloud.lottery.params.vo.*;
 import com.iwhalecloud.lottery.service.LotteryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -145,6 +144,10 @@ public class LotteryController {
 		excelWriter.write(prizeList, writeSheet);
 		excelWriter.write(staffVOList, writeSheet1);
 		excelWriter.finish();
+	}
+	@RequestMapping("getLotteryData")
+	public Result getLotteryData(@RequestBody LotteryReq lotteryReq){
+		return lotteryService.getLotteryDic(lotteryReq);
 	}
 }
 
