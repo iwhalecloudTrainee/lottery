@@ -316,15 +316,18 @@ public class LotteryServiceImpl implements LotteryService {
 		List<StaffVO> staffVOList = new ArrayList<>();
 		for (Prize prize1 : prizeList) {
 			String staffName = prize1.getStaffName();
-			String staffs[] = staffName.split(" , ");
-			for (String staff : staffs) {
-				StaffVO staffVO = new StaffVO();
-				staffVO.setPrizeName(prize1.getPrizeName());
-				staffVO.setPrizeLevel(prize1.getPrizeLevel());
-				int index = staff.indexOf(" ");
-				staffVO.setStaffCode(staff.substring(0, index));
-				staffVO.setStaffName(staff.substring(index));
-				staffVOList.add(staffVO);
+			//奖没抽完的判断
+			if (StringUtils.hasText(staffName)) {
+				String staffs[] = staffName.split(" , ");
+				for (String staff : staffs) {
+					StaffVO staffVO = new StaffVO();
+					staffVO.setPrizeName(prize1.getPrizeName());
+					staffVO.setPrizeLevel(prize1.getPrizeLevel());
+					int index = staff.indexOf(" ");
+					staffVO.setStaffCode(staff.substring(0, index));
+					staffVO.setStaffName(staff.substring(index));
+					staffVOList.add(staffVO);
+				}
 			}
 		}
 		Map<String, Object> map = new HashMap();

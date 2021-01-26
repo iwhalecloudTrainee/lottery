@@ -18,9 +18,17 @@
 
     <div id="lottery">
         <div class="lotteryName">{{ lotteryName }}</div>
+        <div class="lotteryB" v-show="admin"></div>
         <div class="lottery" v-show="admin">
             <div class="rollName">
-                <div class="rollNames">
+                    <el-carousel :interval="speed" class="full-height" direction="vertical" :autoplay="autoplay"
+                                 arrow="never"
+                                 indicator-position="none" class="rollCarousel"  v-show="isOld">
+                        <el-carousel-item v-for="item in staffList" :key="item.staffId">
+                            <h2 class="staffName">{{ item.staffCode }}<br><span>{{ item.staffName }}</span></h2>
+                        </el-carousel-item>
+                    </el-carousel>
+                <div class="rollNames"v-show="!isOld">
                     <p>{{staffName1}} {{staffName2}} {{staffName3}}</p>
                     <p>{{staffCode1}} {{staffCode2}} {{staffCode3}}</p>
                 </div>

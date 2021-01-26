@@ -1,6 +1,7 @@
 new Vue({
     el: "#lottery",
     data: {
+        isOld:false,
         staffName1: '好',
         staffName2: '运',
         staffName3: '来',
@@ -211,11 +212,17 @@ new Vue({
         //从url中获取lotteryId
         getLotteryId: function () {
             var lotteryId = this.getUrlRequestParam("lotteryId");
+            var type = this.getUrlRequestParam("type");
             if (!lotteryId) {
                 alert("输入有误")
                 window.close();
             } else {
                 this.lotteryId = lotteryId;
+                if (type==1){
+                    this.isOld=true;
+                }else {
+                    this.isOld=false;
+                }
             }
         },
         showMore: function () {
