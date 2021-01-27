@@ -13,6 +13,7 @@ new Vue({
             lotteryName: '',
             lotteryId: {},
         },
+        uploadLoading: false,
         updatePassword: '',
         isUpdate: true,
         uploadVisible: false,
@@ -85,11 +86,14 @@ new Vue({
         },
         uploadChange: function (file, fileList) {
             if (file.status == "success") {
+                this.uploadLoading=false
                 if (file.response.success == true) {
                     this.createEnd();
                 } else {
                     alert(file.response.data)
                 }
+            }else {
+                this.uploadLoading=true
             }
         },
         resetForm(formName) {
@@ -139,7 +143,14 @@ new Vue({
                     alert(message.data)
                 }
             })
-        }
+        },
+        loading() {
+            if (this.loading = true) {
+                this.loading = false;
+            } else {
+                this.loading = true
+            }
+        },
     },
 })
 

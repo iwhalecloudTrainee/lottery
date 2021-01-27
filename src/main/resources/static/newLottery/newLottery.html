@@ -66,11 +66,13 @@
             <el-button @click="resetForm('dynamicValidateForm')">重置</el-button>
         </el-form-item>
     </el-form>
-    <div class="upload">
+    <div class="upload"  v-loading.fullscreen.lock="uploadLoading">
         <el-dialog
                 title="上传员工"
                 :visible="uploadVisible"
-                :show-close="false">
+                :show-close="false"
+                v-loading="loading"
+                >
             <el-upload
                     class="upload-demo"
                     drag
