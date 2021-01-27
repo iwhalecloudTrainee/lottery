@@ -41,6 +41,7 @@ new Vue({
         ip: '',
         isRolling: false,
         awardData: {
+            password:'',
             lotteryId: 0,
             prizeId: 0,
             staffName: '',
@@ -131,7 +132,8 @@ new Vue({
             const parma = {
                 //其实可以直传一个prizeId，prize表中存在lotteryId，懒得改了
                 lotteryId: this.lotteryId,
-                prizeId: this.prizeId
+                prizeId: this.prizeId,
+                password:this.password
             };
             //发送请求获取滚动数据和中将数据
             axios.post('lottery/getLotteryData', parma, null).then(res => {
@@ -326,6 +328,7 @@ new Vue({
         setLottery: function () {
             this.awardData.lotteryId = this.lotteryId;
             this.awardData.prizeId = this.prizeId;
+            this.awardData.password=this.password;
             axios.post('lottery/setLottery', this.awardData, null).then(res => {
                 if (res.data.success) {
                     this.getPrizeList();
@@ -355,17 +358,13 @@ new Vue({
                     this.admin = true;
                 }
             })
-        }
-        ,
-
-//跳转编辑页面
+        },
+        //跳转编辑页面
         update: function () {
             const parma = 'newLottery?lotteryId=' + this.lotteryId
             self.location.href = parma;
-        }
-        ,
-
-//从url中获取lotteryId
+        },
+        //从url中获取lotteryId
         getLotteryId: function () {
             var lotteryId = this.getUrlRequestParam("lotteryId");
             var type = this.getUrlRequestParam("type");
@@ -380,20 +379,16 @@ new Vue({
                     this.isOld = false;
                 }
             }
-        }
-        ,
-
-//获奖名单详情
+        },
+        //获奖名单详情
         showMore: function () {
             if (this.more) {
                 this.more = false;
             } else {
                 this.more = true;
             }
-        }
-        ,
-
-//所有人都中奖了，刷表
+        },
+        //所有人都中奖了，刷表
         updateStaff: function () {
             const param = {
                 lotteryId: this.lotteryId
@@ -404,26 +399,23 @@ new Vue({
                 }
                 this.staffEnd = false;
             })
-        }
-        ,
+        },
 
-//斑马线table
+        //斑马线table
         tableRowClassName({row, rowIndex}) {
             const line = rowIndex % 2;
             if (line === 1) {
                 return 'success-row';
             }
             return '';
-        }
-        ,
+        },
 
-//机器朗读（声音有点像
+        //机器朗读（声音有点像
         prizeRead: function (text) {
             new Audio("http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&text=" + encodeURI(text)).play();
-        }
-        ,
+        },
 
-//获取链接中的值
+        //获取链接中的值
         getUrlRequestParam: function (name) {
             var paramUrl = window.location.search.substr(1);
             this.ip = window.location.origin;

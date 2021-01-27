@@ -13,6 +13,7 @@ import com.iwhalecloud.lottery.params.req.LotteryReq;
 import com.iwhalecloud.lottery.params.vo.*;
 import com.iwhalecloud.lottery.service.LotteryService;
 import com.iwhalecloud.lottery.utils.MD5Util;
+import com.sun.org.apache.bcel.internal.generic.LLOAD;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -253,9 +254,16 @@ public class LotteryServiceImpl implements LotteryService {
 	@Override
 	public Result setLottery(LotteryReq lotteryReq) {
 		Staff staff = new Staff();
-		if (null == lotteryReq.getLotteryId() || null == lotteryReq.getPrizeId() || !StringUtils.hasText(lotteryReq.getStaffName())) {
+		if (!StringUtils.hasText(lotteryReq.getPassword())||null == lotteryReq.getLotteryId() || null == lotteryReq.getPrizeId() || !StringUtils.hasText(lotteryReq.getStaffName())) {
 			return Result.getFalse("输入有误");
 		} else {
+			Lottery lottery=new Lottery();
+			lottery.setLotteryId(lotteryReq.getLotteryId());
+			lottery.setPassword(MD5Util.getMD5String(lotteryReq.getPassword()));
+			lottery=lotteryMapper.selectOne(lottery);
+			if (null==lottery){
+				return Result.getFalse("输入有误");
+			}
 			try {
 				//拆分staffName，通过staffId和lotteryId查询staff，为防止格式报错，放在tryCatch里面
 				String staffNameStr[] = lotteryReq.getStaffName().split("\n");
@@ -367,6 +375,16 @@ public class LotteryServiceImpl implements LotteryService {
 		//入参判断
 		if (null == lotteryReq.getPrizeId() || null == lotteryReq.getPrizeId()) {
 			return Result.getFalse("请先选择奖项");
+		}
+		if (!StringUtils.hasText(lotteryReq.getPassword())){
+			return Result.getFalse("输入有误");
+		}
+		Lottery lottery=new Lottery();
+		lottery.setPassword(MD5Util.getMD5String(lotteryReq.getPassword()));
+		lottery.setLotteryId(lotteryReq.getLotteryId());
+		lottery=lotteryMapper.selectOne(lottery);
+		if (null==lottery){
+			return Result.getFalse("输入有误");
 		}
 		Prize prize = new Prize();
 		prize.setPrizeId(lotteryReq.getPrizeId());

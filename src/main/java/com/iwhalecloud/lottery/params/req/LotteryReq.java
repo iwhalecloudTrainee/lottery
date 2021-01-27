@@ -8,6 +8,7 @@ import lombok.Data;
  */
 @Data
 public class LotteryReq {
+	private String password;
 	private Integer lotteryId;
 	private Integer prizeId;
 	private String staffName;
