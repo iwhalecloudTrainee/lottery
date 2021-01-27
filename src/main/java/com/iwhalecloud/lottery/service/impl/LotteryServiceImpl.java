@@ -56,9 +56,9 @@ public class LotteryServiceImpl implements LotteryService {
 				return Result.getFalse();
 			}
 			if (staffName.length() == 2) {
-				//两个字名字的，中间给哦她空起
+				//两个字名字的，中间给他空起
 				staffDic.setStaffName1(staffName.substring(0, 1));
-				staffDic.setStaffName2(" ");
+				staffDic.setStaffName2("");
 				staffDic.setStaffName3(staffName.substring(1, 2));
 			}
 			if (staffName.length() > 2) {
@@ -221,15 +221,19 @@ public class LotteryServiceImpl implements LotteryService {
 		staff.setLotteryId(lotteryReq.getLotteryId());
 		staff.setState(0);
 		//打乱顺序
-		List<Staff> staffList = staffMapper.select(staff);
-		if (staffList.size() < 10 && staffList.size() > 0) {
-			//让滚动看起来逼真一点
-			for (int i = 0; i < 3; i++) {
-				Collections.shuffle(staffList);
-				staffList.addAll(staffList);
-			}
-		}
-		if (staffList.size() > 0) {
+        List<Staff> staffList = staffMapper.select(staff);
+        if (staffList.size() < 3) {
+            //让滚动看起来逼真一点
+            if (staffList.size() == 2) {
+                staffList.addAll(staffList);
+            }
+            if (staffList.size() == 1) {
+                staffList.addAll(staffList);
+                staffList.addAll(staffList);
+                staffList.subList(0,3);
+            }
+        }
+		if (staffList.size()>0){
 			return Result.getSuccess(staffList);
 		}
 		return Result.getFalse();

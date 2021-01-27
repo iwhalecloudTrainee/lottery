@@ -29,7 +29,7 @@ new Vue({
         lotteryName: '',
         prizeId: '',
         autoplay: false,
-        staffList: [],
+        staffList: [{staffId: '0000', staffCode: "0000000000", staffName: "好运来"}],
         speed: 250,
         admin: false,
         password: '',
@@ -105,7 +105,6 @@ new Vue({
                     that.sizeCount = res.data.data.staffCodeList1.length;
                     that.audio.play();
                     that.isLottery = "抽奖中";
-                    console.log(that.staffAwardName)
                     let count = 0;
                     let roll1 = true;
                     let roll2 = true;
@@ -117,7 +116,12 @@ new Vue({
                             that.staffCode1 = that.staffCodeList1[that.sizeCount - 1];
                         }
                         if (roll2) {
+                            if (that.staffNameList2[that.sizeCount - 1]==""){
+                                that.staffName2='\u3000'
+                            }else{
                             that.staffName2 = that.staffNameList2[that.sizeCount - 1];
+                            }
+
                             that.staffCode2 = that.staffCodeList2[that.sizeCount - 1];
                         }
                         if (roll3) {
@@ -142,6 +146,9 @@ new Vue({
                             roll3 = false;
                             that.staffName3 = that.staffAwardName[2];
                             that.staffCode3 = that.staffAwardCode[2];
+                        }
+                        if (that.staffName2 === ''){
+                            that.staffName2 = '\u3000'
                         }
                         count++;
                         if (count==125){
@@ -224,6 +231,13 @@ new Vue({
             this.sec = parseInt(this.sec) - 1;
         },
 
+        jump(){
+            if (this.isOld){
+                this.isOld=false;
+            }else {
+                this.isOld=true;
+            }
+        },
         //抽奖完成写表调用
         setLottery: function () {
             this.awardData.lotteryId = this.lotteryId;
@@ -290,7 +304,6 @@ new Vue({
                     this.isOld = false;
                 }
             }
-            console.log(this.isOld)
         },
         showMore: function () {
             if (this.more) {
