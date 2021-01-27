@@ -253,7 +253,9 @@ new Vue({
                 //以上else，遇到了一些奇奇怪怪的问题
             })
         },
+        selectChange:function (){
 
+        },
         //抽奖滚动（老版）
         lotteryOld: function () {
             var that = this;
