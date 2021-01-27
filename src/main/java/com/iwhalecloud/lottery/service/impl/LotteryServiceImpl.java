@@ -58,7 +58,7 @@ public class LotteryServiceImpl implements LotteryService {
 			if (staffName.length() == 2) {
 				//两个字名字的，中间给他空起
 				staffDic.setStaffName1(staffName.substring(0, 1));
-				staffDic.setStaffName2("");
+				staffDic.setStaffName2(" ");
 				staffDic.setStaffName3(staffName.substring(1, 2));
 			}
 			if (staffName.length() > 2) {

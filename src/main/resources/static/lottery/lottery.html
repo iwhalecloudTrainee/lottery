@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div style="width: 30vw;text-align: center;margin-top: 3%;margin-bottom:2%;font-size: 3vw; color: #fff"
-                 v-show="isOld">
+                 >
                 倒计时{{ sec }}秒
             </div>
         </div>
@@ -68,12 +68,12 @@
                         label="奖品">
                 </el-table-column>
                 <el-table-column
-                        min-width="10%"
+                        min-width="15%"
                         prop="num"
                         label="数量">
                 </el-table-column>
                 <el-table-column
-                        min-width="60%"
+                        min-width="55%"
                         prop="staffName">
                     <template slot="header" slot-scope="scope">
                         获奖名单
@@ -93,7 +93,6 @@
                           :data="prizeList"
                           :row-class-name="tableRowClassName"
                           height="90%"
-
                 >
                     <el-table-column
                             min-width="10%"
@@ -164,7 +163,7 @@
     }
 
     .rollNames {
-        white-space : nowrap;
+        white-space: nowrap;
         width: 72%;
         margin-left: 14%;
         margin-right: 14%;

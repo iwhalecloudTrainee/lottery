@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../node_modules/element-ui/lib/theme-chalk/index.css">
     <script src="../node_modules/element-ui/lib/index.js"></script>
 </head>
-
+<body>
 <div id="newLottery">
     <el-alert
             title="奖品展示顺序为新增奖品顺序"
@@ -28,7 +28,9 @@
                 label="密码"
                 :rules="[{ required: true, message: '请输入密码', trigger: 'blur' },]"
                 v-if="isUpdate">
-            <el-input placeholder="请输入密码" v-model="dynamicValidateForm.password" show-password>{{dynamicValidateForm.password}}</el-input>
+            <el-input placeholder="请输入密码" v-model="dynamicValidateForm.password" show-password>
+                {{ dynamicValidateForm.password }}
+            </el-input>
         </el-form-item>
         <el-form-item
                 v-for="(domain, index) in dynamicValidateForm.prizes">
@@ -38,7 +40,7 @@
                     :prop="'prizes.' + index + '.prizeLevel'"
                     label="奖项"
                     :rules="{required: true, message: '奖项不能为空'}">
-                <el-input v-model="domain.prizeLevel" placeholder="一等奖、二等奖">{{domain.prizeLevel}}</el-input>
+                <el-input v-model="domain.prizeLevel" placeholder="一等奖、二等奖">{{ domain.prizeLevel }}</el-input>
             </el-form-item>
             <el-form-item
                     class="el-form-item__content"
@@ -46,7 +48,7 @@
                     :prop="'prizes.' + index + '.prizeName'"
                     label="奖品"
                     :rules="{required: true, message: '奖品不能为空'}">
-                <el-input v-model="domain.prizeName" placeholder="小汽车">{{domain.prizeName}}</el-input>
+                <el-input v-model="domain.prizeName" placeholder="小汽车">{{ domain.prizeName }}</el-input>
             </el-form-item>
             <el-form-item
                     class="el-form-item__content"
@@ -54,7 +56,7 @@
                     :key="domain.key"
                     :prop="'prizes.' + index + '.count'"
                     :rules="[{ required: true, message: '数量不能为空'}]">
-                <el-input-number v-model="domain.count" :min="1">{{domain.count}}</el-input-number>
+                <el-input-number v-model="domain.count" :min="1">{{ domain.count }}</el-input-number>
             </el-form-item>
             <el-button @click.prevent="removeDomain(domain)" class="el-button">删除</el-button>
         </el-form-item>
@@ -92,7 +94,7 @@
             :visible="createSuccess"
             :show-close="false"
             width="700px">
-        <p>创建抽奖成功，你的抽奖链接是 {{url}} ，请妥善保管</p>
+        <p>创建抽奖成功，你的抽奖链接是 {{ url }} ，请妥善保管</p>
         <p>是否立即上传员工？</p>
         <span slot="footer" class="dialog-footer">
             <el-button @click="createEnd">取 消</el-button>
@@ -121,12 +123,14 @@
         float: left !important;
         margin-left: 13px !important;
     }
+
     .el-button {
         margin-left: 1rem !important;
         top: 5rem;
     }
-    .upload .el-dialog{
-        width: 16%;
+
+    .upload .el-dialog {
+        width: 50%;
     }
 </style>
 </body>
