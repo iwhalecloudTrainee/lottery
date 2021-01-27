@@ -59,8 +59,11 @@ new Vue({
                 prizes: this.dynamicValidateForm.prizes,
             }
             var url = 'lottery/createPrize';
+            // isUpdate为false则为更新操作
+            // true 则为新增
             if (this.isUpdate == false) {
                 this.uploadVisible = true;
+                // 获取url中的lotteryId
                 var lotteryId = this.getUrlRequestParam("lotteryId");
                 url = 'lottery/updatePrize'
                 param["lotteryId"] = lotteryId;
@@ -69,6 +72,7 @@ new Vue({
             }
             this.$refs['dynamicValidateForm'].validate((valid) => {
                 if (valid) {
+                    // 异步请求编辑奖品
                     axios.post(url, param, null).then(res => {
                         var data = res.data;
                         const parma = 'lottery?lotteryId=' + lotteryId
@@ -80,6 +84,7 @@ new Vue({
                             }
                             // this.uploadVisible=true;
                         } else {
+                            // 失败跳转抽奖界面
                             this.uploadVisible = false;
                             alert(data.data)
                             self.location.href = parma;
