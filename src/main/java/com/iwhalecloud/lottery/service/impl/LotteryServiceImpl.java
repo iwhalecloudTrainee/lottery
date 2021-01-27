@@ -470,4 +470,14 @@ public class LotteryServiceImpl implements LotteryService {
 		prizeMapper.updateByPrimaryKeySelective(prize);
 		return Result.getSuccess(staffDicVO);
 	}
+
+	@Override
+	public Result getPrize(LotteryReq lotteryReq) {
+		if (null == lotteryReq.getPrizeId()) {
+			return Result.getFalse();
+		}
+		Integer prizeId=lotteryReq.getPrizeId();
+		Prize prize=prizeMapper.selectByPrimaryKey(prizeId);
+		return Result.getSuccess(prize);
+	}
 }

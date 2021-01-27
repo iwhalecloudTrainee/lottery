@@ -2,7 +2,7 @@ new Vue({
     el: "#lottery",
     data: {
         prizeReadStart: '恭喜',
-        prizeReadEnd: '中奖',
+        prizeReadEnd: '获得',
         isOld: false,
         staffName1: '好',
         staffName2: '运',
@@ -32,6 +32,8 @@ new Vue({
         prizeList: [],
         lotteryName: '',
         prizeId: '',
+        prizeName:'',
+        prizeLevel:'',
         autoplay: false,
         staffList: [{staffId: '0000', staffCode: "0000000000", staffName: "好运来"}],
         speed: 250,
@@ -41,15 +43,13 @@ new Vue({
         ip: '',
         isRolling: false,
         awardData: {
-            password:'',
+            password: '',
             lotteryId: 0,
             prizeId: 0,
             staffName: '',
         },
         audio: new Audio("resources/bgmShorter.mp3"),
         //太大一堆data了，一人加点，导致现在不知道那些有用哪些没用
-        isDisabled:true,
-        comeTime:0
     },
 
     //初始化
@@ -87,56 +87,45 @@ new Vue({
 
         //抽奖
         lottery: function () {
-            var that=this;
-            console.log("-------"+this.isDisabled)
-            if (this.isDisabled==true){
-                this.isDisabled=false;
-                if (this.isOld) {
-                    //老版30秒时间
-                    this.sec = 30;
-                    this.lotteryOld();
+            if (this.isOld) {
+                //老版30秒时间
+                this.sec = 30;
+                this.lotteryOld();
+            } else {
+                //新版10秒
+                this.sec = 10;
+                if (this.isRolling == false) {
+                    this.lotteryNew();
                 } else {
-                    //新版10秒
-                    this.sec = 10;
-                    if (this.isRolling == false) {
-                        this.isRolling = true;
-                        this.lotteryNew();
-                    } else {
-                        //正在抽奖时点击（强行停止）
-                        //把显示数据变为中奖数据
-                        this.staffName1 = this.staffAwardName[0];
-                        this.staffCode1 = this.staffAwardCode[0];
-                        this.staffName2 = this.staffAwardName[1];
-                        this.staffCode2 = this.staffAwardCode[1];
-                        //弄一个back防止第二个字变成\u3000后读不出来
-                        let staffName2Backup = this.staffAwardName[1];
-                        this.staffName3 = this.staffAwardName[2];
-                        this.staffCode3 = this.staffAwardCode[2];
-                        if (this.staffName2 === ' ') {
-                            this.staffName2 = '\u3000'
-                        }
-                        //重置定时器
-                        clearInterval(this.rollStyle2);
-                        clearInterval(this.rollStyle2Count);
-                        //停止音乐
-                        this.audio.pause();
-                        this.audio.currentTime = 0;
-                        //改变按钮值和状态
-                        this.isLottery = "开始抽奖";
-                        this.isRolling = false;
-                        //读出中奖信息
-                        const text = this.prizeReadStart + this.staffName1 + staffName2Backup + this.staffName3 + this.prizeReadEnd;
-                        this.prizeRead(text);
-                        //刷新获奖名单
-                        this.getPrizeList();
+                    //正在抽奖时点击（强行停止）
+                    //把显示数据变为中奖数据
+                    this.staffName1 = this.staffAwardName[0];
+                    this.staffCode1 = this.staffAwardCode[0];
+                    this.staffName2 = this.staffAwardName[1];
+                    this.staffCode2 = this.staffAwardCode[1];
+                    //弄一个back防止第二个字变成\u3000后读不出来
+                    let staffName2Backup = this.staffAwardName[1];
+                    this.staffName3 = this.staffAwardName[2];
+                    this.staffCode3 = this.staffAwardCode[2];
+                    if (this.staffName2 === ' ') {
+                        this.staffName2 = '\u3000'
                     }
+                    //重置定时器
+                    clearInterval(this.rollStyle2);
+                    clearInterval(this.rollStyle2Count);
+                    //停止音乐
+                    this.audio.pause();
+                    this.audio.currentTime = 0;
+                    //改变按钮值和状态
+                    this.isLottery = "开始抽奖";
+                    this.isRolling = false;
+                    //读出中奖信息
+                    const text = this.prizeReadStart + " " + this.staffName1 + staffName2Backup + this.staffName3 + " " + this.prizeReadEnd + " " + this.prizeLevel + " " + this.prizeName;
+                    this.prizeRead(text);
+                    //刷新获奖名单
+                    this.getPrizeList();
                 }
-                setTimeout(()=>{
-                    that.isDisabled=true
-                },2000)
             }
-
-
         },
 
         //新版抽奖
@@ -146,14 +135,13 @@ new Vue({
                 //其实可以直传一个prizeId，prize表中存在lotteryId，懒得改了
                 lotteryId: this.lotteryId,
                 prizeId: this.prizeId,
-                password:this.password
+                password: this.password
             };
             //发送请求获取滚动数据和中将数据
-
             axios.post('lottery/getLotteryData', parma, null).then(res => {
                 if (res.data.success) {
                     //状态修改、数据赋值
-
+                    this.isRolling = true;
                     that.staffCodeList1 = res.data.data.staffCodeList1;
                     that.staffCodeList2 = res.data.data.staffCodeList2;
                     that.staffCodeList3 = res.data.data.staffCodeList3;
@@ -235,7 +223,7 @@ new Vue({
                             that.isLottery = "开始抽奖";
                             that.isRolling = false;
                             //机器人朗读
-                            const text = that.prizeReadStart + that.staffName1 + staffName2Backup + that.staffName3 + that.prizeReadEnd;
+                            const text = that.prizeReadStart + " " + that.staffName1 + staffName2Backup + that.staffName3 + " " + that.prizeReadEnd + " " + that.prizeLevel + " " + that.prizeName;
                             that.prizeRead(text);
                             //刷新获奖数据
                             that.getPrizeList();
@@ -253,8 +241,18 @@ new Vue({
                 //以上else，遇到了一些奇奇怪怪的问题
             })
         },
-        selectChange:function (){
-
+        selectChange: function () {
+            if (this.prizeId) {
+                const parma={
+                    prizeId:this.prizeId
+                }
+                axios.post('lottery/getPrize', parma, null).then(res => {
+                    if (res.data.success){
+                        this.prizeName=res.data.data.prizeName;
+                        this.prizeLevel=res.data.data.prizeLevel;
+                    }
+                })
+            }
         },
         //抽奖滚动（老版）
         lotteryOld: function () {
@@ -296,7 +294,12 @@ new Vue({
                                 //清除定时器 设置初始倒计时间
                                 clearInterval(that.countDownSetIntervalNub);
                                 that.sec = '30';
-                                that.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText;
+                                let staffName=document.getElementsByClassName('is-active')[0].outerText;
+                                that.awardData.staffName=staffName
+                                const index=staffName.indexOf('\n');
+                                staffName=staffName.substr(index)
+                                const text = that.prizeReadStart + " " + that.prizeReadEnd + " " + that.prizeLevel + " " + that.prizeName;
+                                that.prizeRead(text);
                                 that.setLottery();
                             }, 30000);
                             this.isLottery = "抽奖中";
@@ -305,7 +308,7 @@ new Vue({
                             alert("你的输入有误")
                         } else if (res.data.code == 88) {
                             alert("该奖项已抽完")
-                            this.prizeId=''
+                            this.prizeId = ''
                             this.getPrizeList();
                         } else {
                             this.staffEnd = true;
@@ -344,7 +347,7 @@ new Vue({
         setLottery: function () {
             this.awardData.lotteryId = this.lotteryId;
             this.awardData.prizeId = this.prizeId;
-            this.awardData.password=this.password;
+            this.awardData.password = this.password;
             axios.post('lottery/setLottery', this.awardData, null).then(res => {
                 if (res.data.success) {
                     this.getPrizeList();

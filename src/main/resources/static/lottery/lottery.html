@@ -39,7 +39,7 @@
             </div>
         </div>
         <div class="roll" v-show="admin">
-            <el-select v-model="prizeId" change="selectChange" placeholder="请选择奖项" style="width: 80%;height: 30%;">
+            <el-select v-model="prizeId" change="selectChange" placeholder="请选择奖项" @change="selectChange" style="width: 80%;height: 30%;">
                 <el-option
                         v-for="item in prizeList"
                         :key="item.prizeId"

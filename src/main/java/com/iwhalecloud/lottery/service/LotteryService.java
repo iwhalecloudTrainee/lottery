@@ -1,7 +1,6 @@
 package com.iwhalecloud.lottery.service;
 
 import com.iwhalecloud.lottery.entity.Lottery;
-import com.iwhalecloud.lottery.entity.Prize;
 import com.iwhalecloud.lottery.entity.Staff;
 import com.iwhalecloud.lottery.params.req.FormReq;
 import com.iwhalecloud.lottery.params.req.LotteryReq;
@@ -54,4 +53,6 @@ public interface LotteryService {
 	Lottery getPrizeByLotteryId(Integer lotteryId);
 
 	Result getLotteryDic(LotteryReq lotteryReq);
+
+    Result getPrize(LotteryReq lotteryReq);
 }
