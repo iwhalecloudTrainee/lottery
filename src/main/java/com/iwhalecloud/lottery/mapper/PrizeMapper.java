@@ -16,5 +16,4 @@ public interface PrizeMapper extends Mapper<Prize> {
 	// 批量删除
 	int deleteBatch(Integer LotteryId);
 
-	Prize selectPrizeById(Integer id);
 }

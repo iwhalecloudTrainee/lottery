@@ -213,8 +213,13 @@ public class LotteryServiceImpl implements LotteryService {
 	 */
 	@Override
 	public Result getStaffList(LotteryReq lotteryReq) {
-		if (null == lotteryReq.getLotteryId()) {
-			return Result.getFalse("输入有误");
+		if (null == lotteryReq.getLotteryId()||null == lotteryReq.getPrizeId()) {
+			return Result.getFalseCode(99);
+		}
+		//判断当前奖项是否抽完
+		Prize prize=prizeMapper.selectByPrimaryKey(lotteryReq.getPrizeId());
+		if (prize.getNum()<1){
+			return Result.getFalseCode(88);
 		}
 		//设置条件
 		Staff staff = new Staff();
@@ -236,7 +241,7 @@ public class LotteryServiceImpl implements LotteryService {
 		if (staffList.size()>0){
 			return Result.getSuccess(staffList);
 		}
-		return Result.getFalse();
+		return Result.getFalseCode(77);
 	}
 
 	/**

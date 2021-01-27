@@ -29,10 +29,13 @@ new Vue({
 
     methods: {
         initUpdate: function () {
+            //尝试获取lotteryId
             var lotteryId = this.getUrlRequestParam("lotteryId");
             if (lotteryId) {
+                //有lotteryId说明是更新操作
                 this.updateSuccess = true;
             }
+            //获取奖项数据
             var params = {lotteryId: lotteryId}
             var m = this;
             axios.post('lottery/getPrizeList', params, null).then(res => {
@@ -48,6 +51,7 @@ new Vue({
                 }
             })
         },
+        //提交中将数据
         submitForm: function () {
             const param = {
                 lotteryName: this.dynamicValidateForm.lotteryName,
@@ -61,6 +65,7 @@ new Vue({
                 url = 'lottery/updatePrize'
                 param["lotteryId"] = lotteryId;
                 param["password"] = this.updatePassword;
+                //todo 注释编不下去了，喊裴军宇来编
             }
             this.$refs['dynamicValidateForm'].validate((valid) => {
                 if (valid) {
@@ -84,27 +89,39 @@ new Vue({
                 }
             })
         },
+
+        //上传监听
         uploadChange: function (file, fileList) {
             if (file.status == "success") {
-                this.uploadLoading=false
+                //上传完成
+                this.uploadLoading = false
                 if (file.response.success == true) {
+                    //成功就直接跳转
                     this.createEnd();
                 } else {
+                    //失败弹出提醒
                     alert(file.response.data)
                 }
-            }else {
-                this.uploadLoading=true
+            } else {
+                //上传还没成功，让他转圈
+                this.uploadLoading = true
             }
         },
+
+        //重置奖项数据
         resetForm(formName) {
             this.$refs[formName].resetFields();
         },
+
+        //删除单个奖项
         removeDomain(item) {
             var index = this.dynamicValidateForm.prizes.indexOf(item)
             if (index !== -1) {
                 this.dynamicValidateForm.prizes.splice(index, 1)
             }
         },
+
+        //增加奖项
         addDomain() {
             this.dynamicValidateForm.prizes.push({
                 prizeName: '',
@@ -112,12 +129,42 @@ new Vue({
                 prizeLevel: ''
             });
         },
+
+        //结束后跳转
         createEnd() {
             this.createSuccess = false;
             this.uploadVisible = false;
             const parma = 'lottery?lotteryId=' + this.lotteryId["lotteryId"]
             self.location.href = parma;
         },
+
+        //更新密码检测
+        checkPassword: function () {
+            var lotteryId = this.getUrlRequestParam("lotteryId");
+            const param = {
+                lotteryId: lotteryId,
+                password: this.updatePassword
+            }
+            axios.post("user/login", param, null).then(res => {
+                if (res.data.success) {
+                    this.updateSuccess = false
+                } else {
+                    var message = res.data
+                    alert(message.data)
+                }
+            })
+        },
+
+        //加载状态变更
+        loading() {
+            if (this.loading = true) {
+                this.loading = false;
+            } else {
+                this.loading = true
+            }
+        },
+
+        //从链接中获取参数
         getUrlRequestParam: function (name) {
             this.ip = window.location.origin;
             var paramUrl = window.location.search.substr(1);
@@ -128,29 +175,7 @@ new Vue({
             }
             return params[name];
         },
-        checkPassword: function () {
-            var lotteryId = this.getUrlRequestParam("lotteryId");
-            const param = {
-                lotteryId: lotteryId,
-                password: this.updatePassword
-            }
-            axios.post("user/login", param, null).then(res => {
-                if (res.data.success) {
-                    alert("登录成功");
-                    this.updateSuccess = false
-                } else {
-                    var message = res.data
-                    alert(message.data)
-                }
-            })
-        },
-        loading() {
-            if (this.loading = true) {
-                this.loading = false;
-            } else {
-                this.loading = true
-            }
-        },
+
     },
 })
 

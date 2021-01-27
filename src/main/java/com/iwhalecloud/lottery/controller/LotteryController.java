@@ -145,9 +145,16 @@ public class LotteryController {
 		excelWriter.write(staffVOList, writeSheet1);
 		excelWriter.finish();
 	}
-	@RequestMapping("getLotteryData")
-	public Result getLotteryData(@RequestBody LotteryReq lotteryReq){
-		return lotteryService.getLotteryDic(lotteryReq);
-	}
+
+    /**
+     * 抽奖样式2 抽奖
+     *
+     * @param lotteryReq
+     * @return
+     */
+    @RequestMapping("getLotteryData")
+    public Result getLotteryData(@RequestBody LotteryReq lotteryReq) {
+        return lotteryService.getLotteryDic(lotteryReq);
+    }
 }
 
