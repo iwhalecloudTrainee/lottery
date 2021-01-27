@@ -199,6 +199,7 @@ new Vue({
                         }
                     }, 100);
                 } else if (res.data.code == 99) {
+                    this.prizeId = '';
                     alert("该奖项已抽完");
                 } else if (res.data.code == 88) {
                     this.staffEnd = true
