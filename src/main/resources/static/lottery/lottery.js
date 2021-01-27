@@ -86,7 +86,7 @@ new Vue({
                 this.sec=30;
                 this.lotteryOld();
             } else {
-                this.sec=12;
+                this.sec=10;
                 if (this.isRolling == false) {
                     this.lotteryNew();
                 } else {
@@ -165,18 +165,18 @@ new Vue({
                         if (that.sizeCount == 0) {
                             that.sizeCount = that.size;
                         }
-                        if (count > 70) {
+                        if (count > 50) {
                             roll1 = false;
                             that.staffName1 = that.staffAwardName[0];
                             that.staffCode1 = that.staffAwardCode[0];
                         }
-                        if (count > 90) {
+                        if (count > 75) {
                             roll2 = false;
                             that.staffName2 = that.staffAwardName[1];
                             that.staffCode2 = that.staffAwardCode[1];
                             staffName2Backup = that.staffAwardName[1];
                         }
-                        if (count > 120) {
+                        if (count > 90) {
                             roll3 = false;
                             that.staffName3 = that.staffAwardName[2];
                             that.staffCode3 = that.staffAwardCode[2];
@@ -185,7 +185,7 @@ new Vue({
                             that.staffName2 = '\u3000'
                         }
                         count++;
-                        if (count == 125) {
+                        if (count == 100) {
                             //结束
                             clearInterval(that.rollStyle2);
                             clearInterval(that.rollStyle2Count);
