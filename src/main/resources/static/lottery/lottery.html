@@ -139,14 +139,28 @@
             </span>
             </el-dialog>
         </div>
+            <el-dialog
+                    title="管理"
+                    :visible="this.mergeVisible"
+                    :show-close="false"
+                    width="30%"
+                    style="height: 35% !important;">
+                <div @click="update"><a href="#" >管理入口></a></div>
+                <div @click="typeChange"><p><span style="color: #2354ff;cursor: pointer;">点击切换抽奖效果</span>，当前为：{{rollType}}</p></div>
+                <div @click="bgm"><p><span style="color: #2354ff;cursor: pointer;">点击切换是否开启背景音乐</span>，当前为：{{bgmText}}</p></div>
+                <div @click="award"><p><span style="color: #2354ff;cursor: pointer;">点击切换是否中奖播报</span>，当前为：{{awardText}}</p></div>
+
+                <span slot="footer" class="dialog-footer">
+                <el-button @click="mergeVisible = false">关闭</el-button>
+            </span>
+            </el-dialog>
         <div class="function">
             <div class="login" v-show="!admin">
                 <el-input placeholder="请输入密码" v-model="password" show-password></el-input>
                 <el-button style="float: right" @click="login">登录</el-button>
             </div>
-            <div @click="update"><a href="#" style="color: white;float: right" v-show="allowUpdate">管理入口></a></div>
         </div>
-        <div class="jump" @click="jump"></div>
+        <div class="merge" @click="mergeDialog"></div>
     </div>
 </section>
 
@@ -297,7 +311,7 @@
         z-index: 10;
     }
 
-    .jump {
+    .merge {
         position: fixed;
         top: 0px;
         right: 0px;

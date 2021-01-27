@@ -18,10 +18,11 @@ new Vue({
         staffNameList3: [],
         staffAwardName: [],
         staffAwardCode: [],
+        mergeVisible:false,
+        rollType:'单字跳动',
         size: 0,
         sizeCount: 0,
         staffEnd: false,
-        allowUpdate: true,
         more: false,
         sec: 30,
         isLottery: "开始抽奖",
@@ -48,6 +49,10 @@ new Vue({
             prizeId: 0,
             staffName: '',
         },
+        bgmText:'开启',
+        isBgmOn:true,
+        isAwardOn:true,
+        awardText:'开启',
         audio: new Audio("resources/bgmShorter.mp3"),
         //太大一堆data了，一人加点，导致现在不知道那些有用哪些没用
     },
@@ -75,11 +80,6 @@ new Vue({
                 if (res.data.success) {
                     this.lotteryName = res.data.data.lotteryName;
                     this.prizeList = res.data.data.prizeList;
-                    if (res.data.data.state == 1) {
-                        this.allowUpdate = true
-                    } else {
-                        this.allowUpdate = false
-                    }
                 }
             })
         },
@@ -153,7 +153,9 @@ new Vue({
                     that.size = res.data.data.staffCodeList1.length;
                     that.sizeCount = res.data.data.staffCodeList1.length;
                     //播放音乐，改变按钮值
-                    that.audio.play();
+                    if (that.isBgmOn) {
+                        that.audio.play();
+                    }
                     that.isLottery = "抽奖中";
                     let count = 0;
                     let roll1 = true;
@@ -282,7 +284,9 @@ new Vue({
                         if (res.data.success) {
                             //请求成功
                             that.staffList = res.data.data;
-                            that.audio.play();
+                            if (that.isBgmOn) {
+                                that.audio.play();
+                            }
                             //开始倒计时
                             that.countDownSetIntervalNub = setInterval(this.countDown, 1000);
                             //30s时自动停止
@@ -298,7 +302,7 @@ new Vue({
                                 that.awardData.staffName=staffName
                                 const index=staffName.indexOf('\n');
                                 staffName=staffName.substr(index)
-                                const text = that.prizeReadStart + " " + that.prizeReadEnd + " " + that.prizeLevel + " " + that.prizeName;
+                                const text = that.prizeReadStart + " " + staffName + " " + that.prizeReadEnd + " " + that.prizeLevel + " " + that.prizeName;
                                 that.prizeRead(text);
                                 that.setLottery();
                             }, 30000);
@@ -322,7 +326,12 @@ new Vue({
                 that.sec = '30';
                 that.isLottery = "开始抽奖";
                 that.autoplay = false;
-                that.awardData.staffName = document.getElementsByClassName('is-active')[0].outerText;
+                let staffName=document.getElementsByClassName('is-active')[0].outerText;
+                that.awardData.staffName=staffName
+                const index = staffName.indexOf('\n');
+                staffName = staffName.substr(index)
+                const text = that.prizeReadStart + " " + staffName + " " + that.prizeReadEnd + " " + that.prizeLevel + " " + that.prizeName;
+                that.prizeRead(text);
                 that.setLottery();
                 clearTimeout(that.timeOutNub);
                 clearInterval(that.countDownSetIntervalNub);
@@ -335,14 +344,43 @@ new Vue({
         },
 
         //右上角的隐形button切换新老版本抽奖事件
-        jump() {
-            if (this.isOld) {
-                this.isOld = false;
-            } else {
-                this.isOld = true;
+        mergeDialog() {
+            if (this.mergeVisible){
+                this.mergeVisible=false
+            }else {
+                this.mergeVisible=true
             }
         },
+        typeChange(){
+            if (this.isOld) {
+                this.isOld = false;
+                this.rollType='单字跳动模式';
+                this.sec = '15';
 
+            } else {
+                this.isOld = true;
+                this.rollType='转盘模式';
+                this.sec = '30';
+            }
+        },
+        bgm(){
+          if (this.isBgmOn){
+              this.isBgmOn=false;
+              this.bgmText="关闭";
+          }  else {
+              this.isBgmOn=true;
+              this.bgmText="开启";
+          }
+        },
+        award(){
+            if (this.isAwardOn){
+                this.isAwardOn=false;
+                this.awardText="关闭";
+            }  else {
+                this.isAwardOn=true;
+                this.awardText="开启";
+            }
+        },
         //抽奖完成写表调用
         setLottery: function () {
             this.awardData.lotteryId = this.lotteryId;
@@ -386,17 +424,11 @@ new Vue({
         //从url中获取lotteryId
         getLotteryId: function () {
             var lotteryId = this.getUrlRequestParam("lotteryId");
-            var type = this.getUrlRequestParam("type");
             if (!lotteryId) {
                 alert("输入有误")
                 window.close();
             } else {
                 this.lotteryId = lotteryId;
-                if (type == 1) {
-                    this.isOld = true;
-                } else {
-                    this.isOld = false;
-                }
             }
         },
         //获奖名单详情
@@ -431,7 +463,9 @@ new Vue({
 
         //机器朗读（声音有点像
         prizeRead: function (text) {
+            if (this.isAwardOn){
             new Audio("http://tts.baidu.com/text2audio?lan=zh&ie=UTF-8&text=" + encodeURI(text)).play();
+            }
         },
 
         //获取链接中的值
