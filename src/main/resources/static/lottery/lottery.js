@@ -54,6 +54,7 @@ new Vue({
         isAwardOn:true,
         awardText:'开启',
         audio: new Audio("resources/bgmShorter.mp3"),
+        allowClick:true,
         //太大一堆data了，一人加点，导致现在不知道那些有用哪些没用
     },
 
@@ -92,6 +93,10 @@ new Vue({
                 this.sec = 30;
                 this.lotteryOld();
             } else {
+                if (!this.allowClick){
+                    return ;
+                }
+                this.allowClick=false;
                 //新版10秒
                 this.sec = 10;
                 if (this.isRolling == false) {
@@ -110,6 +115,7 @@ new Vue({
                     if (this.staffName2 === ' ') {
                         this.staffName2 = '\u3000'
                     }
+                    this.allowClick=true;
                     //重置定时器
                     clearInterval(this.rollStyle2);
                     clearInterval(this.rollStyle2Count);
@@ -167,6 +173,7 @@ new Vue({
                     that.rollStyle2Count = setInterval(function () {
                         that.sec = parseInt(that.sec) - 1;
                     }, 1000);
+                    that.allowClick=true;
                     //100ms改变一次人员信息
                     that.rollStyle2 = setInterval(function () {
                         //刷新
@@ -240,6 +247,7 @@ new Vue({
                 } else {
                     alert(res.data.data);
                 }
+                that.allowClick=true;
                 //以上else，遇到了一些奇奇怪怪的问题
             })
         },
