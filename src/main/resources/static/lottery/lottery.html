@@ -149,10 +149,7 @@
                 <div @click="typeChange"><p><span style="color: #2354ff;cursor: pointer;">点击切换抽奖效果</span>，当前为：{{rollType}}</p></div>
                 <div @click="bgm"><p><span style="color: #2354ff;cursor: pointer;">点击切换是否开启背景音乐</span>，当前为：{{bgmText}}</p></div>
                 <div @click="award"><p><span style="color: #2354ff;cursor: pointer;">点击切换是否中奖播报</span>，当前为：{{awardText}}</p></div>
-
-                <span slot="footer" class="dialog-footer">
-                <el-button @click="mergeVisible = false">关闭</el-button>
-            </span>
+                <div @click="mergeVisible = false"><p><span style="color: #2354ff;cursor: pointer; float: right">关闭</span></p></div>
             </el-dialog>
         <div class="function">
             <div class="login" v-show="!admin">
