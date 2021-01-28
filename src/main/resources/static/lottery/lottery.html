@@ -133,24 +133,24 @@
                     width="30%"
             >
                 <p>所有员工已中奖，是否刷新员工数据继续抽奖？</p>
-                <span slot="footer" class="dialog-footer">
-                <el-button @click="staffEnd = false">否</el-button>
-                <el-button type="primary" @click="updateStaff">是</el-button>
-            </span>
+                <p style="color: #2354ff;cursor: pointer; float: right">
+                    <span @click="updateStaff" >是</span>
+                    <span @click="staffEnd = false" >否</span>
+                </p>
             </el-dialog>
         </div>
-            <el-dialog
-                    title="管理"
-                    :visible="this.mergeVisible"
-                    :show-close="false"
-                    width="30%"
-                    style="height: 35% !important;">
-                <div @click="update"><a href="#" >管理入口></a></div>
-                <div @click="typeChange"><p><span style="color: #2354ff;cursor: pointer;">点击切换抽奖效果</span>，当前为：{{rollType}}</p></div>
-                <div @click="bgm"><p><span style="color: #2354ff;cursor: pointer;">点击切换是否开启背景音乐</span>，当前为：{{bgmText}}</p></div>
-                <div @click="award"><p><span style="color: #2354ff;cursor: pointer;">点击切换是否中奖播报</span>，当前为：{{awardText}}</p></div>
-                <div @click="mergeVisible = false"><p><span style="color: #2354ff;cursor: pointer; float: right">关闭</span></p></div>
-            </el-dialog>
+        <el-dialog
+                title="管理"
+                :visible="this.mergeVisible"
+                :show-close="false"
+                width="30%"
+                style="height: 35% !important;">
+            <div @click="update"><a href="#" >管理入口></a></div>
+            <div @click="typeChange"><p><span style="color: #2354ff;cursor: pointer;">点击切换抽奖效果</span>，当前为：{{rollType}}</p></div>
+            <div @click="bgm"><p><span style="color: #2354ff;cursor: pointer;">点击切换是否开启背景音乐</span>，当前为：{{bgmText}}</p></div>
+            <div @click="award"><p><span style="color: #2354ff;cursor: pointer;">点击切换是否中奖播报</span>，当前为：{{awardText}}</p></div>
+            <div @click="mergeVisible = false"><p><span style="color: #2354ff;cursor: pointer; float: right">关闭</span></p></div>
+        </el-dialog>
         <div class="function">
             <div class="login" v-show="!admin">
                 <el-input placeholder="请输入密码" v-model="password" show-password></el-input>
