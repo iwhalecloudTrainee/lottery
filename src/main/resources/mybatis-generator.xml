@@ -23,9 +23,9 @@
 
         <!--数据库链接地址账号密码-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://117.78.8.245:3306/lottery?serverTimezone=UTC"
-                        userId="lottery"
-                        password="1q2w3e4!QQQQQQQQQQ">
+                        connectionURL="3mzyC9FZUn3DHwKnn/6UKBiB8EQPrlub8s8WAWpyiz8aikOQMAa/HwyKGWznjSVcr09aqfJpXIVgw8y8Q5E+Wnfgw9YTCevhqwh4CEj/e7Q="
+                        userId="YLkZw3UUudptdf5zRljWyA=="
+                        password="HZWa1EoDKi332ykl7KzP0uPfglKgwPmi+TxW4FCwiFg=">
         </jdbcConnection>
 
         <javaTypeResolver>
