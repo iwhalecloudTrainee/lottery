@@ -1,9 +1,8 @@
 spring:
   datasource:
-    url: 3mzyC9FZUn3DHwKnn/6UKBiB8EQPrlub8s8WAWpyiz8aikOQMAa/HwyKGWznjSVcr09aqfJpXIVgw8y8Q5E+Wnfgw9YTCevhqwh4CEj/e7Q=
-    #    url: jdbc:mysql://localhost:3306/lottery?serverTimezone=Asia/Shanghai
+    url: "3mzyC9FZUn3DHwKnn/6UKBiB8EQPrlub8s8WAWpyiz8aikOQMAa/HwyKGWznjSVcr09aqfJpXIVgw8y8Q5E+Wnfgw9YTCevhqwh4CEj/e7Q="
     username: YLkZw3UUudptdf5zRljWyA==
-    password: HZWa1EoDKi332ykl7KzP0uPfglKgwPmi+TxW4FCwiFg=
+    password: xxjkUT9HERKzbkKesTGXog==
     driver-class-name: com.mysql.cj.jdbc.Driver
   servlet:
     multipart:
