@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: "3mzyC9FZUn3DHwKnn/6UKBiB8EQPrlub8s8WAWpyiz8aikOQMAa/HwyKGWznjSVcr09aqfJpXIVgw8y8Q5E+Wnfgw9YTCevhqwh4CEj/e7Q="
+    url: 3mzyC9FZUn3DHwKnn/6UKBiB8EQPrlub8s8WAWpyiz8aikOQMAa/HwyKGWznjSVcr09aqfJpXIVgw8y8Q5E+Wnfgw9YTCevhqwh4CEj/e7Q=
     username: YLkZw3UUudptdf5zRljWyA==
-    password: xxjkUT9HERKzbkKesTGXog==
+    password: WHgXmLAgHVSqz7Y/RaeQpQ==
     driver-class-name: com.mysql.cj.jdbc.Driver
   servlet:
     multipart:
