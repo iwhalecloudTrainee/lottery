@@ -17,6 +17,8 @@ mybatis:
 
 server:
   port: 8089
+  servlet:
+    context-path: /lottery
 logging:
   level:
     root: info
