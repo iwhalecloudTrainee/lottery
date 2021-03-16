@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: 3mzyC9FZUn3DHwKnn/6UKBiB8EQPrlub8s8WAWpyiz8aikOQMAa/HwyKGWznjSVcr09aqfJpXIVgw8y8Q5E+Wnfgw9YTCevhqwh4CEj/e7Q=
-    username: YLkZw3UUudptdf5zRljWyA==
-    password: WHgXmLAgHVSqz7Y/RaeQpQ==
+    url: jdbc:mysql://119.29.176.5:30883/lottery?serverTimezone=Asia/Shanghai
+    username: lottery
+    password: lotteryPWD
     driver-class-name: com.mysql.cj.jdbc.Driver
   servlet:
     multipart:
